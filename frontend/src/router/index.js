@@ -8,17 +8,20 @@ const routes = [
     path: "/",
     name: "Default",
     component: () => import("@/views/Default.vue"),
+    children: [
+      {
+        path: "/user-authentication",
+        name: "UserAuthentication",
+        component: () => import("@/views/UserAuthentication.vue"),
+      },
+      {
+        path: "/sign-up",
+        name: "SignUp",
+        component: () => import("@/views/SignUp.vue"),
+      },
+    ],
   },
-  {
-    path: "/user-authentication",
-    name: "UserAuthentication",
-    component: () => import("@/views/UserAuthentication.vue"),
-  },
-  {
-    path: "/sign-up",
-    name: "SignUp",
-    component: () => import("@/views/SignUp.vue"),
-  },
+
   {
     path: "/find-password",
     name: "FindPassword",

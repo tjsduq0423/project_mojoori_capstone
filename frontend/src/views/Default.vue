@@ -4,49 +4,59 @@
       <v-toolbar-title>
         <a
           href="/"
-          :style="{ color: 'white', textDecoration: 'none' }"
+          :style="{
+            color: 'white',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            fontSize: '1.25em',
+          }"
           class="ml-2"
-          >모주리
+          >Mojuri
         </a>
       </v-toolbar-title>
 
       <v-spacer />
-
+      <!-- 게시판 바로가기 버튼 -->
       <v-btn
-        v-if="$store.state.logintoken === false"
-        class="ma-2 brown lighten-3"
+        class="ma-2 grey lighten-1"
+        :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
         large
-        to="/user-authentication"
+        to="/board"
       >
-        로그인
-        <v-icon right class="ml-3"> mdi-account </v-icon>
+        게시판
+        <v-icon large right class="ml-3"> mdi-clipboard-edit-outline </v-icon>
+      </v-btn>
+      <!-- 사용자 알림내용 열람용 버튼 -->
+      <v-btn icon class="ma-2 grey lighten-1" to="/user-authentication">
+        <v-icon large>mdi-bell-outline</v-icon>
+      </v-btn>
+      <!-- 회원가입버튼 비로그인 상태 -->
+      <v-btn
+        class="ma-2 grey lighten-1"
+        large
+        to="/sign-up"
+        :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
+      >
+        회원가입
       </v-btn>
       <!-- 로그인버튼  비로그인 상태-->
       <v-btn
-        v-if="$store.state.logintoken === true"
-        icon
-        class="ma-2 brown lighten-3"
+        class="ma-2 grey lighten-1"
+        large
+        to="/user-authentication"
+        :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
       >
-        <v-icon>mdi-bell</v-icon>
+        로그인
       </v-btn>
-      <!-- 사용자 알림내용 열람용 버튼 -->
-      <v-btn
-        v-if="$store.state.logintoken === true"
-        icon
-        class="ma-2 brown lighten-3"
-      >
-        <v-icon> mdi-account </v-icon>
-      </v-btn>
-      <!-- 사용자 정보열람용 버튼 -->
     </v-app-bar>
 
-    <v-main app> </v-main>
+    <v-main app>
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: "Default",
 };
