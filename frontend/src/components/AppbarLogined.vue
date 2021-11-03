@@ -35,19 +35,42 @@
           </v-badge>
         </v-btn>
       </template>
-      <v-list>
-        <v-divider></v-divider>
-        <v-list-item v-for="(item, index) in items" :key="index" link>
-          <v-list-item-title
-            >{{ item.content }} {{ item.period }}일전</v-list-item-title
-          >
-        </v-list-item>
+      <v-list class="py-0">
+        <template v-for="(item, index) in items">
+          <v-list-item :key="index">
+            <v-list-item-title
+              >{{ item.content }} {{ item.period }}일전
+            </v-list-item-title>
+          </v-list-item>
+          <v-divider
+            v-if="index < items.length - 1"
+            :key="`${index} - divider`"
+          ></v-divider>
+        </template>
       </v-list>
     </v-menu>
+    <!-- 사용자 전용페이지 관리버튼 -->
+    <v-menu offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon class="ma-2 grey lighten-1" v-bind="attrs" v-on="on">
+          <v-icon large>mdi-account</v-icon>
+        </v-btn>
+      </template>
 
-    <v-btn icon class="ma-2 grey lighten-1">
-      <v-icon large>mdi-account</v-icon>
-    </v-btn>
+      <v-list class="py-0">
+        <template v-for="(menu, index) in menus">
+          <v-list-item :key="index" link :to="menu.to">
+            <v-list-item-title class="text-md-center"
+              >{{ menu.content }}
+            </v-list-item-title>
+          </v-list-item>
+          <v-divider
+            v-if="index < menus.length - 1"
+            :key="`${index} - divider`"
+          ></v-divider>
+        </template>
+      </v-list>
+    </v-menu>
   </v-app-bar>
 </template>
 
@@ -64,8 +87,18 @@ export default {
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 2 },
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 3 },
       ],
+      menus: [
+        {
+          content: "관심종목설정",
+          to: "/interest-corporation",
+        },
+        { content: "관심산업설정", to: "/interest-industry" },
+        { content: "마이페이지", to: "/like-report" },
+        { content: "로그아웃", to: "/logout" },
+      ],
     };
   },
+  methods: {},
 };
 </script>
 

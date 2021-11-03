@@ -1,9 +1,11 @@
 <template>
-  <v-container grid-list-xs> test </v-container>
+  <v-container grid-list-xs> LikeReport </v-container>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "LikeReport",
+};
 </script>
 
 <style></style>

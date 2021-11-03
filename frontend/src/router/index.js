@@ -40,6 +40,11 @@ const routes = [
     component: () => import("@/views/BoardLogined.vue"),
   },
   {
+    path: "/like-report",
+    name: "LikeReport",
+    component: () => import("@/views/LikeReport.vue"),
+  },
+  {
     path: "/board",
     name: "Board",
     component: () => import("@/views/Board.vue"),
@@ -50,9 +55,14 @@ const routes = [
     component: () => import("@/views/MyBoard.vue"),
   },
   {
-    path: "/interest",
-    name: "Interest",
-    component: () => import("@/views/Interest.vue"),
+    path: "/interest-corporation",
+    name: "InterestCorporation",
+    component: () => import("@/views/InterestCorporation.vue"),
+  },
+  {
+    path: "/interest-industry",
+    name: "InterestIndustry",
+    component: () => import("@/views/InterestIndustry.vue"),
   },
   {
     path: "/like-report",
@@ -60,8 +70,18 @@ const routes = [
     component: () => import("@/views/LikeReport.vue"),
   },
   {
+    path: "/logout",
+    name: "Logout",
+    component: {
+      beforeRouteEnter(to, from, next) {
+        //로그인 토큰 제거 코드
+        next({ path: "/" });
+      },
+    },
+  },
+  {
     path: "/*",
-    redirect: { path: "/" },
+    redirect: { name: "Default" },
   },
 ];
 

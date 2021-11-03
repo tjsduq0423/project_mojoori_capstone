@@ -1,5 +1,5 @@
 <template>
-  <v-container> My Interest </v-container>
+  <div>InterestCorporation</div>
 </template>
 
 <script>
