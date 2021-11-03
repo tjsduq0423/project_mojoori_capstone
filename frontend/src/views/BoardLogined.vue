@@ -1,10 +1,10 @@
 <template>
-  <v-container> My Interest </v-container>
+  <div>BoardLogined</div>
 </template>
 
 <script>
 export default {
-  name: "Interest",
+  name: "BoardLogined",
 };
 </script>
 

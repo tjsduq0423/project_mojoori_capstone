@@ -8,35 +8,30 @@
           <p class="my-6 pt-6 display-1" style="font-weight: bold">Mojuri</p>
         </v-layout>
         <p class="ml-6 mb-6 headline" style="font-weight: bold">
-          비밀번호 찾기
+          이메일 인증 안내
         </p>
         <v-divider class="divider mx-auto"></v-divider>
         <v-layout class="mt-6" column>
-          <p class="mx-7 mb-6 subheading">
-            비밀번호를 찾고자 하는 이메일 ID를 입력해 주시면 해당 메일 주소로
-            비밀번호 임시비밀번호를 보내드립니다.
+          <p class="mx-7 mb-2 subheading">인증메일이 발송되었습니다.</p>
+          <p class="ml-7 mr-16 pr-16 mb-6 body-2" style="color: #bdbdbd">
+            메일을 30분 이내에 확인한 후 인증 링크를 클릭해야 회원가입을 완료할
+            수 있습니다.
           </p>
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            outlined
-            label="이메일"
-            required
-            class="mx-6"
-          ></v-text-field>
         </v-layout>
 
         <v-layout column align-center>
           <!-- 클릭시 axios 요청 후에 router.push 콜백으로 받아서 페이지 이동 구현 필요
               https://router.vuejs.org/kr/guide/essentials/navigation.html
             -->
-          <v-btn dark width="250px" height="50px" class="grey lighten-1"
+          <v-btn
+            dark
+            width="250px"
+            height="50px"
+            class="grey lighten-1"
+            to="/default"
             ><p class="pt-6 headline" style="font-weight: bold">
-              임시 비밀번호 전송
+              홈으로
             </p></v-btn
-          >
-          <router-link class="mt-6" to="/user-authentication"
-            >로그인으로 돌아가기</router-link
           >
         </v-layout>
       </v-card>
@@ -48,24 +43,9 @@
 import AppbarNone from "@/components/AppbarNone.vue";
 
 export default {
-  name: "FindPassword",
+  name: "EmailAuthentication",
   components: {
     AppbarNone,
-  },
-  data() {
-    return {
-      loginState: null,
-      email: "",
-      password: "",
-      show: false,
-      emailRules: [
-        (v) => !!v || "이메일 입력은 필수입니다.",
-        (v) =>
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-            v
-          ) || "올바른 이메일을 입력해주세요",
-      ],
-    };
   },
 };
 </script>

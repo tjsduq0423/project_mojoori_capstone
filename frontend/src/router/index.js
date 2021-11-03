@@ -25,9 +25,19 @@ const routes = [
     component: () => import("@/views/FindPassword.vue"),
   },
   {
-    path: "/search",
-    name: "Search",
-    component: () => import("@/views/Search.vue"),
+    path: "/email-authentication",
+    name: "EmailAuthentication",
+    component: () => import("@/views/EmailAuthentication.vue"),
+  },
+  {
+    path: "/logined",
+    name: "Logined",
+    component: () => import("@/views/Logined.vue"),
+  },
+  {
+    path: "/board-logined",
+    name: "BoardLogined",
+    component: () => import("@/views/BoardLogined.vue"),
   },
   {
     path: "/board",
@@ -51,7 +61,7 @@ const routes = [
   },
   {
     path: "/*",
-    redirect: { name: "Home" },
+    redirect: { path: "/" },
   },
 ];
 

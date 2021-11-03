@@ -42,8 +42,14 @@
         <v-layout column align-center>
           <!-- 클릭시 axios 요청 후에 router.push 콜백으로 받아서 페이지 이동 구현 필요
               https://router.vuejs.org/kr/guide/essentials/navigation.html
+              to -> 임시 라우팅
             -->
-          <v-btn dark width="500px" height="50px" class="grey lighten-1"
+          <v-btn
+            dark
+            width="500px"
+            height="50px"
+            class="grey lighten-1"
+            to="/Logined"
             ><p class="pt-6 headline" style="font-weight: bold">
               로그인
             </p></v-btn

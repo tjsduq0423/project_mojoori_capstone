@@ -1,6 +1,6 @@
 <template>
   <v-app app>
-    <Appbar />
+    <AppbarLogined />
     <v-main app>
       <!-- SerchComponent  -->
     </v-main>
@@ -8,12 +8,13 @@
 </template>
 
 <script>
-import Appbar from "@/components/Appbar.vue";
-
+import AppbarLogined from "@/components/AppbarLogined.vue";
 export default {
-  name: "Default",
+  name: "Logined",
   components: {
-    Appbar,
+    AppbarLogined,
   },
 };
 </script>
+
+<style></style>

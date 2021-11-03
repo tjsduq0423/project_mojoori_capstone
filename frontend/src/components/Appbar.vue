@@ -2,8 +2,8 @@
   <v-app-bar color="#0D0D0D" dark app>
     <!-- 툴바 제목 Mojuri -->
     <v-toolbar-title>
-      <a
-        href="/"
+      <router-link
+        to="/"
         :style="{
           color: 'white',
           textDecoration: 'none',
@@ -12,7 +12,7 @@
         }"
         class="ml-2"
         >Mojuri
-      </a>
+      </router-link>
     </v-toolbar-title>
 
     <v-spacer />
