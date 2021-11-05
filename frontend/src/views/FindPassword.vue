@@ -3,7 +3,7 @@
     <AppbarNone />
 
     <v-layout align-center justify-center>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" lazy-validation>
         <v-card width="550px" height="700px" tile style="border: solid">
           <v-layout column align-center>
             <p class="my-6 pt-6 display-1" style="font-weight: bold">Mojuri</p>
@@ -17,7 +17,9 @@
               비밀번호를 찾고자 하는 이메일 ID를 입력해 주시면 해당 메일 주소로
               비밀번호 임시비밀번호를 보내드립니다.
             </p>
+            <p v-if="done === true" class="mx-7 mb-6 subheading">전송 완료</p>
             <v-text-field
+              v-if="done === false"
               v-model="email"
               :rules="emailRules"
               outlined
@@ -32,6 +34,7 @@
               https://router.vuejs.org/kr/guide/essentials/navigation.html
             -->
             <v-btn
+              v-if="done === false"
               dark
               width="250px"
               height="50px"
@@ -65,7 +68,7 @@ export default {
       email: "",
       password: "",
       show: false,
-      valid: true,
+      done: false,
       emailRules: [
         (v) => !!v || "이메일 입력은 필수입니다.",
         (v) =>
@@ -76,11 +79,12 @@ export default {
     };
   },
   methods: {
-    validate() {
-      this.$refs.form.validate();
-      if (this.valid) {
+    async validate() {
+      const val = await this.$refs.form.validate();
+      if (val) {
+        this.$router.push({ name: "EmailAuthenticationDone" });
         // axios call email 로 임시비밀번호 생성 후 전송
-        // then( alert 창(임시비밀번호 발송되었습니다.)
+        // response로 메일이 등록되어있는지 확인 . err ->  alert // 아니면 v-if 값 done 값 변경
         //  --> 페이지 이동  $router.push({name :"user-authentication"}))
       }
     },

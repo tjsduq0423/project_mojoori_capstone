@@ -30,6 +30,11 @@ const routes = [
     component: () => import("@/views/EmailAuthentication.vue"),
   },
   {
+    path: "/email-authentication-done",
+    name: "EmailAuthenticationDone",
+    component: () => import("@/views/EmailAuthenticationDone.vue"),
+  },
+  {
     path: "/logined",
     name: "Logined",
     component: () => import("@/views/Logined.vue"),
@@ -63,11 +68,6 @@ const routes = [
     path: "/interest-industry",
     name: "InterestIndustry",
     component: () => import("@/views/InterestIndustry.vue"),
-  },
-  {
-    path: "/like-report",
-    name: "LikeReport",
-    component: () => import("@/views/LikeReport.vue"),
   },
   {
     path: "/logout",
