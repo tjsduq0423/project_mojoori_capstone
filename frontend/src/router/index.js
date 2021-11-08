@@ -29,6 +29,7 @@ const routes = [
     name: "EmailAuthentication",
     component: () => import("@/views/EmailAuthentication.vue"),
   },
+  //라우터 가드 넣어야함. 인증 페이지임.
   {
     path: "/email-authentication-done",
     name: "EmailAuthenticationDone",
@@ -53,6 +54,11 @@ const routes = [
     path: "/board",
     name: "Board",
     component: () => import("@/views/Board.vue"),
+  },
+  {
+    path: "/board-write",
+    name: "BoardWrite",
+    component: () => import("@/views/BoardWrite.vue"),
   },
   {
     path: "/my-board",

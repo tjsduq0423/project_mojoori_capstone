@@ -1,7 +1,7 @@
 <template>
   <v-app app>
     <AppbarLogined />
-    <v-main app>
+    <v-main app class="back">
       <!-- SerchComponent  -->
     </v-main>
   </v-app>
@@ -17,4 +17,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.back {
+  background-color: #f2f2f2 !important;
+}
+</style>

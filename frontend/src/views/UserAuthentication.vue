@@ -1,7 +1,7 @@
 <template>
   <v-app app>
     <AppbarNone />
-    <v-layout align-center justify-center>
+    <v-layout align-center justify-center class="back">
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-card width="550px" height="700px" tile style="border: solid">
           <v-layout column align-center>
@@ -110,5 +110,8 @@ export default {
 .v-text-field--outlined fieldset {
   border-width: 2px !important;
   color: black !important;
+}
+.back {
+  background-color: #f2f2f2 !important;
 }
 </style>

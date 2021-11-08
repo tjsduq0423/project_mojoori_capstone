@@ -2,7 +2,7 @@
   <v-app app>
     <AppbarNone />
 
-    <v-layout align-center justify-center>
+    <v-layout align-center justify-center class="back">
       <v-card width="550px" height="700px" tile style="border: solid">
         <v-layout column align-center>
           <p class="my-6 pt-6 display-1" style="font-weight: bold">Mojuri</p>
@@ -59,5 +59,8 @@ export default {
 .v-text-field--outlined fieldset {
   border-width: 2px !important;
   color: black !important;
+}
+.back {
+  background-color: #f2f2f2 !important;
 }
 </style>
