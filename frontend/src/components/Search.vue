@@ -188,7 +188,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .searchbar {
   border-radius: 20px !important;
   border-color: black !important;
