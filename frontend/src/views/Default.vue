@@ -23,8 +23,4 @@ export default {
 };
 </script>
 
-<style>
-.back {
-  background-color: #f2f2f2 !important;
-}
-</style>
+<style></style>

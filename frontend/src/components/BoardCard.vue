@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .ac {
   color: #6ce422 !important;
 }
