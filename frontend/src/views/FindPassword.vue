@@ -1,56 +1,104 @@
 <template>
   <v-app app>
     <AppbarNone />
-
-    <v-layout align-center justify-center class="back">
-      <v-form ref="form" lazy-validation>
-        <v-card width="550px" height="700px" tile style="border: solid">
-          <v-layout column align-center>
-            <p class="my-6 pt-6 display-1" style="font-weight: bold">Mojuri</p>
-          </v-layout>
-          <p class="ml-6 mb-6 headline" style="font-weight: bold">
-            비밀번호 찾기
-          </p>
-          <v-divider class="divider mx-auto"></v-divider>
-          <v-layout class="mt-6" column>
-            <p class="mx-7 mb-6 subheading">
-              비밀번호를 찾고자 하는 이메일 ID를 입력해 주시면 해당 메일 주소로
-              비밀번호 임시비밀번호를 보내드립니다.
-            </p>
-            <p v-if="done === true" class="mx-7 mb-6 subheading">전송 완료</p>
-            <v-text-field
-              v-if="done === false"
-              v-model="email"
-              :rules="emailRules"
-              outlined
-              label="이메일"
-              required
-              class="mx-6"
-            ></v-text-field>
-          </v-layout>
-
-          <v-layout column align-center>
-            <!-- 클릭시 axios 요청 후에 router.push 콜백으로 받아서 페이지 이동 구현 필요
-              https://router.vuejs.org/kr/guide/essentials/navigation.html
-            -->
-            <v-btn
-              v-if="done === false"
-              dark
-              width="250px"
-              height="50px"
-              class="grey lighten-1"
-              @click="validate"
-              ><p class="pt-6 headline" style="font-weight: bold">
-                임시 비밀번호 전송
-              </p></v-btn
+    <v-main class="back">
+      <v-container fill-height fluid>
+        <v-row justify="center">
+          <v-col cols="12" md="5">
+            <v-card
+              class="mx-auto"
+              max-width="550px"
+              max-height="700px"
+              tile
+              style="border: solid"
             >
-            <router-link class="mt-6" to="/user-authentication"
-              >로그인으로 돌아가기
-            </router-link>
-          </v-layout>
-        </v-card>
-      </v-form>
-    </v-layout>
+              <v-container fluid>
+                <v-form ref="form" lazy-validation class="mx-6">
+                  <!-- 비밀번호 찾기 -->
+                  <v-row class="mt-6">
+                    <v-col cols="12">
+                      <p class="text-h4 text-center font-weight-black">
+                        Mojuri
+                      </p>
+                    </v-col>
+                    <v-col cols="12">
+                      <p class="text-h5 text-left font-weight-bold">
+                        비밀번호 찾기
+                      </p>
+                      <v-divider class="divider"></v-divider>
+                    </v-col>
+                  </v-row>
+                  <!-- 설명 + 이메일 input -->
+                  <v-row>
+                    <v-col cols="12">
+                      <p
+                        class="
+                          pr-6
+                          mb-0
+                          text-subtitle-1 text-left
+                          font-weight-bold
+                        "
+                      >
+                        이메일 ID를 입력해 주시면 해당 메일 주소로
+                        임시비밀번호를 보내드립니다.
+                      </p>
+                      <p
+                        v-if="done === true"
+                        class="
+                          pr-6
+                          mb-0
+                          blue
+                          text-h4 text-left
+                          font-weight-bold
+                        "
+                      >
+                        전송 완료
+                      </p>
+                    </v-col>
+                    <v-col cols="12" class="pb-0">
+                      <v-text-field
+                        v-if="done === false"
+                        v-model="email"
+                        :rules="emailRules"
+                        outlined
+                        label="이메일"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <!-- 임시비밀번호발급 버튼 -->
+                  <v-row justify="center">
+                    <v-col cols="6">
+                      <v-btn
+                        v-if="done === false"
+                        dark
+                        block
+                        large
+                        tile
+                        class="grey lighten-1 text-h5 font-weight-bold"
+                        @click="validate()"
+                      >
+                        전송
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <!-- 로그인하기 -->
+                  <v-row class="my-6" justify="center">
+                    <v-col cols="6">
+                      <router-link to="/user-authentication">
+                        <p class="pt-1 text-subtitle-1 text-center">
+                          로그인으로 돌아가기
+                        </p>
+                      </router-link>
+                    </v-col>
+                  </v-row>
+                </v-form>
+              </v-container>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 

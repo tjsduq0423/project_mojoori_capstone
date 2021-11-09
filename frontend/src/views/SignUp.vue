@@ -1,6 +1,5 @@
 <template>
-  <v-app>
-    <!-- appbar -->
+  <v-app app>
     <AppbarNone />
     <!-- 회원가입 컴포넌트 -->
     <v-main class="back">
@@ -15,8 +14,9 @@
               style="border: solid"
             >
               <v-container fluid>
-                <v-form ref="form" lazy-validation class="mx-3">
-                  <v-row class="my-6" justify="center">
+                <v-form ref="form" lazy-validation class="mx-6">
+                  <!-- 기본정보입력 -->
+                  <v-row class="mt-6">
                     <v-col cols="12">
                       <p class="text-h4 text-center font-weight-black">
                         Mojuri
@@ -26,11 +26,12 @@
                       <p class="text-h5 text-left font-weight-bold">
                         기본정보 입력
                       </p>
-                    </v-col>
-                    <v-col cols="12">
                       <v-divider class="divider"></v-divider>
                     </v-col>
-                    <v-col cols="12">
+                  </v-row>
+                  <!-- input -->
+                  <v-row class="mt-6">
+                    <v-col cols="12" class="py-0">
                       <v-text-field
                         v-model="email"
                         :rules="emailRules"
@@ -39,7 +40,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                       <v-text-field
                         v-model="nickname"
                         :counter="14"
@@ -49,7 +50,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" class="py-0">
                       <v-text-field
                         v-model="password"
                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
@@ -61,10 +62,14 @@
                         @click:append="show = !show"
                       ></v-text-field>
                     </v-col>
+                  </v-row>
+                  <!-- 가입하기 버튼 -->
+                  <v-row justify="center">
                     <v-col cols="6">
                       <v-btn
                         dark
                         block
+                        large
                         tile
                         class="grey lighten-1 text-h5 font-weight-bold"
                         @click="validate()"
@@ -72,19 +77,18 @@
                         가입하기
                       </v-btn>
                     </v-col>
-                    <v-col cols="12">
-                      <v-row>
-                        <v-col cols="7">
-                          <p class="text-h6 font-weight-bold text-right">
-                            이미회원이신가요?
-                          </p>
-                        </v-col>
-                        <v-col cols="5">
-                          <router-link to="/user-authentication">
-                            <p class="text-subtitle-1 text-left">로그인하기</p>
-                          </router-link>
-                        </v-col>
-                      </v-row>
+                  </v-row>
+                  <!-- 로그인하기 -->
+                  <v-row class="my-6">
+                    <v-col cols="7">
+                      <p class="text-h6 font-weight-bold text-right">
+                        이미회원이신가요?
+                      </p>
+                    </v-col>
+                    <v-col cols="5">
+                      <router-link to="/user-authentication">
+                        <p class="pt-1 text-subtitle-1 text-left">로그인하기</p>
+                      </router-link>
                     </v-col>
                   </v-row>
                 </v-form>
