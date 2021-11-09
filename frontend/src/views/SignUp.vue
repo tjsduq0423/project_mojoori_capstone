@@ -1,69 +1,99 @@
 <template>
-  <v-app app>
+  <v-app>
     <!-- appbar -->
     <AppbarNone />
     <!-- 회원가입 컴포넌트 -->
-    <v-layout align-center justify-center class="back">
-      <v-form ref="form" lazy-validation>
-        <v-card width="550px" height="700px" tile style="border: solid">
-          <v-layout column align-center>
-            <p class="my-6 pt-6 display-1" style="font-weight: bold">Mojuri</p>
-          </v-layout>
-          <p class="ml-6 mb-6 headline" style="font-weight: bold">
-            기본정보 입력
-          </p>
-          <v-divider class="divider mx-auto"></v-divider>
-          <v-layout class="mt-6" column>
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              outlined
-              label="이메일(ID)"
-              required
-              class="mx-6"
-            ></v-text-field>
-            <v-text-field
-              v-model="nickname"
-              :counter="14"
-              :rules="nameRules"
-              outlined
-              label="닉네임"
-              required
-              class="mx-6"
-            ></v-text-field>
-            <v-text-field
-              v-model="password"
-              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="passwordRules"
-              :type="show ? 'text' : 'password'"
-              outlined
-              label="비밀번호"
-              required
-              class="mx-6"
-              @click:append="show = !show"
-            ></v-text-field>
-          </v-layout>
-          <v-layout column align-center>
-            <!-- 클릭시 axios 요청 후에 router.push 콜백으로 받아서 페이지 이동 구현 필요
-              https://router.vuejs.org/kr/guide/essentials/navigation.html
-              to 태그는 임시 라우팅 담당.
-            -->
-            <v-btn
-              dark
-              width="250px"
-              height="50px"
-              class="grey lighten-1"
-              @click="validate()"
-              ><p class="pt-6 headline">가입하기</p></v-btn
+    <v-main class="back">
+      <v-container fill-height fluid>
+        <v-row justify="center">
+          <v-col cols="12" md="5">
+            <v-card
+              class="mx-auto"
+              max-width="550px"
+              max-height="700px"
+              tile
+              style="border: solid"
             >
-            <p class="pt-6 headline">이미회원이신가요?</p>
-            <router-link class="" to="/user-authentication"
-              >로그인하기</router-link
-            >
-          </v-layout>
-        </v-card>
-      </v-form>
-    </v-layout>
+              <v-container fluid>
+                <v-form ref="form" lazy-validation class="mx-3">
+                  <v-row class="my-6" justify="center">
+                    <v-col cols="12">
+                      <p class="text-h4 text-center font-weight-black">
+                        Mojuri
+                      </p>
+                    </v-col>
+                    <v-col cols="12">
+                      <p class="text-h5 text-left font-weight-bold">
+                        기본정보 입력
+                      </p>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-divider class="divider"></v-divider>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
+                        v-model="email"
+                        :rules="emailRules"
+                        outlined
+                        label="이메일(ID)"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
+                        v-model="nickname"
+                        :counter="14"
+                        :rules="nameRules"
+                        outlined
+                        label="닉네임"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
+                        v-model="password"
+                        :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                        :rules="passwordRules"
+                        :type="show ? 'text' : 'password'"
+                        outlined
+                        label="비밀번호"
+                        required
+                        @click:append="show = !show"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-btn
+                        dark
+                        block
+                        tile
+                        class="grey lighten-1 text-h5 font-weight-bold"
+                        @click="validate()"
+                      >
+                        가입하기
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-row>
+                        <v-col cols="7">
+                          <p class="text-h6 font-weight-bold text-right">
+                            이미회원이신가요?
+                          </p>
+                        </v-col>
+                        <v-col cols="5">
+                          <router-link to="/user-authentication">
+                            <p class="text-subtitle-1 text-left">로그인하기</p>
+                          </router-link>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-form>
+              </v-container>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -114,17 +144,4 @@ export default {
 };
 </script>
 
-<style>
-.divider {
-  border-width: 1px !important;
-  border-color: black !important;
-  width: 90%;
-}
-.v-text-field--outlined fieldset {
-  border-width: 2px !important;
-  color: black !important;
-}
-.back {
-  background-color: #f2f2f2 !important;
-}
-</style>
+<style></style>
