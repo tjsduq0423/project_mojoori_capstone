@@ -1,7 +1,7 @@
 <template>
   <v-container class="mx-auto mb-auto">
     <v-layout justify-center column>
-      <v-flex class="mt-3">
+      <v-flex>
         <!-- 검색 태그들 by 칩+ 카드 -->
         <v-card height="50">
           <v-chip
@@ -9,7 +9,7 @@
             :key="i"
             class="ma-2"
             text-color="white"
-            color="deep-orange darken-1"
+            color="grey darken-2"
             label
             close
             @click:close="removeList(i)"
@@ -106,8 +106,7 @@ export default {
       listCount: 0,
       selection: "",
       historyList: [],
-      searchHistory: ["에코프로", "JYP엔터", "큐브엔터"],
-      buttonitem: ["전체", "기업", "산업", "시장"],
+      searchHistory: ["2차전지", "반도체", "소매업"],
     };
   },
   computed: {
