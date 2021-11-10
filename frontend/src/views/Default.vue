@@ -10,7 +10,7 @@
             <ReportCardList />
           </v-flex>
           <v-flex md4 sm4>
-            <v-container class="sticky" fluid>
+            <v-container fluid>
               <v-row v-for="(item, index) in items" :key="index">
                 <v-col>
                   <Popular :item="item" />

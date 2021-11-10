@@ -21,22 +21,37 @@
           <v-divider class="divider"></v-divider>
         </v-col>
       </v-row>
-      <v-row> 게시글 내용 </v-row>
+      <v-row>
+        <v-col> 게시글 내용 </v-col>
+      </v-row>
       <v-row>
         <v-col>
           <v-divider class="divider"></v-divider>
         </v-col>
       </v-row>
-      <v-row justify="center">
+      <v-row justify="center" class="my-9">
         <v-col cols="4">
           <v-row justify="space-around">
-            <v-btn>
-              <v-icon> mdi-menu-up </v-icon>
+            <v-btn outlined>
+              <v-icon color="#BDBDBD"> mdi-menu-up </v-icon>
               3
             </v-btn>
-            <v-btn> <v-icon> mdi-menu-down </v-icon> 3 </v-btn>
-            <v-btn> 북마크 </v-btn>
+            <v-btn outlined active-class="ac">
+              <v-icon color="#BDBDBD"> mdi-menu-down </v-icon> 3
+            </v-btn>
+            <v-btn outlined @click="Mark()"> 북마크 </v-btn>
           </v-row>
+        </v-col>
+        <v-col cols="12">
+          <v-alert
+            v-if="login"
+            border="top"
+            color="red lighten-2"
+            dark
+            @click="tp"
+          >
+            북마크는 로그인이 필요합니다 (클릭)
+          </v-alert>
         </v-col>
       </v-row>
     </v-container>
@@ -44,7 +59,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      login: false,
+    };
+  },
+  methods: {
+    Mark() {
+      this.login = true;
+    },
+    tp() {
+      this.$router.push({ name: "UserAuthentication" });
+    },
+  },
+};
 </script>
 
-<style></style>
+<style scoped></style>

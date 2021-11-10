@@ -8,6 +8,9 @@
           <v-col cols="12" md="8">
             <BoardArticleCard />
           </v-col>
+          <v-col cols="12" md="8">
+            <BoardArticleCard />
+          </v-col>
         </v-row>
       </v-container>
     </v-main>
