@@ -3,16 +3,16 @@
     <AppbarLogined />
 
     <v-main class="back">
-      <v-container>
-        <v-row class="mt-9" fill-height>
+      <v-container fluid>
+        <v-row class="mt-9" fill-height justify="center">
           <v-col
             v-if="
               $vuetify.breakpoint.xl ||
               $vuetify.breakpoint.lg ||
               $vuetify.breakpoint.md
             "
-            md="4"
-            class="pr-16"
+            md="2"
+            class=""
           >
             <v-card flat> Card </v-card>
           </v-col>

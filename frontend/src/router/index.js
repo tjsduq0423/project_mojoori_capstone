@@ -81,6 +81,11 @@ const routes = [
     component: () => import("@/views/InterestIndustry.vue"),
   },
   {
+    path: "/article/:id",
+    name: "Article",
+    component: () => import("@/views/Article.vue"),
+  },
+  {
     path: "/logout",
     name: "Logout",
     component: {
@@ -90,10 +95,10 @@ const routes = [
       },
     },
   },
-  {
-    path: "/*",
-    redirect: { name: "Default" },
-  },
+  // {
+  //   path: "/*",
+  //   redirect: { name: "Default" },
+  // },
 ];
 
 const router = new VueRouter({
