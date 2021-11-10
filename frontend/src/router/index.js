@@ -61,6 +61,11 @@ const routes = [
     component: () => import("@/views/Board.vue"),
   },
   {
+    path: "/my-board",
+    name: "MyBoard",
+    component: () => import("@/views/MyBoard.vue"),
+  },
+  {
     path: "/board-write",
     name: "BoardWrite",
     component: () => import("@/views/BoardWrite.vue"),

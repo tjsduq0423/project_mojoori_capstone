@@ -1,5 +1,5 @@
 <template>
-  <v-card height="400" elevation="11" class="mx-auto" width="60%">
+  <v-card height="400" elevation="11" class="mx-auto mt-3" width="70%">
     <v-card-title
       class="text-h5 title"
       style="font-weight: 900; font-size: 25px !important"
@@ -8,67 +8,19 @@
     </v-card-title>
     <v-card-text>
       <v-container>
-        <v-row justify="center">
-          <v-col cols="auto">
-            <v-btn
-              style="font-weight: 900; font-size: 20px"
-              text
-              large
-              class="button"
-            >
-              관심 종목
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="auto">
-            <v-btn
-              style="font-weight: 900; font-size: 20px"
-              text
-              large
-              class="button"
-            >
-              관심 산업
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="auto">
-            <v-btn
-              style="font-weight: 900; font-size: 20px"
-              text
-              large
-              class="button"
-            >
-              찜한 리포트
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="auto">
-            <v-btn
-              style="font-weight: 900; font-size: 20px"
-              text
-              large
-              class="button"
-            >
-              내가 쓴 글
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="auto">
-            <v-btn
-              style="font-weight: 900; font-size: 20px"
-              text
-              large
-              class="button"
-              to="/change-password"
-            >
-              비밀번호 변경
-            </v-btn>
-          </v-col>
-        </v-row>
+        <v-list class="py-0">
+          <template v-for="(mypagebutton, index) in mypagebuttons">
+            <v-list-item :key="index" link :to="mypagebutton.to">
+              <v-list-item-title class="text-md-center"
+                >{{ mypagebutton.content }}
+              </v-list-item-title>
+            </v-list-item>
+            <v-divider
+              v-if="index < mypagebuttons.length - 1"
+              :key="`${index} - divider`"
+            ></v-divider>
+          </template>
+        </v-list>
       </v-container>
     </v-card-text>
   </v-card>
@@ -81,28 +33,35 @@ export default {
     return {
       userid: "문준호",
       mypagebuttons: [
-        "관심 종목",
-        "관심 산업",
-        "찜한 리포트",
-        "내가 쓴 글",
-        "비밀번호 변경",
+        {
+          content: "관심 종목",
+          to: "/interest-corporation",
+        },
+        {
+          content: "관심 산업",
+          to: "/interest-industry",
+        },
+        {
+          content: "찜한 리포트",
+          to: "/like-report",
+        },
+        {
+          content: "내가 쓴 글",
+          to: "/my-board",
+        },
+        {
+          content: "비밀번호 변경",
+          to: "/change-password",
+        },
       ],
     };
   },
 };
 </script>
 
-<style>
-.title {
-  border-bottom-style: solid;
-  border-bottom-width: 3px;
-  border-bottom-color: black;
-}
-.button {
-  background-color: white !important;
-  border-radius: 0px !important;
-  border-bottom-style: solid;
-  border-bottom-width: 3px;
-  border-bottom-color: black;
+<style scoped>
+.v-list-item__title {
+  font-size: 1.2rem !important;
+  font-weight: bold;
 }
 </style>

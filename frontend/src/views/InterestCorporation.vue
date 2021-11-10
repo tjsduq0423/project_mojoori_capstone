@@ -2,12 +2,12 @@
   <v-app app>
     <AppbarLogined />
     <v-main app class="back">
-      <v-layout align-content-space-around justify-center fill-height>
-        <v-flex md4 sm4>
+      <v-layout align-content-space-around justify-center fill-height mt-8>
+        <v-flex md3 sm3>
           <MyPageBox />
         </v-flex>
-        <v-flex md8 sm8>
-          <MyPageReport />
+        <v-flex md9 sm9 mr-16>
+          <MyPageICReport />
         </v-flex>
       </v-layout>
     </v-main>
@@ -17,13 +17,13 @@
 <script>
 import AppbarLogined from "@/components/AppbarLogined.vue";
 import MyPageBox from "@/components/MyPageBox.vue";
-import MyPageReport from "@/components/MyPageReport.vue";
+import MyPageICReport from "@/components/MyPageICReport.vue";
 export default {
   name: "InterestCorporation",
   components: {
     AppbarLogined,
     MyPageBox,
-    MyPageReport,
+    MyPageICReport,
   },
 };
 </script>
