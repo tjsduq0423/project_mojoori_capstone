@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mx-auto mb-auto">
+  <v-container class="px-0">
     <v-layout justify-center column>
       <v-flex>
         <!-- 검색 태그들 by 칩+ 카드 -->

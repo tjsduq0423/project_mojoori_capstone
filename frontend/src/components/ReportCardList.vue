@@ -4,8 +4,8 @@
     <v-card
       v-for="(item, index) in historyList"
       :key="index"
-      :search="search"
-      class="mx-auto grey lighten-3"
+      outlined
+      class="mb-3 grey lighten-3"
     >
       <v-list-item three-line>
         <v-list-item-content>
@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       page: 1,
-      pageSize: 5,
+      pageSize: 20,
       listCount: 0,
       historyList: [],
     };
@@ -116,20 +116,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.searchbar {
-  border-radius: 20px !important;
-  border-color: black !important;
-  border: solid 1em;
-  border-width: medium !important;
-}
-.v-text-field--outlined fieldset {
-  border-width: 4px !important;
-  color: black !important;
-}
-.v-text-field .v-input__control .v-input__slot {
-  min-height: auto !important;
-  display: flex !important;
-  align-items: center !important;
-}
-</style>
+<style scoped></style>

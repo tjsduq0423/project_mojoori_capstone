@@ -71,11 +71,6 @@ const routes = [
     component: () => import("@/views/BoardWrite.vue"),
   },
   {
-    path: "/my-board",
-    name: "MyBoard",
-    component: () => import("@/views/MyBoard.vue"),
-  },
-  {
     path: "/interest-corporation",
     name: "InterestCorporation",
     component: () => import("@/views/InterestCorporation.vue"),

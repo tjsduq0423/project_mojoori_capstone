@@ -2,15 +2,17 @@
   <v-app app>
     <AppbarLogined />
     <v-main app class="back">
-      <v-layout align-content-space-around justify-center fill-height mt-8>
-        <v-flex md3 sm3>
-          <MyPageBox />
-        </v-flex>
-        <v-flex md9 sm9 mr-16>
-          <SearchTag />
-          <ReportCardList />
-        </v-flex>
-      </v-layout>
+      <v-container fluid>
+        <v-layout align-content-space-around justify-center fill-height mt-8>
+          <v-flex md3 sm3>
+            <MyPageBox :style="{ top: '88px', position: 'sticky' }" />
+          </v-flex>
+          <v-flex md9 sm9 mr-16>
+            <SearchTag />
+            <ReportCardList />
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-main>
   </v-app>
 </template>

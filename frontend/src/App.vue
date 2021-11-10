@@ -24,7 +24,8 @@ export default {
 .back {
   background-color: #f2f2f2 !important;
 }
-.v-main {
-  display: block !important;
+.sticky {
+  top: 64px !important;
+  position: sticky !important;
 }
 </style>

@@ -1,5 +1,10 @@
 <template>
-  <v-card max-width="400px" elevation="11" class="card mx-auto mt-3">
+  <v-card
+    max-width="400px"
+    min-height="300px"
+    elevation="11"
+    class="card mx-auto mt-3"
+  >
     <v-card-title class="justify-center text-h5 white--text black">
       {{ item.title }}
     </v-card-title>
@@ -20,7 +25,12 @@
 <script>
 export default {
   props: {
-    item: Object,
+    item: {
+      type: Object,
+      default: function () {
+        return { title: "인기종목", color: "brown darken-2" };
+      },
+    },
   },
   data() {
     return {
