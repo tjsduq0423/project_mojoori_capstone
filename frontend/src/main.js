@@ -6,11 +6,11 @@ import vuetify from "./plugins/vuetify";
 import CKEditor from "ckeditor4-vue";
 
 Vue.config.productionTip = false;
+Vue.use(CKEditor);
 
 new Vue({
   router,
   store,
   vuetify,
-  CKEditor,
   render: (h) => h(App),
 }).$mount("#app");

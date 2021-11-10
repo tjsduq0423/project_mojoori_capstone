@@ -26,7 +26,7 @@
       <!-- 제목 입력 바 -->
       <v-row>
         <v-col cols="12" class="pt-2">
-          <v-card class="ml-3" flat>
+          <v-card class="mx-3" flat>
             <v-text-field
               v-model="title"
               solo
@@ -41,7 +41,21 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12"> </v-col>
+        <v-col cols="12" class="ml-3">
+          <v-card flat class="pr-6">
+            <ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
+            {{ editorData }}
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-btn
+          dark
+          style="background-color: #9fffed"
+          class="ml-auto mr-6 mb-4 mt-2"
+        >
+          작성완료
+        </v-btn>
       </v-row>
     </v-container>
   </v-card>
@@ -49,11 +63,16 @@
 
 <script>
 export default {
+  name: "BoardWriteCard",
   components: {},
   data() {
     return {
       title: "",
       themes: ["종목", "이슈", "유머", "자유"],
+      editorData: "",
+      editorConfig: {
+        // The configuration of the editor.
+      },
     };
   },
 };
