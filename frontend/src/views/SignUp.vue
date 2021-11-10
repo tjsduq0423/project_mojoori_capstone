@@ -2,6 +2,7 @@
   <v-app app>
     <AppbarNone />
     <!-- 회원가입 컴포넌트 -->
+<<<<<<< HEAD
     <v-main class="back">
       <v-container fill-height fluid>
         <v-row justify="center">
@@ -97,6 +98,72 @@
           </v-col>
         </v-row>
       </v-container>
+=======
+    <v-main>
+      <v-layout justify-center class="back mt-3">
+        <v-form ref="form" lazy-validation>
+          <v-card width="550px" height="700px" tile style="border: solid">
+            <v-layout column align-center>
+              <p class="my-6 pt-6 display-1" style="font-weight: bold">
+                Mojuri
+              </p>
+            </v-layout>
+            <p class="ml-6 mb-6 headline" style="font-weight: bold">
+              기본정보 입력
+            </p>
+            <v-divider class="divider mx-auto"></v-divider>
+            <v-layout class="mt-6" column>
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                outlined
+                label="이메일(ID)"
+                required
+                class="mx-6"
+              ></v-text-field>
+              <v-text-field
+                v-model="nickname"
+                :counter="14"
+                :rules="nameRules"
+                outlined
+                label="닉네임"
+                required
+                class="mx-6"
+              ></v-text-field>
+              <v-text-field
+                v-model="password"
+                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="passwordRules"
+                :type="show ? 'text' : 'password'"
+                outlined
+                label="비밀번호"
+                required
+                class="mx-6"
+                @click:append="show = !show"
+              ></v-text-field>
+            </v-layout>
+            <v-layout column align-center>
+              <!-- 클릭시 axios 요청 후에 router.push 콜백으로 받아서 페이지 이동 구현 필요
+              https://router.vuejs.org/kr/guide/essentials/navigation.html
+              to 태그는 임시 라우팅 담당.
+            -->
+              <v-btn
+                dark
+                width="250px"
+                height="50px"
+                class="grey lighten-1"
+                @click="validate()"
+                ><p class="pt-6 headline">가입하기</p></v-btn
+              >
+              <p class="pt-6 headline">이미회원이신가요?</p>
+              <router-link class="" to="/user-authentication"
+                >로그인하기</router-link
+              >
+            </v-layout>
+          </v-card>
+        </v-form>
+      </v-layout>
+>>>>>>> origin/main
     </v-main>
   </v-app>
 </template>

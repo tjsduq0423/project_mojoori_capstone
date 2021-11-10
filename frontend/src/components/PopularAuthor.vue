@@ -1,18 +1,18 @@
 <template>
   <v-card height="280" elevation="11" class="card mx-auto mt-3">
     <v-card-title class="justify-center text-h5 white--text black">
-      인기종목
+      추천저자
     </v-card-title>
     <v-chip
-      v-for="(popularstock, i) in popularstocks"
+      v-for="(popularauthor, i) in popularauthors"
       :key="i"
       class="ma-2"
       label
       text-color="white"
-      color="deep-orange darken-1"
+      color="brown darken-2"
       @click="추천수++"
     >
-      {{ popularstock }}
+      {{ popularauthor }}
     </v-chip>
   </v-card>
 </template>
@@ -21,7 +21,7 @@
 export default {
   data() {
     return {
-      popularstocks: [
+      popularauthors: [
         "삼성전자",
         "엘지디스플레이",
         "이마트",

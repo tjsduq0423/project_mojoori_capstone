@@ -2,23 +2,6 @@
   <v-container class="mx-auto mb-auto">
     <v-layout justify-center column>
       <v-flex class="mt-3">
-        <!-- 검색 바 ==> autocomplete 기능 필요 -->
-        <v-text-field
-          v-model="magnify"
-          solo
-          height="44px"
-          label="제목"
-          flat
-          hide-details="auto"
-          outlined
-          style="border-radius: 15px"
-        >
-          <v-icon slot="append" color="black" large @click="nothing"
-            >mdi-magnify</v-icon
-          >
-        </v-text-field>
-      </v-flex>
-      <v-flex class="mt-3">
         <!-- 검색 태그들 by 칩+ 카드 -->
         <v-card height="50">
           <v-chip
@@ -36,28 +19,6 @@
         </v-card>
       </v-flex>
 
-      <v-layout justify-space-between class="mt-3">
-        <!-- 전체 기업 산업 시장 칩 모음 -->
-        <v-chip-group
-          v-model="selection"
-          active-class="teal accent-2 black--text"
-          column
-        >
-          <v-chip
-            v-for="(button, i) in buttonitem"
-            :key="i"
-            label
-            class="white"
-          >
-            {{ button }}
-          </v-chip>
-        </v-chip-group>
-        <!-- 정렬 버튼 -->
-        <v-btn>
-          <v-icon dark> mdi-arrow-up-bold-box </v-icon>
-          상승여력순 정렬
-        </v-btn>
-      </v-layout>
       <v-flex class="mt-3"> </v-flex>
     </v-layout>
     <!-- 카드 리스트  수정 필요함 -->
