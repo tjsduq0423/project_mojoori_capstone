@@ -1,18 +1,18 @@
 <template>
   <v-card height="280" elevation="11" class="card mx-auto mt-3">
     <v-card-title class="justify-center text-h5 white--text black">
-      인기종목
+      인기산업
     </v-card-title>
     <v-chip
-      v-for="(popularstock, i) in popularstocks"
+      v-for="(popularindustry, i) in popularindustrys"
       :key="i"
       class="ma-2"
       label
       text-color="white"
-      color="deep-orange darken-1"
+      color="grey darken-1"
       @click="추천수++"
     >
-      {{ popularstock }}
+      {{ popularindustry }}
     </v-chip>
   </v-card>
 </template>
@@ -21,7 +21,7 @@
 export default {
   data() {
     return {
-      popularstocks: [
+      popularindustrys: [
         "삼성전자",
         "엘지디스플레이",
         "이마트",

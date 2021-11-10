@@ -25,6 +25,11 @@ const routes = [
     component: () => import("@/views/FindPassword.vue"),
   },
   {
+    path: "/change-password",
+    name: "ChangePassword",
+    component: () => import("@/views/ChangePassword.vue"),
+  },
+  {
     path: "/email-authentication",
     name: "EmailAuthentication",
     component: () => import("@/views/EmailAuthentication.vue"),
