@@ -7,7 +7,8 @@
           <MyPageBox />
         </v-flex>
         <v-flex md9 sm9 mr-16>
-          <MyPageICReport />
+          <SearchTag />
+          <ReportCardList />
         </v-flex>
       </v-layout>
     </v-main>
@@ -17,13 +18,15 @@
 <script>
 import AppbarLogined from "@/components/AppbarLogined.vue";
 import MyPageBox from "@/components/MyPageBox.vue";
-import MyPageICReport from "@/components/MyPageICReport.vue";
+import SearchTag from "@/components/SearchTag.vue";
+import ReportCardList from "@/components/ReportCardList.vue";
 export default {
   name: "InterestCorporation",
   components: {
     AppbarLogined,
     MyPageBox,
-    MyPageICReport,
+    SearchTag,
+    ReportCardList,
   },
 };
 </script>

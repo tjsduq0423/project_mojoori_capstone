@@ -5,6 +5,7 @@
       <v-layout align-content-space-around justify-center fill-height>
         <v-flex md8 sm8>
           <Search />
+          <ReportCardList />
         </v-flex>
         <v-flex md4 sm4>
           <PopularStock />
@@ -20,6 +21,7 @@
 <script>
 import AppbarLogined from "@/components/AppbarLogined.vue";
 import Search from "@/components/Search.vue";
+import ReportCardList from "@/components/ReportCardList.vue";
 import PopularStock from "@/components/PopularStock.vue";
 import PopularAuthor from "@/components/PopularAuthor.vue";
 import PopularIndustry from "@/components/PopularIndustry.vue";
@@ -28,6 +30,7 @@ export default {
   components: {
     AppbarLogined,
     Search,
+    ReportCardList,
     PopularStock,
     PopularAuthor,
     PopularIndustry,

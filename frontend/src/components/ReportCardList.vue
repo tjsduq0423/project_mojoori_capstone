@@ -77,15 +77,10 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      search: "",
-      magnify: "",
-
       page: 1,
       pageSize: 5,
       listCount: 0,
-      selection: "",
       historyList: [],
-      searchHistory: ["2차전지", "반도체", "소매업"],
     };
   },
   computed: {
@@ -116,12 +111,6 @@ export default {
       let _end = pageIndex * this.pageSize;
       this.historyList = this.list.slice(_start, _end);
       this.page = pageIndex;
-    },
-    removeList: function (i) {
-      this.searchHistory.splice(i, 1);
-    },
-    nothing() {
-      console.log(this.magnify);
     },
   },
 };

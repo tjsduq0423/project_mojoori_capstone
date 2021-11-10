@@ -7,7 +7,7 @@
           <MyPageBox />
         </v-flex>
         <v-flex md9 sm9 mr-16>
-          <MyPageLikeReport />
+          <ReportCardList />
         </v-flex>
       </v-layout>
     </v-main>
@@ -17,13 +17,13 @@
 <script>
 import AppbarLogined from "@/components/AppbarLogined.vue";
 import MyPageBox from "@/components/MyPageBox.vue";
-import MyPageLikeReport from "@/components/MyPageLikeReport.vue";
+import ReportCardList from "@/components/ReportCardList.vue";
 export default {
   name: "InterestIndustry",
   components: {
     AppbarLogined,
     MyPageBox,
-    MyPageLikeReport,
+    ReportCardList,
   },
 };
 </script>
