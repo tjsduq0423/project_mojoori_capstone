@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     viewArticle(index) {
-      console.log(this.articles[index]._id);
+      this.$router.push({ path: `/article/${this.articles[index]._id}` });
     },
   },
 };
