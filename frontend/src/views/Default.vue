@@ -7,7 +7,7 @@
         <v-layout align-content-space-around justify-center fill-height>
           <v-flex md8 sm8>
             <Search />
-            <ReportCardList />
+            <ReportCardList :login="false" />
           </v-flex>
           <v-flex md4 sm4>
             <v-container fluid>
@@ -30,7 +30,6 @@ import Appbar from "@/components/Appbar.vue";
 import Search from "@/components/Search.vue";
 import ReportCardList from "@/components/ReportCardList.vue";
 import Popular from "@/components/Popular.vue";
-
 export default {
   name: "Default",
   components: {

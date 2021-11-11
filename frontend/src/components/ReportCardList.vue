@@ -40,8 +40,11 @@
           <v-btn class="mx-2" fab icon>
             <v-icon dark large> mdi-open-in-new </v-icon>
           </v-btn>
+          <v-btn v-if="login == false" class="mx-2" fab disabled icon>
+            <v-icon dark color="pink"> mdi-heart </v-icon>
+          </v-btn>
           <v-btn
-            v-if="item.likes == false"
+            v-if="(item.likes == false) & (login == true)"
             class="mx-2"
             fab
             icon
@@ -50,7 +53,7 @@
             <v-icon dark color="pink" large> mdi-heart-outline </v-icon>
           </v-btn>
           <v-btn
-            v-else
+            v-if="(item.likes == true) & (login == true)"
             class="mx-2"
             fab
             icon
@@ -74,14 +77,19 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+
 export default {
   name: "ReportCardList",
+  props: {
+    login: Boolean,
+  },
   data() {
     return {
       page: 1,
       pageSize: 20,
       listCount: 0,
       historyList: [],
+      list: [],
     };
   },
   computed: {
