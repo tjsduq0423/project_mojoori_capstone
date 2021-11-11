@@ -1,5 +1,12 @@
 <template>
-  <v-card max-width="900px" min-width="400px" class="mx-auto" flat>
+  <v-card max-width="900px" min-width="400px" class="mx-auto mt-3" flat>
+    <v-row>
+      <v-col cols="auto" class="mt-6 ml-6 pa-0">
+        <p class="text-h5 text-left font-weight-black ml-8 mb-10">
+          게시글 리스트({{ articles.length }})
+        </p>
+      </v-col>
+    </v-row>
     <v-list class="pa-0">
       <v-list-item-group>
         <template v-for="(article, index) in articles">
@@ -29,6 +36,12 @@
             </v-list-item-content>
             <v-list-item-action class="mt-12">
               <v-list-item-action-text class="mr-3">
+                <v-btn style="background-color: #9fffed" dark class="mt-0 mr-6"
+                  >수정</v-btn
+                >
+                <v-btn style="background-color: #f64747" dark class="mt-0 mr-6"
+                  >삭제</v-btn
+                >
                 {{ article.lastTime }} 시간 전
               </v-list-item-action-text>
             </v-list-item-action>
