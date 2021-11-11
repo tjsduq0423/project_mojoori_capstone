@@ -75,6 +75,7 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
+  name: "ReportCardList",
   data() {
     return {
       page: 1,

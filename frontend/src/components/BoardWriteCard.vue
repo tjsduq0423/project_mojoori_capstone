@@ -43,8 +43,13 @@
       <v-row>
         <v-col cols="12" class="ml-3">
           <v-card flat class="pr-6">
-            <ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
-            {{ editorData }}
+            <editor
+              ref="toastuiEditor"
+              height="500px"
+              initial-edit-type="wysiwyg"
+              preview-style="vertical"
+              :option="editorOptions"
+            />
           </v-card>
         </v-col>
       </v-row>
@@ -53,6 +58,7 @@
           dark
           style="background-color: #9fffed"
           class="ml-auto mr-6 mb-4 mt-2"
+          @click="getHTML"
         >
           작성완료
         </v-btn>
@@ -62,18 +68,26 @@
 </template>
 
 <script>
+import "@toast-ui/editor/dist/toastui-editor.css";
+
+import { Editor } from "@toast-ui/vue-editor";
 export default {
   name: "BoardWriteCard",
-  components: {},
+  components: {
+    editor: Editor,
+  },
   data() {
     return {
       title: "",
+      editorOptions: { hideModeSwitch: true },
       themes: ["종목", "이슈", "유머", "자유"],
-      editorData: "",
-      editorConfig: {
-        // The configuration of the editor.
-      },
     };
+  },
+  methods: {
+    getHTML() {
+      let html = this.$refs.toastuiEditor.invoke("getHTML");
+      console.log(html);
+    },
   },
 };
 </script>
