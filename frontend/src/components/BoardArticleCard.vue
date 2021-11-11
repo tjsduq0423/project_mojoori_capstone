@@ -26,22 +26,12 @@
           <viewer height="500px" :initial-value="viewerText" />
         </v-col>
       </v-row>
-<<<<<<< HEAD
-      <v-row>
-        <v-col> 게시글 내용 </v-col>
-      </v-row>
-=======
->>>>>>> dev/moon
       <v-row>
         <v-col>
           <v-divider class="divider mx-3"></v-divider>
         </v-col>
       </v-row>
-<<<<<<< HEAD
-      <v-row justify="center" class="my-9">
-=======
       <v-row justify="center" class="py-6">
->>>>>>> dev/moon
         <v-col cols="4">
           <v-row justify="space-around">
             <v-btn outlined>
@@ -71,22 +61,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-export default {
-  data() {
-    return {
-      login: false,
-    };
-  },
-  methods: {
-    Mark() {
-      this.login = true;
-    },
-    tp() {
-      this.$router.push({ name: "UserAuthentication" });
-    },
-  },
-=======
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 
 import { Viewer } from "@toast-ui/vue-editor";
@@ -101,7 +75,6 @@ export default {
       viewerText: `<ol><li><p><strong>asdf<em>asdfsdfasdfsdfsdfdsfdsdfs</em></strong></p></li><li><p>dsfa</p><ol><li><p>df</p></li></ol></li><li><p>sdf</p><table class=""><thead><tr><th><p>sdf</p></th><th><p>sdfsf</p></th><th><p>sdf</p></th></tr></thead><tbody><tr><td><p>sdf</p></td><td><p>fdsf</p></td><td><p>sdf</p></td></tr><tr><td><p>asdf</p></td><td><p>fsdf</p></td><td><p>sd</p></td></tr><tr><td><p>dsf</p></td><td><p>dsf</p></td><td><p>dsf</p><p><br class="ProseMirror-trailingBreak"></p></td></tr></tbody></table></li></ol><p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div><p><br class="ProseMirror-trailingBreak"></p><p><br class="ProseMirror-trailingBreak"></p><p><br class="ProseMirror-trailingBreak"></p>`,
     };
   },
->>>>>>> dev/moon
 };
 </script>
 

@@ -30,13 +30,7 @@
               </v-row>
             </v-container>
           </v-col>
-<<<<<<< HEAD
-          <v-col cols="12" md="8">
-            <BoardArticleCard />
-          </v-col>
-=======
           <v-col cols="12" md="8"> </v-col>
->>>>>>> dev/moon
         </v-row>
       </v-container>
     </v-main>
