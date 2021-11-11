@@ -89,7 +89,6 @@ export default {
       pageSize: 20,
       listCount: 0,
       historyList: [],
-      list: [],
     };
   },
   computed: {
