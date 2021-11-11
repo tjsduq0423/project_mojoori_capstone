@@ -1,6 +1,6 @@
 <template>
   <v-app app>
-    <Appbar />
+    <AppbarLogined />
 
     <v-main class="back">
       <v-container fluid>
@@ -23,9 +23,10 @@
                   <BoardArticleCard />
                 </v-col>
               </v-row>
+
               <v-row class="mt-6">
                 <v-col>
-                  <CommentCard />
+                  <CommentCard :login="true" />
                 </v-col>
               </v-row>
             </v-container>
@@ -38,20 +39,17 @@
 </template>
 
 <script>
-import Appbar from "@/components/Appbar.vue";
+import AppbarLogined from "@/components/AppbarLogined.vue";
 import BoardArticleCard from "@/components/BoardArticleCard.vue";
 import CommentCard from "@/components/CommentCard.vue";
 import BoardBox from "@/components/BoardBox.vue";
 export default {
-  name: "Article",
+  name: "ArticleLogined",
   components: {
-    Appbar,
+    AppbarLogined,
     BoardArticleCard,
     CommentCard,
     BoardBox,
-  },
-  data() {
-    return {};
   },
 };
 </script>

@@ -11,10 +11,10 @@
               $vuetify.breakpoint.lg ||
               $vuetify.breakpoint.md
             "
-            md="2"
+            md="3"
             class=""
           >
-            <v-card flat> Card </v-card>
+            <BoardBox />
           </v-col>
           <v-col cols="12" md="8">
             <BoardWriteCard />
@@ -28,11 +28,13 @@
 <script>
 import AppbarLogined from "@/components/AppbarLogined.vue";
 import BoardWriteCard from "@/components/BoardWriteCard.vue";
+import BoardBox from "@/components/BoardBox.vue";
 export default {
   name: "BoardWrite",
   components: {
     AppbarLogined,
     BoardWriteCard,
+    BoardBox,
   },
 };
 </script>

@@ -29,6 +29,9 @@ export default {
     BoardCard,
     BoardCardList,
   },
+  data() {
+    return {};
+  },
 };
 </script>
 <style scoped></style>

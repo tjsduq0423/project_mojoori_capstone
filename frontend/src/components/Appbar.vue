@@ -26,10 +26,6 @@
       게시판
       <v-icon large right class="ml-3"> mdi-clipboard-edit-outline </v-icon>
     </v-btn>
-    <!-- 사용자 알림내용 열람용 버튼 -->
-    <v-btn icon class="ma-2 grey lighten-1" to="/user-authentication">
-      <v-icon large>mdi-bell-outline</v-icon>
-    </v-btn>
     <!-- 회원가입버튼 -->
     <v-btn
       class="ma-2 grey lighten-1"

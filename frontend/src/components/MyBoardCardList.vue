@@ -34,7 +34,7 @@
                 {{ article.theme }} | {{ article.writer }}
               </v-list-item-subtitle>
             </v-list-item-content>
-            <v-list-item-action class="mt-12">
+            <v-list-item-action>
               <v-list-item-action-text class="mr-3">
                 <v-btn style="background-color: #9fffed" dark class="mt-0 mr-6"
                   >수정</v-btn

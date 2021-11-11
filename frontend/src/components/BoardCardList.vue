@@ -58,6 +58,12 @@
 
 <script>
 export default {
+  props: {
+    login: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       page: 2,
@@ -155,7 +161,15 @@ export default {
   },
   methods: {
     viewArticle(index) {
-      this.$router.push({ path: `/article/${this.articles[index]._id}` });
+      if (this.login === false) {
+        this.$router.push({
+          path: `/article/${this.articles[index]._id}`,
+        });
+      } else {
+        this.$router.push({
+          path: `/article-logined/${this.articles[index]._id}`,
+        });
+      }
     },
   },
 };

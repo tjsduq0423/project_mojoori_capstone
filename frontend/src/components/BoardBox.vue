@@ -1,5 +1,5 @@
 <template>
-  <v-card height="400" elevation="11" class="mx-auto" width="70%">
+  <v-card height="400" class="mx-auto" width="70%" flat>
     <v-card-title
       class="text-h5 title"
       style="font-weight: 900; font-size: 25px !important"

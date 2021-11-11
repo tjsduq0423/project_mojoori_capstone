@@ -91,6 +91,11 @@ const routes = [
     component: () => import("@/views/Article.vue"),
   },
   {
+    path: "/article-logined/:id",
+    name: "ArticleLogined",
+    component: () => import("@/views/ArticleLogined.vue"),
+  },
+  {
     path: "/logout",
     name: "Logout",
     component: {

@@ -10,10 +10,18 @@
           align-content="space-around"
           justify="center"
         >
-          <v-col md="3" sm="3" xs="3">
+          <v-col
+            v-if="
+              $vuetify.breakpoint.xl ||
+              $vuetify.breakpoint.lg ||
+              $vuetify.breakpoint.md
+            "
+            md="3"
+            class="py-0"
+          >
             <BoardBox :style="{ top: '88px', position: 'sticky' }" />
           </v-col>
-          <v-col md="8" sm="8" class="mr-16">
+          <v-col md="8" cols="12" class="mr-16 pt-0">
             <MyBoardCardList />
           </v-col>
         </v-row>
