@@ -46,6 +46,11 @@ const routes = [
     component: () => import("@/views/Logined.vue"),
   },
   {
+    path: "/bookmark",
+    name: "Bookmark",
+    component: () => import("@/views/Bookmark.vue"),
+  },
+  {
     path: "/board-logined",
     name: "BoardLogined",
     component: () => import("@/views/BoardLogined.vue"),

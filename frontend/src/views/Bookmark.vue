@@ -14,8 +14,7 @@
             <BoardBox :style="{ top: '88px', position: 'sticky' }" />
           </v-col>
           <v-col md="8" sm="8" class="mr-16">
-            <BoardCard class="mb-6" />
-            <BoardCardList />
+            <BookmarkCardList />
           </v-col>
         </v-row>
       </v-container>
@@ -25,16 +24,14 @@
 
 <script>
 import AppbarLogined from "@/components/AppbarLogined.vue";
-import BoardCard from "@/components/BoardCard.vue";
-import BoardCardList from "@/components/BoardCardList.vue";
 import BoardBox from "@/components/BoardBox.vue";
+import BookmarkCardList from "@/components/BookmarkCardList.vue";
 export default {
-  name: "BoardLogined",
+  name: "Bookmark",
   components: {
     AppbarLogined,
-    BoardCard,
-    BoardCardList,
     BoardBox,
+    BookmarkCardList,
   },
 };
 </script>

@@ -1,5 +1,10 @@
 <template>
-  <v-card max-width="900px" min-width="400px" class="mx-auto" flat>
+  <v-card max-width="900px" min-width="400px" class="mx-auto mt-3" flat>
+    <v-row>
+      <v-col cols="auto" class="mt-6 ml-6 pa-0">
+        <p class="text-h5 text-left font-weight-black ml-8 mb-10">내 북마크</p>
+      </v-col>
+    </v-row>
     <v-list class="pa-0">
       <v-list-item-group>
         <template v-for="(article, index) in articles">
