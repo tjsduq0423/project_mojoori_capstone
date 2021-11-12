@@ -118,7 +118,7 @@ export default {
   },
   data() {
     return {
-      stateMaintain: null,
+      stateMaintain: false,
       email: "",
       password: "",
       show: false,
@@ -130,12 +130,13 @@ export default {
   methods: {
     async validate() {
       const val = await this.$refs.form.validate();
-      // console.log(val); true false
-      if (val) {
+      if (val === true) {
+        this.$store.dispatch("auth/login", {
+          userId: this.email,
+          password: this.password,
+          stateMaintain: this.stateMaintain,
+        });
         this.$router.push({ name: "Logined" });
-        // axios call email 로 임시비밀번호 생성 후 전송
-        // then( alert 창(임시비밀번호 발송되었습니다.)
-        //  --> 페이지 이동  $router.push({name :"user-authentication"}))
       }
     },
   },

@@ -74,7 +74,11 @@ export default {
   },
   methods: {
     tp() {
-      this.login = this.login ? true : false;
+      this.login = false;
+      this.$router.push({ path: "/user-authentication" });
+    },
+    Mark() {
+      this.login = true;
     },
   },
 };
