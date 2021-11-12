@@ -3,12 +3,16 @@ import * as authApi from "@/api/auth";
 export default {
   namespaced: true,
   state: {
-    token: null,
+    accessToken: null,
+    refreshToken: null,
   },
   getters: {},
   mutations: {
-    setToken(state, token) {
-      state.token = token;
+    setAccessToken(state, accessToken) {
+      state.accessToken = accessToken;
+    },
+    setRefreshToken(state, refreshToken) {
+      state.refreshToken = refreshToken;
     },
   },
   actions: {
@@ -17,7 +21,8 @@ export default {
         const response = await authApi.login(userId, password, stateMaintain);
 
         if (response.status === 200) {
-          commit("setToken", response.data.token);
+          commit("setAccessToken", response.data.accesstoken);
+          commit("setRefreshToken", response.data.refreshToken);
         }
       } catch (err) {
         alert("아이디 비밀번호를 확인해주세요.");
