@@ -48,6 +48,19 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.callInterest();
+    this.callData();
+  },
+
+  methods: {
+    callInterest() {
+      this.$store.dispatch("interest/callInterest");
+    },
+    callData() {
+      this.$store.dispatch("list/callData");
+    },
+  },
 };
 </script>
 

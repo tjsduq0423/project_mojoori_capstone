@@ -47,6 +47,15 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.callData();
+  },
+
+  methods: {
+    callData() {
+      this.$store.dispatch("list/callData");
+    },
+  },
 };
 </script>
 

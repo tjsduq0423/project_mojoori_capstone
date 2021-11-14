@@ -1,10 +1,14 @@
 var express = require('express');  
-var report =require('../data/report_data');
+ var reports = require('../data/report_data');
 
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send(report);
+router.get('/', (req, res) => {
+  res.status(200).send({
+    data:reports
+  });
 });
+
+
 module.exports = router;
