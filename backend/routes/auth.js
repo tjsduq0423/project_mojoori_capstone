@@ -4,7 +4,7 @@ var express = require("express");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
 
-let users = [{ userId: "test", password: "test" }];
+let users = [{ userId: "test", password: "test", nickname: "test" }];
 
 router.post("/signUp", async (req, res) => {
   //검증 절차 필요함 userId 중복 nickname 중복 -> 401 err 리턴

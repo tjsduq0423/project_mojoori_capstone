@@ -133,7 +133,8 @@ router.beforeEach(async (to, from, next) => {
       const response = await authApi.getUser();
 
       if (response.status === 200) {
-        console.log(response.data);
+        store.commit("auth/setUserId", response.data.userId);
+        store.commit("auth/setNickname", response.data.nickname);
         store.commit("auth/setAuth", true);
         next();
       }
@@ -149,6 +150,8 @@ router.beforeEach(async (to, from, next) => {
 
       if (response.status === 200) {
         // console.log(response.data.data);
+        store.commit("auth/setUserId", response.data.userId);
+        store.commit("auth/setNickname", response.data.nickname);
         store.commit("auth/setAuth", true);
         next({ path: "/logined" });
       }
