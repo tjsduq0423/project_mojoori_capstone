@@ -1,5 +1,9 @@
 import http from "@/api/http";
 
-export function login(userid, password, stateMaintain) {
-  return http.post("/auth/login", { userid, password, stateMaintain });
-}
+const login = (userid, password, stateMaintain) =>
+  http.post("/auth/login", { userid, password, stateMaintain });
+
+const logout = () => {
+  http.post("/auth/logout");
+};
+export { login, logout };

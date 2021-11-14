@@ -77,7 +77,7 @@
                         large
                         tile
                         class="grey lighten-1 text-h5 font-weight-bold"
-                        @click="validate()"
+                        @click="login()"
                       >
                         로그인
                       </v-btn>
@@ -110,6 +110,7 @@
 
 <script>
 import AppbarNone from "@/components/AppbarNone.vue";
+import * as authApi from "@/api/auth";
 
 export default {
   name: "UserAuthentication",
@@ -122,21 +123,30 @@ export default {
       email: "",
       password: "",
       show: false,
-      valid: true,
       emailRules: [(v) => !!v || "이메일을 입력해주세요."],
       passwordRules: [(v) => !!v || "패스워드를 입력해주세요"],
     };
   },
   methods: {
-    async validate() {
+    async login() {
       const val = await this.$refs.form.validate();
-      if (val === true) {
-        this.$store.dispatch("auth/login", {
-          userId: this.email,
-          password: this.password,
-          stateMaintain: this.stateMaintain,
-        });
-        this.$router.push({ name: "Logined" });
+      if (val) {
+        try {
+          const response = await authApi.login(
+            this.email,
+            this.password,
+            this.stateMaintain
+          );
+
+          if (response.status === 200) {
+            console.log(response.data.message);
+            this.$router.push({ name: "Logined" });
+          }
+        } catch (err) {
+          if (err.response.status === 401) {
+            console.log(err.response.data.message);
+          }
+        }
       }
     },
   },
