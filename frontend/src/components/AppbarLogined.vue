@@ -58,20 +58,182 @@
       </template>
 
       <v-list class="py-0">
-        <template v-for="(menu, index) in menus">
-          <v-list-item :key="index" link :to="menu.to">
-            <v-list-item-title class="text-md-center"
-              >{{ menu.content }}
-            </v-list-item-title>
-          </v-list-item>
-          <v-divider
-            v-if="index < menus.length - 1"
-            :key="`${index} - divider`"
-          ></v-divider>
-        </template>
+        <v-list-item>
+          <div class="text-center">
+            <v-dialog v-model="dialog" width="900">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn text v-bind="attrs" v-on="on"> 관심종목설정 </v-btn>
+              </template>
+
+              <v-card>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12">
+                      <p
+                        style="color: #64ffda"
+                        class="text-h4 text-center font-weight-black mb-0"
+                      >
+                        관심 종목 설정
+                      </p>
+                    </v-col>
+                  </v-row>
+                  <v-row justify="end">
+                    <v-col cols="8">
+                      <v-text-field
+                        v-model="magnify"
+                        solo
+                        dense
+                        label="종목"
+                        flat
+                        hide-details="auto"
+                        outlined
+                        style="border-radius: 15px"
+                      >
+                        <v-icon slot="append" color="black" large
+                          >mdi-magnify</v-icon
+                        >
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <template v-for="(chunk, index) in chunkStocks">
+                      <v-container v-if="page == index + 1" :key="index">
+                        <v-row
+                          v-for="(a, i) in 5"
+                          :key="i"
+                          justify="space-around"
+                        >
+                          <v-col
+                            v-for="(ele, idx) in chunk.slice(
+                              i * 5,
+                              (i + 1) * 5
+                            )"
+                            :key="idx"
+                          >
+                            <v-checkbox
+                              v-model="selectedstocks"
+                              :label="ele"
+                              :value="ele"
+                            >
+                            </v-checkbox>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </template>
+                  </v-row>
+                  <v-row justify="center">
+                    <v-pagination
+                      v-model="page"
+                      :length="pages"
+                      :total-visible="7"
+                      circle
+                    ></v-pagination>
+                  </v-row>
+                  <v-row justify="end">
+                    <v-btn text @click="dialog = false">확인</v-btn>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-dialog>
+          </div>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item>
+          <div class="text-center">
+            <v-dialog v-model="dialog2" width="900">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn text v-bind="attrs" v-on="on"> 관심산업설정 </v-btn>
+              </template>
+
+              <v-card>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12">
+                      <p
+                        style="color: #64ffda"
+                        class="text-h4 text-center font-weight-black mb-0"
+                      >
+                        관심 산업 설정
+                      </p>
+                    </v-col>
+                  </v-row>
+                  <v-row justify="end">
+                    <v-col cols="8">
+                      <v-text-field
+                        v-model="magnify"
+                        solo
+                        dense
+                        label="산업"
+                        flat
+                        hide-details="auto"
+                        outlined
+                        style="border-radius: 15px"
+                      >
+                        <v-icon slot="append" color="black" large
+                          >mdi-magnify</v-icon
+                        >
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <template v-for="(chunk2, index2) in chunkIndustrys">
+                      <v-container v-if="page2 == index2 + 1" :key="index2">
+                        <v-row
+                          v-for="(b, i2) in 5"
+                          :key="i2"
+                          justify="space-around"
+                        >
+                          <v-col
+                            v-for="(ele2, idx2) in chunk2.slice(
+                              i2 * 5,
+                              (i2 + 1) * 5
+                            )"
+                            :key="idx2"
+                          >
+                            <v-checkbox
+                              v-model="selectedindustrys"
+                              :label="ele2"
+                              :value="ele2"
+                            >
+                            </v-checkbox>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </template>
+                  </v-row>
+                  <v-row justify="center">
+                    <v-pagination
+                      v-model="page2"
+                      :length="pages2"
+                      :total-visible="7"
+                      circle
+                    ></v-pagination>
+                  </v-row>
+                  <v-row justify="end">
+                    <v-btn text @click="dialog2 = false">확인</v-btn>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-dialog>
+          </div>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item>
+          <v-row justify="center">
+            <v-btn text @click="goMypage()"> 마이페이지 </v-btn>
+          </v-row>
+        </v-list-item>
+
+        <v-divider></v-divider>
+        <v-list-item>
+          <v-row justify="center">
+            <v-btn text @click="logout()"> 로그아웃 </v-btn>
+          </v-row>
+        </v-list-item>
       </v-list>
 
       <!-- dialog 이용하여 관심종목 설정-->
+<<<<<<< HEAD
       <div class="text-center">
         <v-dialog v-model="dialog" width="900">
           <template v-slot:activator="{ on, attrs }">
@@ -144,6 +306,8 @@
           </v-card>
         </v-dialog>
       </div>
+=======
+>>>>>>> origin/dev/Sang
     </v-menu>
   </v-app-bar>
 </template>
@@ -154,6 +318,10 @@ export default {
   data() {
     return {
       dialog: false,
+<<<<<<< HEAD
+=======
+      dialog2: false,
+>>>>>>> origin/dev/Sang
       items: [
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 3 },
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 2 },
@@ -162,15 +330,18 @@ export default {
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 2 },
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 3 },
       ],
-      menus: [
-        {
-          content: "관심종목설정",
-          to: "/interest-corporation",
-        },
-        { content: "관심산업설정", to: "/interest-industry" },
-        { content: "마이페이지", to: "/like-report" },
-        { content: "로그아웃", to: "/logout" },
+
+      stocks: [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+        39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
       ],
+      industrys: [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+        39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+      ],
+<<<<<<< HEAD
       stocks: [
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
       ],
@@ -178,6 +349,15 @@ export default {
       selected: [],
       stockscount: "",
       magnify: "",
+=======
+      magnify: "",
+      page: 1,
+      page2: 1,
+      selectedstocks: [],
+      selectedindustrys: [],
+      stockscount: "",
+      industryscount: "",
+>>>>>>> origin/dev/Sang
     };
   },
   computed: {
@@ -186,11 +366,45 @@ export default {
       this.stocks.forEach((value, index) => {
         if (index % 25 == 0) arr.push(this.stocks.slice(index, index + 25));
       });
+<<<<<<< HEAD
 
       return arr;
     },
   },
   methods: {},
+=======
+      return arr;
+    },
+    chunkIndustrys() {
+      let arr = [];
+      this.industrys.forEach((value, index) => {
+        if (index % 25 == 0) arr.push(this.industrys.slice(index, index + 25));
+      });
+      return arr;
+    },
+    pages() {
+      return Math.ceil(this.stockscount / 25);
+    },
+    pages2() {
+      return Math.ceil(this.industryscount / 25);
+    },
+  },
+  created() {
+    this.initPage();
+  },
+  methods: {
+    initPage: function () {
+      this.stockscount = this.stocks.length;
+      this.industryscount = this.industrys.length;
+    },
+    logout() {
+      this.$router.push({ name: "Default" });
+    },
+    goMypage() {
+      this.$router.push({ name: "LikeReport" });
+    },
+  },
+>>>>>>> origin/dev/Sang
 };
 </script>
 

@@ -7,7 +7,7 @@
         <v-layout align-content-space-around justify-center fill-height>
           <v-flex md8 sm8>
             <Search />
-            <ReportCardList />
+            <ReportCardList :login="true" />
           </v-flex>
           <v-flex md4 sm4>
             <v-container fluid>
