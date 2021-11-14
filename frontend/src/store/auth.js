@@ -1,7 +1,13 @@
 export default {
   namespaced: true,
-  state: {},
+  state: {
+    auth: false,
+  },
   getters: {},
-  mutations: {},
+  mutations: {
+    setAuth(state, data) {
+      state.auth = data;
+    },
+  },
   actions: {},
 };

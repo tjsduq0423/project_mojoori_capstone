@@ -112,7 +112,7 @@
                           >
                             <v-checkbox
                               v-model="selectedstocks"
-                              :label="ele"
+                              :label="ele.toString()"
                               :value="ele"
                             >
                             </v-checkbox>
@@ -192,7 +192,7 @@
                           >
                             <v-checkbox
                               v-model="selectedindustrys"
-                              :label="ele2"
+                              :label="ele2.toString()"
                               :value="ele2"
                             >
                             </v-checkbox>
@@ -233,95 +233,18 @@
       </v-list>
 
       <!-- dialog 이용하여 관심종목 설정-->
-<<<<<<< HEAD
-      <div class="text-center">
-        <v-dialog v-model="dialog" width="900">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
-              Click Me
-            </v-btn>
-          </template>
-
-          <v-card>
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <p
-                    style="color: #64ffda"
-                    class="text-h4 text-center font-weight-black mb-0"
-                  >
-                    관심 종목 설정
-                  </p>
-                </v-col>
-              </v-row>
-              <v-row justify="end">
-                <v-col cols="8">
-                  <v-text-field
-                    v-model="magnify"
-                    solo
-                    dense
-                    label="종목"
-                    flat
-                    hide-details="auto"
-                    outlined
-                    style="border-radius: 15px"
-                  >
-                    <v-icon slot="append" color="black" large
-                      >mdi-magnify</v-icon
-                    >
-                  </v-text-field>
-                </v-col>
-              </v-row>
-              <template v-for="(chunk, index) in chunkStocks">
-                <v-container v-if="page == index + 1" :key="index">
-                  <v-row v-for="(a, i) in 5" :key="i" justify="space-around">
-                    <v-col
-                      v-for="(ele, idx) in chunk.slice(i * 5, (i + 1) * 5)"
-                      :key="idx"
-                    >
-                      <v-checkbox
-                        v-model="selected"
-                        :label="ele.toString()"
-                        :nuvalue="ele"
-                      >
-                      </v-checkbox>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </template>
-
-              {{ selected }}
-              <v-row justify="center">
-                <v-btn v-if="page !== 1" class="mt-12" @click="page--"
-                  >이전</v-btn
-                >
-                <v-btn class="mt-12" @click="page++">다음</v-btn>
-              </v-row>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn text @click="dialog = false"> 확인 </v-btn>
-              </v-card-actions>
-            </v-container>
-          </v-card>
-        </v-dialog>
-      </div>
-=======
->>>>>>> origin/dev/Sang
     </v-menu>
   </v-app-bar>
 </template>
 
 <script>
+import * as authApi from "@/api/auth";
 export default {
   name: "AppbarLogined",
   data() {
     return {
       dialog: false,
-<<<<<<< HEAD
-=======
       dialog2: false,
->>>>>>> origin/dev/Sang
       items: [
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 3 },
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 2 },
@@ -341,15 +264,6 @@ export default {
         21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
         39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
       ],
-<<<<<<< HEAD
-      stocks: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      ],
-      page: 1,
-      selected: [],
-      stockscount: "",
-      magnify: "",
-=======
       magnify: "",
       page: 1,
       page2: 1,
@@ -357,7 +271,6 @@ export default {
       selectedindustrys: [],
       stockscount: "",
       industryscount: "",
->>>>>>> origin/dev/Sang
     };
   },
   computed: {
@@ -366,13 +279,6 @@ export default {
       this.stocks.forEach((value, index) => {
         if (index % 25 == 0) arr.push(this.stocks.slice(index, index + 25));
       });
-<<<<<<< HEAD
-
-      return arr;
-    },
-  },
-  methods: {},
-=======
       return arr;
     },
     chunkIndustrys() {
@@ -397,14 +303,19 @@ export default {
       this.stockscount = this.stocks.length;
       this.industryscount = this.industrys.length;
     },
-    logout() {
-      this.$router.push({ name: "Default" });
+    async logout() {
+      try {
+        const response = await authApi.logout();
+        console.log(response.data.message);
+        this.$router.push({ name: "Default" });
+      } catch (err) {
+        console.log(err);
+      }
     },
     goMypage() {
       this.$router.push({ name: "LikeReport" });
     },
   },
->>>>>>> origin/dev/Sang
 };
 </script>
 

@@ -21,13 +21,12 @@ router.post("/signUp", async (req, res) => {
 });
 
 router.post("/login", async (req, res, next) => {
-  const user = {
-    userId: req.body.userId,
-    password: req.body.password,
-  };
-  const auth = await users.includes(user); // user Authentication -> DB 쿼리 작성으로 수정
-
-  if (auth) {
+  const auth = await users.some(
+    (ele) =>
+      ele.userId === req.body.userId && ele.password === req.body.password
+  ); // user Authentication -> DB 쿼리 작성으로 수정
+  console.log(req.body);
+  if (!auth) {
     return res.status(401).send({
       message: "ID Password를 다시 확인해주세요.",
     });
@@ -36,10 +35,10 @@ router.post("/login", async (req, res, next) => {
   // jwt 생성
   const maintainLoginState = await req.body.stateMaintain;
   const accessToken = maintainLoginState
-    ? jwt.sign({ userId: user.userId }, process.env.ACCESS_TOKEN_SECRET, {
+    ? jwt.sign({ userId: req.body.userId }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "1d",
       })
-    : jwt.sign({ userId: user.userId }, process.env.ACCESS_TOKEN_SECRET, {
+    : jwt.sign({ userId: req.body.userId }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "15m",
       }); //  로그인 유지 할 지 말지.
 
@@ -66,9 +65,9 @@ router.get("/user", async (req, res) => {
 
     const { password, ...data } = await users.filter(
       (user) => user.userId === payload.userId
-    );
+    )[0];
 
-    res.send(data);
+    res.status(200).send(data);
   } catch (e) {
     res.status(401).send({
       message: "인증 실패",
@@ -78,7 +77,9 @@ router.get("/user", async (req, res) => {
 
 router.post("/logout", (req, res) => {
   res.cookie("jwt", "", { maxAge: 0 }); // remove cookie
-  res.sendStatus(200);
+  res.status(200).send({
+    message: "로그아웃 성공",
+  });
 });
 
 module.exports = router;
