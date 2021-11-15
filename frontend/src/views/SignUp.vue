@@ -103,6 +103,8 @@
 
 <script>
 import AppbarNone from "@/components/AppbarNone.vue";
+import * as authApi from "@/api/auth";
+
 export default {
   name: "SignUp",
   components: {
@@ -138,6 +140,20 @@ export default {
     async validate() {
       const val = await this.$refs.form.validate();
       if (val) {
+        try {
+          const response = await authApi.signUp(
+            this.email,
+            this.password,
+            this.nickname
+          );
+
+          if (response.status === 200) {
+            alert(response.data.message);
+          }
+        } catch (err) {
+          alert(err.response.data.message);
+        }
+
         this.$router.push({ name: "EmailAuthentication" });
         // axios call email 로 임시비밀번호 생성 후 전송
         // then( alert 창(임시비밀번호 발송되었습니다.)

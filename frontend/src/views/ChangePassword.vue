@@ -55,9 +55,9 @@
                     </v-col>
                     <v-col cols="12" class="py-0">
                       <v-text-field
-                        v-model="newpassword"
+                        v-model="newPassword"
                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                        :rules="passwordRules"
+                        :rules="newPasswordRules"
                         :type="show ? 'text' : 'password'"
                         outlined
                         label="신규 비밀번호 입력"
@@ -67,7 +67,7 @@
                     </v-col>
                     <v-col cols="12" class="py-0">
                       <v-text-field
-                        v-model="newpassword2"
+                        v-model="samePassword"
                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                         :rules="samepasswordRules"
                         :type="show ? 'text' : 'password'"
@@ -87,7 +87,7 @@
                         large
                         tile
                         class="grey lighten-1 text-h5 font-weight-bold"
-                        @click="validate()"
+                        @click="changePassword()"
                       >
                         변경하기
                       </v-btn>
@@ -105,7 +105,7 @@
 
 <script>
 import AppbarNone from "@/components/AppbarNone.vue";
-
+import * as authApi from "@/api/auth";
 export default {
   name: "FindPassword",
   components: {
@@ -116,33 +116,44 @@ export default {
       loginState: null,
       email: "",
       password: "",
-      newpassword: "",
-      newpassword2: "",
+      newPassword: "",
+      samePassword: "",
       show: false,
       done: false,
-      passwordRules: [
-        (v) => !!v || "비밀번호 입력은 필수입니다.",
+      passwordRules: [(v) => !!v || "필수 입력입니다."],
+      newPasswordRules: [
+        (v) => !!v || "필수 입력입니다.",
         (v) =>
           /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,14}$/.test(
             v
           ) || "비밀번호 조건 : 최소 8자, 최대 14자, 특수문자, 숫자, 문자",
       ],
       samepasswordRules: [
-        (v) => !!v || "비밀번호가 동일하지 않습니다.",
+        (v) => !!v || "필수 입력입니다.",
         () =>
-          this.newpassword == this.newpassword2 ||
+          this.newPassword == this.samePassword ||
           "비밀번호가 동일하지 않습니다.",
       ],
     };
   },
   methods: {
-    async validate() {
+    async changePassword() {
       const val = await this.$refs.form.validate();
       if (val) {
-        this.$router.push({ name: "EmailAuthenticationDone" });
-        // axios call email 로 임시비밀번호 생성 후 전송
-        // response로 메일이 등록되어있는지 확인 . err ->  alert // 아니면 v-if 값 done 값 변경
-        //  --> 페이지 이동  $router.push({name :"user-authentication"}))
+        try {
+          const response = await authApi.changePassword(
+            this.$store.state.auth.userId,
+            this.password,
+            this.newPassword
+          );
+
+          if (response.status === 200) {
+            alert(response.data.message);
+            this.$router.push({ name: "Logined" });
+          }
+        } catch (err) {
+          alert(err.response.data.message);
+        }
       }
     },
   },

@@ -1,5 +1,8 @@
 import http from "@/api/http";
 
+const signUp = (userId, password, nickname) =>
+  http.post("/auth/signUp", { userId, password, nickname });
+
 const login = (userId, password, stateMaintain) =>
   http.post("/auth/login", { userId, password, stateMaintain });
 
@@ -7,4 +10,7 @@ const logout = () => http.post("/auth/logout");
 
 const getUser = () => http.get("/auth/user");
 
-export { login, logout, getUser };
+const changePassword = (userId, password, newPassword) =>
+  http.post("/auth/changePassword", { userId, password, newPassword });
+
+export { signUp, login, logout, getUser, changePassword };

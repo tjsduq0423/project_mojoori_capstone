@@ -4,7 +4,7 @@
       class="text-h5 title"
       style="font-weight: 900; font-size: 25px !important"
     >
-      {{ userid }}
+      {{ $store.state.auth.userId }}
     </v-card-title>
     <v-card-text>
       <v-container>
