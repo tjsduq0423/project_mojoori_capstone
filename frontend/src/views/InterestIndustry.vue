@@ -8,7 +8,7 @@
             <MyPageBox :style="{ top: '88px', position: 'sticky' }" />
           </v-flex>
           <v-flex md9 sm9 mr-16>
-            <SearchTag />
+            <SearchTag :industry="true" :corporation="false" />
             <ReportCardList />
           </v-flex>
         </v-layout>

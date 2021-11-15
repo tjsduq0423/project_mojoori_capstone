@@ -19,7 +19,7 @@
         </v-text-field>
       </v-flex>
       <v-flex>
-        <SearchTag />
+        <SearchTag :industry="true" :corporation="true" />
       </v-flex>
 
       <v-layout justify-space-between>
@@ -68,6 +68,7 @@ export default {
       buttonitem: ["전체", "기업", "산업", "시장"],
     };
   },
+
   methods: {
     nothing() {
       console.log("heloo");

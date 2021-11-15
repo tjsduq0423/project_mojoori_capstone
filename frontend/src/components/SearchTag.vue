@@ -3,33 +3,37 @@
     <v-layout justify-center column>
       <v-flex>
         <!-- 검색 태그들 by 칩+ 카드 -->
-        <v-card height="50">
-          <v-chip
-            v-for="(tag, i) in stockstags"
-            :key="i"
-            class="ma-2"
-            text-color="white"
-            color="deep-orange darken-1"
-            label
-            close
-            @click:close="removestockstag(tag)"
-          >
-            <!-- removetag구현필요 -->
-            {{ tag }}
-          </v-chip>
-          <v-chip
-            v-for="(tag, i) in industriestags"
-            :key="i"
-            class="ma-2"
-            text-color="white"
-            color="grey darken-2"
-            label
-            close
-            @click:close="removeindustriestag(tag)"
-          >
-            <!-- removetag구현필요 -->
-            {{ tag }}
-          </v-chip>
+        <v-card min-height="50">
+          <template v-for="(tag, i) in stockstags">
+            <v-chip
+              v-if="corporation == true"
+              :key="i"
+              class="ma-2"
+              text-color="white"
+              color="deep-orange darken-1"
+              label
+              close
+              @click:close="removestockstag(tag)"
+            >
+              <!-- removetag구현필요 -->
+              {{ tag }}
+            </v-chip>
+          </template>
+          <template v-for="(tag, idx) in industriestags">
+            <v-chip
+              v-if="industry == true"
+              :key="`industry - ${idx}`"
+              class="ma-2"
+              text-color="white"
+              color="grey darken-2"
+              label
+              close
+              @click:close="removeindustriestag(tag)"
+            >
+              <!-- removetag구현필요 -->
+              {{ tag }}
+            </v-chip>
+          </template>
         </v-card>
       </v-flex>
     </v-layout>
@@ -40,6 +44,10 @@
 import { mapState } from "vuex";
 import * as interestApi from "@/api/interest";
 export default {
+  props: {
+    industry: Boolean,
+    corporation: Boolean,
+  },
   data() {
     return {
       stockstags: [],

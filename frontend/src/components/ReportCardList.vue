@@ -38,11 +38,17 @@
                 {{ stock.title }}
               </v-list-item-title>
               <v-list-item-subtitle class="text-left subtitle">
-                {{ stock.writer }}
+                {{ stock.author }}
               </v-list-item-subtitle>
             </v-list-item-content>
             <v-card-actions>
-              <v-btn class="mx-2" fab icon>
+              <v-btn
+                class="mx-2"
+                fab
+                icon
+                :href="`${stock.pdfUrl}`"
+                target="_black"
+              >
                 <v-icon dark large> mdi-open-in-new </v-icon>
               </v-btn>
               <v-btn v-if="login == false" class="mx-2" fab disabled icon>
@@ -100,7 +106,11 @@ export default {
     },
   },
   mounted() {},
-  methods: {},
+  methods: {
+    onClickpdf: function (pdfUrl2) {
+      window.open(pdfUrl2, "_blank");
+    },
+  },
 };
 </script>
 

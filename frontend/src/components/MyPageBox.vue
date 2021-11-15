@@ -31,7 +31,6 @@ export default {
   name: "MyPageBox",
   data() {
     return {
-      userid: "문준호",
       mypagebuttons: [
         {
           content: "관심 종목",

@@ -3,50 +3,29 @@ require("dotenv").config();
 var express = require("express");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
-var crypto = require("crypto");
 
-let users = [
-  { userId: "test", password: "test", nickname: "test", authToken: true },
-];
+let users = [{ userId: "test", password: "test", nickname: "test" }];
 
 router.post("/signUp", async (req, res) => {
   //검증 절차 필요함 userId 중복 nickname 중복 -> 401 err 리턴
-  const valId = await users.some((ele) => ele.userId === req.body.userId); // user Authentication -> DB 쿼리 작성으로 수정
-  if (valId) {
-    return res.status(400).send({
-      message: "Id 중복",
-    });
-  }
-  const valNickname = await users.some(
-    (ele) => ele.nickname === req.body.nickname
-  );
-  if (valNickname) {
-    return res.status(400).send({
-      message: "닉네임 중복",
-    });
-  }
-  const token = await crypto.randomBytes(32).toString("hex");
+  const auth = await users.some((ele) => ele.userId === req.body.userId); // user Authentication -> DB 쿼리 작성으로 수정
   const user = {
     userId: req.body.userId,
     password: req.body.password,
     nickname: req.body.nickname,
-    authToken: token,
+    // authToken: null, 이메일 인증시 true 모든 로그인시 토큰 발행 절차에 확인
   };
   users.push(user); //DB 에 SQL user 추가로 수정
   // 이메일로 인증메일 전송.
-
-  res.status(200).send({
-    message: "인증메일이 발송되었습니다.",
-  });
+  console.log(users);
+  res.status(200).send(users);
 });
 
 router.post("/login", async (req, res, next) => {
   const auth = await users.some(
     (ele) =>
-      ele.userId === req.body.userId &&
-      ele.password === req.body.password &&
-      ele.authToken === true
-  ); // user Authentication -> DB 쿼리 작성으로 수정 + authToken === null 실패
+      ele.userId === req.body.userId && ele.password === req.body.password
+  ); // user Authentication -> DB 쿼리 작성으로 수정
 
   if (!auth) {
     return res.status(401).send({
@@ -122,29 +101,10 @@ router.post("/changePassword", async (req, res) => {
     return item.userId === req.body.userId;
   });
   //DB -> password 변경
-  console.log(users);
 
-  return res.status(200).send({
+  res.status(200).send({
     message: "비밀번호 변경 성공",
   });
 });
 
-router.post("/emailAuth", async (req, res) => {
-  const result = await users.some((item) => item.authToken === req.body.token);
-
-  if (!result) {
-    return res.status(404).send({
-      message: "404 not Found",
-    });
-  }
-
-  users.some((item) => {
-    if (item.authToken === req.body.token) item.authToken = true;
-    return item.authToken === req.body.token;
-  });
-
-  res.status(200).send({
-    message: "인증 완료",
-  });
-});
 module.exports = router;
