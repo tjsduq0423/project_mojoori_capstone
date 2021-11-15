@@ -139,12 +139,11 @@ export default {
           );
 
           if (response.status === 200) {
-            console.log(response.data.message);
             this.$router.push({ name: "Logined" });
           }
         } catch (err) {
           if (err.response.status === 401) {
-            console.log(err.response.data.message);
+            alert(err.response.data.message);
           }
         }
       }

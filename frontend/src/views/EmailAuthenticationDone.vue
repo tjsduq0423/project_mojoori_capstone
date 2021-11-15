@@ -23,7 +23,7 @@
                     </v-col>
                     <v-col cols="12">
                       <p class="text-h5 text-left font-weight-bold">
-                        인증 완료
+                        {{ title }}
                       </p>
                       <v-divider class="divider"></v-divider>
                     </v-col>
@@ -32,15 +32,10 @@
                   <v-row>
                     <v-col cols="12">
                       <p class="pr-6 mb-0 text-subtitle-1 text-left">
-                        메일 인증이 완료 되었습니다.
+                        {{ subtitle }}
                       </p>
                     </v-col>
                   </v-row>
-                  <!-- 클릭시 axios 요청 후에 router.push 콜백으로 받아서 페이지 이동 구현 필요
-              https://router.vuejs.org/kr/guide/essentials/navigation.html
-            -->
-
-                  <!-- 로그인 버튼 -->
                   <v-row justify="center" class="my-16">
                     <v-col cols="6">
                       <v-btn
@@ -68,11 +63,30 @@
 
 <script>
 import AppbarNone from "@/components/AppbarNone.vue";
-
+import * as authApi from "@/api/auth";
 export default {
   name: "EmailAuthenticationDone",
   components: {
     AppbarNone,
+  },
+  data() {
+    return {
+      title: "",
+      subtitle: "",
+    };
+  },
+  async created() {
+    try {
+      const response = await authApi.emailAuth(this.$route.params.id);
+
+      if (response.status === 200) {
+        this.title = response.data.message;
+        this.subtitle = "메일인증이 완료되었습니다.";
+      }
+    } catch (err) {
+      this.title = err.response.data.message;
+      this.subtitle = "페이지를 찾을 수 없습니다.";
+    }
   },
 };
 </script>
