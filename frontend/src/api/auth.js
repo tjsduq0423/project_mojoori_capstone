@@ -13,4 +13,6 @@ const getUser = () => http.get("/auth/user");
 const changePassword = (userId, password, newPassword) =>
   http.post("/auth/changePassword", { userId, password, newPassword });
 
-export { signUp, login, logout, getUser, changePassword };
+const emailAuth = (token) => http.post("/auth/emailAuth", { token });
+
+export { signUp, login, logout, getUser, changePassword, emailAuth };

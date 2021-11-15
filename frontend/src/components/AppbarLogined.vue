@@ -244,6 +244,7 @@
 </template>
 
 <script>
+import * as authApi from "@/api/auth";
 import { mapState } from "vuex";
 import * as interestApi from "@/api/interest";
 export default {
@@ -284,8 +285,16 @@ export default {
   },
   created() {},
   methods: {
-    logout() {
-      this.$router.push({ name: "Default" });
+    async logout() {
+      try {
+        const response = await authApi.logout();
+        if (response.status === 200) {
+          console.log(response.data.message);
+          this.$router.push({ name: "Default" });
+        }
+      } catch (err) {
+        console.log("로그아웃 실패");
+      }
     },
     goMypage() {
       this.$router.push({ name: "LikeReport" });

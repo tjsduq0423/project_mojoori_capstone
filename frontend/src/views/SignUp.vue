@@ -148,13 +148,12 @@ export default {
           );
 
           if (response.status === 200) {
-            alert(response.data.message);
+            this.$router.push({ name: "EmailAuthentication" });
           }
         } catch (err) {
           alert(err.response.data.message);
         }
 
-        this.$router.push({ name: "EmailAuthentication" });
         // axios call email 로 임시비밀번호 생성 후 전송
         // then( alert 창(임시비밀번호 발송되었습니다.)
         //  --> 페이지 이동  $router.push({name :"user-authentication"}))
