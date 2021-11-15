@@ -1,4 +1,4 @@
-var reports=  [
+const reports=  [
     {
       name: "삼성전자",
       title: "삼성전자 떡상각",
@@ -258,4 +258,4 @@ var reports=  [
       likes: false,
     },
   ];
-module.exports = reports;
+exports.reports = reports;

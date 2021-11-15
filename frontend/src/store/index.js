@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 import list from "./list";
 import auth from "./auth";
+import interest from "./interest";
 
 export default new Vuex.Store({
   state: {},
@@ -13,5 +14,6 @@ export default new Vuex.Store({
   modules: {
     list,
     auth,
+    interest,
   },
 });

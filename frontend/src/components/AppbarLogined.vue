@@ -96,7 +96,7 @@
                     </v-col>
                   </v-row>
                   <v-row>
-                    <template v-for="(chunk, index) in chunkStocks">
+                    <template v-for="(chunk, index) in stocks">
                       <v-container v-if="page == index + 1" :key="index">
                         <v-row
                           v-for="(a, i) in 5"
@@ -176,7 +176,7 @@
                     </v-col>
                   </v-row>
                   <v-row>
-                    <template v-for="(chunk2, index2) in chunkIndustrys">
+                    <template v-for="(chunk2, index2) in industries">
                       <v-container v-if="page2 == index2 + 1" :key="index2">
                         <v-row
                           v-for="(b, i2) in 5"
@@ -238,7 +238,7 @@
 </template>
 
 <script>
-import * as authApi from "@/api/auth";
+import { mapState } from "vuex";
 export default {
   name: "AppbarLogined",
   data() {
@@ -253,64 +253,31 @@ export default {
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 2 },
         { content: "삼성전자 리포트가 업로드 되었습니다.", period: 3 },
       ],
-
-      stocks: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-        39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-      ],
-      industrys: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-        39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
-      ],
       magnify: "",
       page: 1,
       page2: 1,
       selectedstocks: [],
-      selectedindustrys: [],
-      stockscount: "",
-      industryscount: "",
+      selectedindustries: [],
     };
   },
   computed: {
-    chunkStocks() {
-      let arr = [];
-      this.stocks.forEach((value, index) => {
-        if (index % 25 == 0) arr.push(this.stocks.slice(index, index + 25));
-      });
-      return arr;
-    },
-    chunkIndustrys() {
-      let arr = [];
-      this.industrys.forEach((value, index) => {
-        if (index % 25 == 0) arr.push(this.industrys.slice(index, index + 25));
-      });
-      return arr;
-    },
+    ...mapState("interest", {
+      stocks: (state) => state.stocks,
+      industries: (state) => state.industries,
+      stockscount: (state) => state.stockscount,
+      industriescount: (state) => state.industriescount,
+    }),
     pages() {
       return Math.ceil(this.stockscount / 25);
     },
     pages2() {
-      return Math.ceil(this.industryscount / 25);
+      return Math.ceil(this.industriescount / 25);
     },
   },
-  created() {
-    this.initPage();
-  },
+  created() {},
   methods: {
-    initPage: function () {
-      this.stockscount = this.stocks.length;
-      this.industryscount = this.industrys.length;
-    },
-    async logout() {
-      try {
-        const response = await authApi.logout();
-        console.log(response.data.message);
-        this.$router.push({ name: "Default" });
-      } catch (err) {
-        console.log(err);
-      }
+    logout() {
+      this.$router.push({ name: "Default" });
     },
     goMypage() {
       this.$router.push({ name: "LikeReport" });

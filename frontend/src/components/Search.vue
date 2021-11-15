@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       magnify: "",
-      selection: "",
+      selection: 0,
       historyList: [],
       buttonitem: ["전체", "기업", "산업", "시장"],
     };
