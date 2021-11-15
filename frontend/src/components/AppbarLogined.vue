@@ -130,7 +130,9 @@
                     ></v-pagination>
                   </v-row>
                   <v-row justify="end">
-                    <v-btn text @click="dialog = false">확인</v-btn>
+                    <v-btn text @click="[(dialog = false), registerStocks()]"
+                      >확인</v-btn
+                    >
                   </v-row>
                 </v-container>
               </v-card>
@@ -191,7 +193,7 @@
                             :key="idx2"
                           >
                             <v-checkbox
-                              v-model="selectedindustrys"
+                              v-model="selectedindustries"
                               :label="ele2.toString()"
                               :value="ele2"
                             >
@@ -210,7 +212,11 @@
                     ></v-pagination>
                   </v-row>
                   <v-row justify="end">
-                    <v-btn text @click="dialog2 = false">확인</v-btn>
+                    <v-btn
+                      text
+                      @click="[(dialog2 = false), registerIndustries()]"
+                      >확인</v-btn
+                    >
                   </v-row>
                 </v-container>
               </v-card>
@@ -239,6 +245,7 @@
 
 <script>
 import { mapState } from "vuex";
+import * as interestApi from "@/api/interest";
 export default {
   name: "AppbarLogined",
   data() {
@@ -261,12 +268,13 @@ export default {
     };
   },
   computed: {
-    ...mapState("interest", {
-      stocks: (state) => state.stocks,
-      industries: (state) => state.industries,
-      stockscount: (state) => state.stockscount,
-      industriescount: (state) => state.industriescount,
-    }),
+    ...mapState("interest", [
+      "stocks",
+      "industries",
+      "stockscount",
+      "industriescount",
+    ]),
+    ...mapState("auth", ["userId"]),
     pages() {
       return Math.ceil(this.stockscount / 25);
     },
@@ -281,6 +289,36 @@ export default {
     },
     goMypage() {
       this.$router.push({ name: "LikeReport" });
+    },
+    async registerStocks() {
+      try {
+        const response = await interestApi.registerStocks(
+          this.userId,
+          this.selectedstocks
+        );
+        if (response.status === 200) {
+          console.log(response.data.userintereststocks);
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+        }
+      }
+    },
+    async registerIndustries() {
+      try {
+        const response = await interestApi.registerIndustries(
+          this.userId,
+          this.selectedindustries
+        );
+        if (response.status === 200) {
+          console.log(response.data.userinterestindustries);
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+        }
+      }
     },
   },
 };
