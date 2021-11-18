@@ -15,4 +15,14 @@ const changePassword = (userId, password, newPassword) =>
 
 const emailAuth = (token) => http.post("/auth/emailAuth", { token });
 
-export { signUp, login, logout, getUser, changePassword, emailAuth };
+const passwordTransport = (email) => http.post("/auth/password", { email });
+
+export {
+  signUp,
+  login,
+  logout,
+  getUser,
+  changePassword,
+  emailAuth,
+  passwordTransport,
+};

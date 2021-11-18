@@ -2,24 +2,28 @@
   <v-app app>
     <Appbar />
 
-    <v-main app class="back">
-      <v-container fluid>
-        <v-layout align-content-space-around justify-center fill-height>
-          <v-flex md8 sm8>
+    <v-main class="back">
+      <v-container>
+        <v-row>
+          <v-col cols="12" md="8">
             <Search />
             <ReportCardList :login="false" />
-          </v-flex>
-          <v-flex md4 sm4>
-            <v-container fluid>
-              <v-row v-for="(item, index) in items" :key="index">
-                <v-col>
-                  <Popular :item="item" />
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-flex>
-        </v-layout>
-        <!-- SerchComponent  -->
+          </v-col>
+          <v-col
+            v-if="
+              $vuetify.breakpoint.xl ||
+              $vuetify.breakpoint.lg ||
+              $vuetify.breakpoint.md
+            "
+            md="4"
+          >
+            <v-row v-for="(item, index) in items" :key="index">
+              <v-col>
+                <Popular :item="item" />
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
   </v-app>

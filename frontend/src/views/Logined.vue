@@ -2,8 +2,8 @@
   <v-app app>
     <AppbarLogined />
 
-    <v-main app class="back">
-      <v-container fluid>
+    <v-main class="back">
+      <v-container>
         <v-layout align-content-space-around justify-center fill-height>
           <v-flex md8 sm8>
             <Search />

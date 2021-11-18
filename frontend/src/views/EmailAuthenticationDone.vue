@@ -80,11 +80,11 @@ export default {
       const response = await authApi.emailAuth(this.$route.params.id);
 
       if (response.status === 200) {
-        this.title = response.data.message;
+        this.title = "인증이 성공적으로 끝났습니다.";
         this.subtitle = "메일인증이 완료되었습니다.";
       }
     } catch (err) {
-      this.title = err.response.data.message;
+      this.title = "404 Not Found";
       this.subtitle = "페이지를 찾을 수 없습니다.";
     }
   },

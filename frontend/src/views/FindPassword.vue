@@ -32,6 +32,7 @@
                   <v-row>
                     <v-col cols="12">
                       <p
+                        v-if="done === false"
                         class="
                           pr-6
                           mb-0
@@ -44,13 +45,7 @@
                       </p>
                       <p
                         v-if="done === true"
-                        class="
-                          pr-6
-                          mb-0
-                          blue
-                          text-h4 text-left
-                          font-weight-bold
-                        "
+                        class="pr-6 mb-0 text-h4 text-left font-weight-bold"
                       >
                         전송 완료
                       </p>
@@ -76,7 +71,7 @@
                         large
                         tile
                         class="grey lighten-1 text-h5 font-weight-bold"
-                        @click="validate()"
+                        @click="transport()"
                       >
                         전송
                       </v-btn>
@@ -104,7 +99,7 @@
 
 <script>
 import AppbarNone from "@/components/AppbarNone.vue";
-
+import * as authApi from "@/api/auth";
 export default {
   name: "FindPassword",
   components: {
@@ -114,8 +109,6 @@ export default {
     return {
       loginState: null,
       email: "",
-      password: "",
-      show: false,
       done: false,
       emailRules: [
         (v) => !!v || "이메일 입력은 필수입니다.",
@@ -126,12 +119,22 @@ export default {
       ],
     };
   },
+  created() {
+    this.done = false;
+  },
   methods: {
-    async validate() {
+    async transport() {
       const val = await this.$refs.form.validate();
       if (val) {
-        this.$router.push({ name: "EmailAuthenticationDone" });
-        // axios call email 로 임시비밀번호 생성 후 전송
+        try {
+          const response = await authApi.passwordTransport(this.email);
+
+          if (response.status === 200) {
+            this.done = true;
+          }
+        } catch (err) {
+          console.log(err.response);
+        }
         // response로 메일이 등록되어있는지 확인 . err ->  alert // 아니면 v-if 값 done 값 변경
         //  --> 페이지 이동  $router.push({name :"user-authentication"}))
       }

@@ -1,43 +1,37 @@
 <template>
-  <v-container class="px-0">
-    <v-layout justify-center column>
-      <v-flex>
-        <!-- 검색 태그들 by 칩+ 카드 -->
-        <v-card min-height="50">
-          <template v-for="(tag, i) in stockstags">
-            <v-chip
-              v-if="corporation == true"
-              :key="i"
-              class="ma-2"
-              text-color="white"
-              color="deep-orange darken-1"
-              label
-              close
-              @click:close="removestockstag(tag)"
-            >
-              <!-- removetag구현필요 -->
-              {{ tag }}
-            </v-chip>
-          </template>
-          <template v-for="(tag, idx) in industriestags">
-            <v-chip
-              v-if="industry == true"
-              :key="`industry - ${idx}`"
-              class="ma-2"
-              text-color="white"
-              color="grey darken-2"
-              label
-              close
-              @click:close="removeindustriestag(tag)"
-            >
-              <!-- removetag구현필요 -->
-              {{ tag }}
-            </v-chip>
-          </template>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <!-- 검색 태그들 by 칩+ 카드 -->
+  <v-card min-height="50" flat>
+    <template v-for="(tag, i) in stockstags">
+      <v-chip
+        v-if="corporation == true"
+        :key="i"
+        class="ma-2"
+        text-color="white"
+        color="deep-orange darken-1"
+        label
+        close
+        @click:close="removestockstag(tag)"
+      >
+        <!-- removetag구현필요 -->
+        {{ tag }}
+      </v-chip>
+    </template>
+    <template v-for="(tag, idx) in industriestags">
+      <v-chip
+        v-if="industry == true"
+        :key="`industry - ${idx}`"
+        class="ma-2"
+        text-color="white"
+        color="grey darken-2"
+        label
+        close
+        @click:close="removeindustriestag(tag)"
+      >
+        <!-- removetag구현필요 -->
+        {{ tag }}
+      </v-chip>
+    </template>
+  </v-card>
 </template>
 
 <script>
@@ -105,7 +99,7 @@ export default {
 }
 .v-text-field .v-input__control .v-input__slot {
   min-height: auto !important;
-  display: flex !important;
+  display: col cols= "12" !important;
   align-items: center !important;
 }
 </style>
