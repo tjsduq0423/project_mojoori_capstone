@@ -63,4 +63,12 @@ router.get('/getinterestIndustries', (req,res)=>{
   }
   res.status(200).send({industriestags:industriestags});
 });
+
+router.patch('/deleteinterestStocks',(req,res)=>{
+  const deleteintereststocks={
+    stock: req.body.stock,
+  };
+  stockstags=stockstags.filter(tag=>tag!==deleteintereststocks.stock);
+  res.status(200).send({deleteintereststocks:deleteintereststocks});
+});
 module.exports = router;

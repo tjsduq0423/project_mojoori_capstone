@@ -54,7 +54,9 @@ export default {
   mounted() {
     this.callData();
   },
-
+  updated() {
+    this.callData();
+  },
   methods: {
     callData() {
       this.$store.dispatch("list/callData");

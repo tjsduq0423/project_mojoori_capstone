@@ -10,7 +10,7 @@
         color="deep-orange darken-1"
         label
         close
-        @click:close="removestockstag(tag)"
+        @click:close="deleteinterestStocks(tag)"
       >
         <!-- removetag구현필요 -->
         {{ tag }}
@@ -82,8 +82,21 @@ export default {
         }
       }
     },
-    removestockstag(tag) {
-      console.log(tag);
+    async deleteinterestStocks(tag) {
+      try {
+        const response = await interestApi.deleteinterestStocks(
+          this.userId,
+          tag
+        );
+        if (response.status == 200) {
+          this.callstockstag();
+          console.log(response.data);
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+        }
+      }
     },
     removeindustriestag(tag) {
       console.log(tag);

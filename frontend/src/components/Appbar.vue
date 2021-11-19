@@ -1,11 +1,11 @@
 <template>
-  <v-app-bar app outlined flat>
+  <v-app-bar app outlined flat color="blue darken-1">
     <!-- 툴바 제목 Mojuri -->
     <v-toolbar-title>
       <router-link
         to="/"
         :style="{
-          color: 'black',
+          color: 'white',
           textDecoration: 'none',
           fontWeight: 'bold',
           fontSize: '2em',

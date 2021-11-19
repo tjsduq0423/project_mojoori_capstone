@@ -43,36 +43,37 @@
                 {{ stock.author }}
               </v-list-item-subtitle>
             </v-list-item-content>
-            <v-card-actions>
-              <v-btn
-                class="mx-2"
-                fab
-                icon
-                :href="'http://naver.com'"
-                target="_black"
-              >
-                <v-icon dark large> mdi-open-in-new </v-icon>
-              </v-btn>
-              <v-btn v-if="login == false" class="mx-2" fab disabled icon>
-                <v-icon dark color="pink"> mdi-heart </v-icon>
-              </v-btn>
-              <v-btn
-                v-if="(stock.likes == false) & (login == true)"
-                class="mx-2"
-                fab
-                icon
-              >
-                <v-icon dark color="pink" large> mdi-heart-outline </v-icon>
-              </v-btn>
-              <v-btn
-                v-if="(stock.likes == true) & (login == true)"
-                class="mx-2"
-                fab
-                icon
-              >
-                <v-icon dark color="pink"> mdi-heart </v-icon>
-              </v-btn>
-            </v-card-actions>
+
+            <v-btn
+              class="mx-2"
+              fab
+              icon
+              :href="'http://naver.com'"
+              target="_black"
+            >
+              <v-icon dark large> mdi-open-in-new </v-icon>
+            </v-btn>
+            <v-btn v-if="auth == false" class="mx-2" fab disabled icon>
+              <v-icon dark color="pink"> mdi-heart </v-icon>
+            </v-btn>
+            <v-btn
+              v-if="auth == true && stock.likes == false"
+              class="mx-2"
+              fab
+              icon
+              @click.prevent="likeReport(stock.title)"
+            >
+              <v-icon dark color="pink" large> mdi-heart-outline </v-icon>
+            </v-btn>
+            <v-btn
+              v-if="auth == true && stock.likes == true"
+              class="mx-2"
+              fab
+              icon
+              @click.prevent="unlikeReport(stock.title)"
+            >
+              <v-icon dark color="pink" large> mdi-heart </v-icon>
+            </v-btn>
           </v-list-item>
         </v-card>
         <v-pagination
@@ -87,12 +88,10 @@
 </template>
 
 <script>
+import * as ReportApi from "@/api/report";
 import { mapState } from "vuex";
 export default {
   name: "ReportCardList",
-  props: {
-    login: Boolean,
-  },
   data() {
     return {
       page: 1,
@@ -103,14 +102,35 @@ export default {
       list: (state) => state.list,
       listCount: (state) => state.listCount,
     }),
+    ...mapState("auth", ["auth", "userId"]),
     pages() {
       return Math.ceil(this.listCount / 20);
     },
   },
-  mounted() {},
   methods: {
-    onClickpdf: function (pdfUrl2) {
-      window.open(pdfUrl2, "_blank");
+    async likeReport(title) {
+      try {
+        const response = await ReportApi.likeReports(this.userId, title);
+        if (response.status === 200) {
+          console.log(response);
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+        }
+      }
+    },
+    async unlikeReport(title) {
+      try {
+        const response = await ReportApi.unlikeReports(this.userId, title);
+        if (response.status === 200) {
+          console.log(response);
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+        }
+      }
     },
   },
 };
