@@ -4,12 +4,12 @@
 
     <v-main class="back">
       <v-container>
-        <v-layout align-content-space-around justify-center fill-height>
-          <v-flex md8 sm8>
+        <v-row>
+          <v-col md="8">
             <Search />
             <ReportCardList :login="true" />
-          </v-flex>
-          <v-flex md4 sm4>
+          </v-col>
+          <v-col md="4">
             <v-container fluid>
               <v-row v-for="(item, index) in items" :key="index">
                 <v-col>
@@ -17,8 +17,8 @@
                 </v-col>
               </v-row>
             </v-container>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
         <!-- SerchComponent  -->
       </v-container>
     </v-main>

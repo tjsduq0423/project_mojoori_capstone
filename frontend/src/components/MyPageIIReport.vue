@@ -1,7 +1,7 @@
 <template>
   <v-container class="mx-auto mb-auto">
-    <v-layout justify-center column>
-      <v-flex>
+    <v-row>
+      <v-col cols="12">
         <!-- 검색 태그들 by 칩+ 카드 -->
         <v-card height="50">
           <v-chip
@@ -17,10 +17,10 @@
             {{ tag }}
           </v-chip>
         </v-card>
-      </v-flex>
+      </v-col>
 
-      <v-flex class="mt-3"> </v-flex>
-    </v-layout>
+      <v-col cols="12" class="mt-3"> </v-col>
+    </v-row>
     <!-- 카드 리스트  수정 필요함 -->
     <v-card
       v-for="(item, index) in historyList"

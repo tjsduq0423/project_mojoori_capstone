@@ -3,15 +3,15 @@
     <AppbarLogined />
     <v-main app class="back">
       <v-container fluid>
-        <v-layout align-content-space-around justify-center fill-height mt-8>
-          <v-flex md3 sm3>
+        <v-row>
+          <v-col md="3">
             <MyPageBox :style="{ top: '88px', position: 'sticky' }" />
-          </v-flex>
-          <v-flex md9 sm9 mr-16>
+          </v-col>
+          <v-col md="9">
             <SearchTag :industry="true" :corporation="false" />
             <ReportCardList />
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
   </v-app>
