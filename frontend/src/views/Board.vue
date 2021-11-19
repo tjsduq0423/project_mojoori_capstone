@@ -3,13 +3,22 @@
     <Appbar />
 
     <v-main class="back">
-      <v-container fluid>
-        <v-row justify="center" class="mt-9">
-          <v-col cols="12" md="8">
-            <BoardCard />
+      <v-container class="px-0 pt-0">
+        <v-row justify="center">
+          <v-col
+            v-if="
+              ($vuetify.breakpoint.xl ||
+                $vuetify.breakpoint.lg ||
+                $vuetify.breakpoint.md) &&
+              $store.state.auth.auth
+            "
+            md="3"
+          >
+            <BoardBox :style="{ top: '64px', position: 'sticky' }" />
           </v-col>
-          <v-col cols="12" md="8">
-            <BoardCardList />
+          <v-col md="8">
+            <BoardCard class="mb-6" />
+            <BoardCardList :login="true" />
           </v-col>
         </v-row>
       </v-container>
@@ -21,11 +30,13 @@
 import Appbar from "@/components/Appbar.vue";
 import BoardCard from "@/components/BoardCard.vue";
 import BoardCardList from "@/components/BoardCardList.vue";
+import BoardBox from "@/components/BoardBox.vue";
 
 export default {
   name: "Board",
   components: {
     Appbar,
+    BoardBox,
     BoardCard,
     BoardCardList,
   },

@@ -30,7 +30,7 @@
                       <p class="text-h5 text-left font-weight-bold">
                         사용자 인증
                       </p>
-                      <v-divider class="divider"></v-divider>
+                      <v-divider></v-divider>
                     </v-col>
                   </v-row>
                   <!-- input + stateMaintain -->
@@ -141,7 +141,7 @@ export default {
           );
 
           if (response.status === 200) {
-            this.$router.push({ name: "Logined" });
+            this.$router.push({ name: "Report" });
           }
         } catch (err) {
           if (err.response.status === 401) {

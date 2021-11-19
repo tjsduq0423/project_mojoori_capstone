@@ -4,10 +4,10 @@
 
     <v-main class="back">
       <v-container>
-        <v-row>
-          <v-col cols="12" md="8">
+        <v-row justify="center" class="mt-6">
+          <v-col md="8" cols="12">
             <Search />
-            <ReportCardList :login="false" />
+            <ReportCardList />
           </v-col>
           <v-col
             v-if="
@@ -17,13 +17,17 @@
             "
             md="4"
           >
-            <v-row v-for="(item, index) in items" :key="index">
-              <v-col>
-                <Popular :item="item" />
-              </v-col>
+            <v-row
+              v-for="(item, index) in items"
+              :key="index"
+              class="mb-3"
+              justify="center"
+            >
+              <Popular :item="item" class="mb-6" />
             </v-row>
           </v-col>
         </v-row>
+        <!-- SerchComponent  -->
       </v-container>
     </v-main>
   </v-app>
@@ -34,8 +38,9 @@ import Appbar from "@/components/Appbar.vue";
 import Search from "@/components/Search.vue";
 import ReportCardList from "@/components/ReportCardList.vue";
 import Popular from "@/components/Popular.vue";
+
 export default {
-  name: "Default",
+  name: "Report",
   components: {
     Appbar,
     Search,
@@ -52,10 +57,14 @@ export default {
     };
   },
   mounted() {
+    this.callInterest();
     this.callData();
   },
 
   methods: {
+    callInterest() {
+      this.$store.dispatch("interest/callInterest");
+    },
     callData() {
       this.$store.dispatch("list/callData");
     },
@@ -63,12 +72,4 @@ export default {
 };
 </script>
 
-<style>
-.card {
-  width: 80%;
-  border-radius: 20px !important;
-  border-color: black !important;
-  border: solid 1em;
-  border-width: medium !important;
-}
-</style>
+<style></style>

@@ -5,7 +5,7 @@
     <v-main class="back">
       <v-container>
         <v-row>
-          <v-card to="/default" class="mt-12" style="width: 100%">
+          <v-card to="/report" class="mt-12" style="width: 100%">
             <v-img height="600" src="@/assets/background.jpg">
               <p
                 align="center"

@@ -3,32 +3,22 @@
     <Appbar />
 
     <v-main class="back">
-      <v-container fluid>
-        <v-row class="mt-9" fill-height justify="center">
+      <v-container class="px-0 pt-0">
+        <v-row justify="center">
           <v-col
             v-if="
-              $vuetify.breakpoint.xl ||
-              $vuetify.breakpoint.lg ||
-              $vuetify.breakpoint.md
+              ($vuetify.breakpoint.xl ||
+                $vuetify.breakpoint.lg ||
+                $vuetify.breakpoint.md) &&
+              $store.state.auth.auth
             "
             md="3"
-            class="py-0"
           >
-            <BoardBox :style="{ top: '88px', position: 'sticky' }" />
+            <BoardBox :style="{ top: '64px', position: 'sticky' }" />
           </v-col>
-          <v-col cols="12" md="8">
-            <v-container fluid class="pa-0">
-              <v-row>
-                <v-col>
-                  <BoardArticleCard />
-                </v-col>
-              </v-row>
-              <v-row class="mt-6">
-                <v-col>
-                  <CommentCard />
-                </v-col>
-              </v-row>
-            </v-container>
+          <v-col md="8">
+            <BoardArticleCard class="mb-6" />
+            <CommentCard />
           </v-col>
           <v-col cols="12" md="8"> </v-col>
         </v-row>

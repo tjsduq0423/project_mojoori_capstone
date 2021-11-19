@@ -1,10 +1,10 @@
 <template>
   <v-app app>
-    <AppbarLogined />
+    <Appbar />
 
     <v-main class="back">
-      <v-container fluid>
-        <v-row class="mt-9" fill-height justify="center">
+      <v-container class="px-0 pt-0">
+        <v-row justify="center">
           <v-col
             v-if="
               $vuetify.breakpoint.xl ||
@@ -12,11 +12,10 @@
               $vuetify.breakpoint.md
             "
             md="3"
-            class=""
           >
             <BoardBox />
           </v-col>
-          <v-col cols="12" md="8">
+          <v-col md="8">
             <BoardWriteCard />
           </v-col>
         </v-row>
@@ -26,13 +25,13 @@
 </template>
 
 <script>
-import AppbarLogined from "@/components/AppbarLogined.vue";
+import Appbar from "@/components/Appbar.vue";
 import BoardWriteCard from "@/components/BoardWriteCard.vue";
 import BoardBox from "@/components/BoardBox.vue";
 export default {
   name: "BoardWrite",
   components: {
-    AppbarLogined,
+    Appbar,
     BoardWriteCard,
     BoardBox,
   },

@@ -21,7 +21,7 @@
       class="ma-2 grey lighten-1"
       :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
       large
-      to="/board-logined"
+      to="/board"
     >
       게시판
       <v-icon large right class="ml-3"> mdi-clipboard-edit-outline </v-icon>

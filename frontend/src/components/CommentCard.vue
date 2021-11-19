@@ -1,6 +1,6 @@
 <template>
-  <v-card max-width="" min-width="" class="mx-auto" flat>
-    <v-container class="px-6">
+  <v-card width="100%" class="mx-auto" tile elevation="1">
+    <v-container>
       <!-- 게시판 제목 -->
       <v-row>
         <v-col cols="auto" class="mt-6 ml-6 pa-0">
@@ -12,7 +12,7 @@
           </p>
         </v-col>
       </v-row>
-      <v-row v-if="login" class="grey lighten-1">
+      <v-row v-if="$store.state.auth.auth" class="grey lighten-1">
         <v-col>
           <v-card class="pa-6">
             <v-row>
@@ -72,12 +72,7 @@
 <script>
 export default {
   name: "CommentCard",
-  props: {
-    login: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  props: {},
   data() {
     return {
       inputText: "",

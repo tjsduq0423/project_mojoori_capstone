@@ -1,5 +1,5 @@
 <template>
-  <v-card width="100%" class="mx-auto" flat>
+  <v-card width="100%" tile elevation="1">
     <v-container>
       <!-- 게시판 글쓰기 -->
       <v-row justify="space-between">
@@ -7,42 +7,48 @@
           <p class="text-h5 text-left font-weight-black mb-0">게시판</p>
         </v-col>
         <v-col cols="auto" class="mt-3 mr-3 pa-0">
-          <v-btn class="text-h6 font-weight-bold ac" text to="/board-write">
-            글쓰기
+          <v-btn
+            icon
+            class="text-h6 font-weight-bold ac"
+            large
+            to="/board-write"
+          >
+            <v-icon> mdi-pencil-outline </v-icon>
           </v-btn>
         </v-col>
       </v-row>
 
       <!-- 인기 최신 추천 상위 + 검색 바  -->
-      <v-row>
-        <v-col md="8" cols="12">
+      <v-row justify="space-between">
+        <v-col md="auto" cols="12">
           <v-btn-toggle v-model="text" group>
             <v-btn
               v-for="(btn, i) in btns"
               :key="i"
-              class="mx-6"
+              class="px-4"
               :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
               :value="btn.value"
               active-class="ac"
-              >{{ btn.text }}</v-btn
             >
+              <v-icon left large class="px-3">{{ btn.icon }}</v-icon>
+              {{ btn.text }}
+            </v-btn>
           </v-btn-toggle>
         </v-col>
-        <v-col md="4" cols="12" align-self="center">
+        <v-col md="auto" cols="12" align-self="center">
           <v-text-field
             v-model="magnify"
             dense
-            solo
-            height="44px"
-            label="제목"
             flat
+            filled
+            placeholder="제목"
             hide-details="auto"
-            outlined
-            style="border-radius: 15px"
+            append-icon="mdi-magnify"
+            @keyup.enter="nothing()"
           >
-            <v-icon slot="append" color="black" large @click="nothing"
+            <!-- <v-icon slot="append" color="black" @click="nothing"
               >mdi-magnify</v-icon
-            >
+            > -->
           </v-text-field>
         </v-col>
       </v-row>
@@ -58,9 +64,9 @@ export default {
       text: "popularity",
       magnify: "",
       btns: [
-        { value: "popularity", text: "인기" },
-        { value: "Latest", text: "최신" },
-        { value: "Recommendation", text: "추천" },
+        { value: "popularity", text: "인기", icon: "mdi-fire" },
+        { value: "Latest", text: "최신", icon: "mdi-update" },
+        { value: "Recommendation", text: "추천", icon: "mdi-thumb-up-outline" },
       ],
     };
   },

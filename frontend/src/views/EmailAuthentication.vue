@@ -67,7 +67,7 @@
                         large
                         tile
                         class="grey lighten-1 text-h5 font-weight-bold"
-                        to="/default"
+                        to="/search"
                       >
                         홈으로
                       </v-btn>

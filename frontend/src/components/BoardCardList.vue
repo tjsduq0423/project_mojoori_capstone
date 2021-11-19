@@ -1,5 +1,5 @@
 <template>
-  <v-card width="100%" class="mx-auto" flat>
+  <v-card width="100%" class="mx-auto" tile elevation="1">
     <v-list class="pa-0">
       <v-list-item-group>
         <template v-for="(article, index) in articles">
@@ -40,13 +40,13 @@
     <v-row align="center" justify="center" class="mt-3">
       <v-col cols="3"></v-col>
       <v-col v-if="page > 1" cols="auto">
-        <v-btn>
+        <v-btn tile elevation="1">
           <v-icon> mdi-menu-left </v-icon>
           이전
         </v-btn>
       </v-col>
       <v-col cols="auto">
-        <v-btn class="ml-auto"
+        <v-btn class="ml-auto" tile elevation="1"
           >다음
           <v-icon> mdi-menu-right </v-icon>
         </v-btn>

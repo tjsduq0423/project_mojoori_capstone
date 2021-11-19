@@ -4,21 +4,34 @@
       <!-- 검색 바 ==> autocomplete 기능 필요 -->
       <v-text-field
         v-model="magnify"
-        solo
         dense
-        label="제목"
         flat
+        filled
+        rounded
+        placeholder="제목"
         hide-details="auto"
-        outlined
-        style="border-radius: 15px"
+        append-icon="mdi-magnify"
+        @keyup.enter="nothing()"
       >
-        <v-icon slot="append" color="black" large @click="nothing"
-          >mdi-magnify</v-icon
-        >
       </v-text-field>
     </v-col>
     <v-col cols="12">
-      <SearchTag :industry="true" :corporation="true" />
+      <v-card width="100%" min-height="50" tile elevation="1">
+        <template v-for="(tag, idx) in tags">
+          <v-chip
+            :key="idx"
+            class="ma-2"
+            text-color="white"
+            :color="tag.color"
+            label
+            close
+            @click:close="remove(idx)"
+          >
+            <!-- removetag구현필요 -->
+            {{ tag.name }}
+          </v-chip>
+        </template>
+      </v-card>
     </v-col>
     <v-col cols="12">
       <v-row justify="space-between" align="center">
@@ -56,37 +69,26 @@
 </template>
 
 <script>
-import SearchTag from "@/components/SearchTag.vue";
-
 export default {
-  components: {
-    SearchTag,
-  },
+  components: {},
   data() {
     return {
       magnify: "",
       selection: 0,
       historyList: [],
+      tags: [{ name: "아프리카TV", color: "deep-orange darken-1" }],
       buttonitem: ["전체", "기업", "산업", "시장"],
     };
   },
-
   methods: {
     nothing() {
       console.log("heloo");
+    },
+    remove(idx) {
+      this.tags.splice(idx, 1);
     },
   },
 };
 </script>
 
-<style scoped>
-.v-text-field--outlined fieldset {
-  border-width: 4px !important;
-  color: black !important;
-}
-.v-text-field .v-input__control .v-input__slot {
-  min-height: auto !important;
-  display: col !important;
-  align-items: center !important;
-}
-</style>
+<style></style>

@@ -13,12 +13,6 @@ const routes = [
     meta: { authReduired: false },
   },
   {
-    path: "/default",
-    name: "Default",
-    component: () => import("@/views/Default.vue"),
-    meta: { authReduired: false },
-  },
-  {
     path: "/user-authentication",
     name: "UserAuthentication",
     component: () => import("@/views/UserAuthentication.vue"),
@@ -56,21 +50,15 @@ const routes = [
     meta: { authReduired: false },
   },
   {
-    path: "/logined",
-    name: "Logined",
-    component: () => import("@/views/Logined.vue"),
-    meta: { authReduired: true },
+    path: "/report",
+    name: "Report",
+    component: () => import("@/views/Report.vue"),
+    meta: { authReduired: false },
   },
   {
     path: "/bookmark",
     name: "Bookmark",
     component: () => import("@/views/Bookmark.vue"),
-    meta: { authReduired: true },
-  },
-  {
-    path: "/board-logined",
-    name: "BoardLogined",
-    component: () => import("@/views/BoardLogined.vue"),
     meta: { authReduired: true },
   },
   {
@@ -116,14 +104,8 @@ const routes = [
     meta: { authReduired: false },
   },
   {
-    path: "/article-logined/:id",
-    name: "ArticleLogined",
-    component: () => import("@/views/ArticleLogined.vue"),
-    meta: { authReduired: true },
-  },
-  {
     path: "/*",
-    redirect: { name: "Default" },
+    redirect: { name: "Home" },
   },
 ];
 
@@ -159,7 +141,7 @@ router.beforeEach(async (to, from, next) => {
         store.commit("auth/setUserId", response.data.userId);
         store.commit("auth/setNickname", response.data.nickname);
         store.commit("auth/setAuth", true);
-        next({ path: "/logined" });
+        next();
       }
     } catch (err) {
       // console.log(err.response);

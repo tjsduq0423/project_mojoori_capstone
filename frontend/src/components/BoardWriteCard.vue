@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="" min-width="" class="mx-auto" flat>
+  <v-card width="100%" tile elevation="1">
     <v-container>
       <!-- 게시판 글쓰기 -->
       <v-row>
@@ -16,7 +16,7 @@
               :items="themes"
               label="분야"
               solo
-              dense
+              flat
               outlined
               hide-details="auto"
             ></v-select>
@@ -30,11 +30,10 @@
             <v-text-field
               v-model="title"
               solo
+              flat
               label="제목"
-              dense
               hide-details="auto"
               outlined
-              style="border-radius: 15px"
             >
             </v-text-field>
           </v-card>
@@ -92,8 +91,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-text-field >>> label {
-  font-size: 18px;
-}
-</style>
+<style scoped></style>

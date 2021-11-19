@@ -1,10 +1,5 @@
 <template>
-  <v-card
-    max-width="400px"
-    min-height="300px"
-    elevation="11"
-    class="card mx-auto mt-3"
-  >
+  <v-card min-height="250px" max-width="400px" elevation="5" class="card">
     <v-card-title class="justify-center text-h5 white--text black">
       {{ item.title }}
     </v-card-title>
@@ -52,4 +47,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.card {
+  width: 100%;
+  border-radius: 20px !important;
+  border-color: black !important;
+  border: solid 1em;
+  border-width: medium !important;
+}
+</style>

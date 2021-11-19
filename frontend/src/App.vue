@@ -13,14 +13,6 @@ export default {
 </script>
 
 <style>
-.divider {
-  border-width: 1px !important;
-  border-color: black !important;
-}
-.v-text-field--outlined fieldset {
-  border-width: 3px !important;
-  color: black !important;
-}
 .back {
   background-color: #f2f2f2;
 }
