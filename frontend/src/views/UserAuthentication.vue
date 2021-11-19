@@ -3,7 +3,7 @@
     <v-main class="back">
       <v-container fill-height fluid>
         <v-row justify="center">
-          <v-col cols="12" md="5">
+          <v-col cols="12" md="4">
             <v-card
               class="mx-auto"
               max-width="550px"
@@ -89,15 +89,15 @@
                     </v-col>
                   </v-row>
                   <!-- 회원가입하기 -->
-                  <v-row class="my-6">
-                    <v-col cols="7">
-                      <p class="text-h6 font-weight-bold text-right">
+                  <v-row class="my-9" justify="center">
+                    <v-col cols="auto">
+                      <p class="text-h6 font-weight-bold text-right pa-0 ma-0">
                         모주리에 처음이세요?
                       </p>
                     </v-col>
-                    <v-col cols="5">
+                    <v-col cols="auto">
                       <router-link to="/sign-up">
-                        <p class="pt-1 text-subtitle-1 text-left">
+                        <p class="pt-1 text-subtitle-1 text-left pa-0 ma-0">
                           회원가입하기
                         </p>
                       </router-link>

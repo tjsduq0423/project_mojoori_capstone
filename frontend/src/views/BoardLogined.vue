@@ -3,25 +3,19 @@
     <AppbarLogined />
 
     <v-main class="back">
-      <v-container fluid>
-        <v-row
-          class="mt-8"
-          fill-height
-          align-content="space-around"
-          justify="center"
-        >
+      <v-container>
+        <v-row class="mt-8" justify="center">
           <v-col
             v-if="
               $vuetify.breakpoint.xl ||
               $vuetify.breakpoint.lg ||
-              $vuetify.breakpoint.md
+              ($vuetify.breakpoint.md && this.$store.state.auth.auth)
             "
             md="3"
-            class="py-0"
           >
-            <BoardBox :style="{ top: '88px', position: 'sticky' }" />
+            <BoardBox :style="{ top: '64px', position: 'sticky' }" />
           </v-col>
-          <v-col md="8" class="mr-16 pt-0">
+          <v-col md="8">
             <BoardCard class="mb-6" />
             <BoardCardList :login="true" />
           </v-col>

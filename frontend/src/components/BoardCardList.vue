@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="900px" min-width="400px" class="mx-auto" flat>
+  <v-card width="100%" class="mx-auto" flat>
     <v-list class="pa-0">
       <v-list-item-group>
         <template v-for="(article, index) in articles">
@@ -161,15 +161,9 @@ export default {
   },
   methods: {
     viewArticle(index) {
-      if (this.login === false) {
-        this.$router.push({
-          path: `/article/${this.articles[index]._id}`,
-        });
-      } else {
-        this.$router.push({
-          path: `/article-logined/${this.articles[index]._id}`,
-        });
-      }
+      this.$router.push({
+        path: `/article/${this.articles[index]._id}`,
+      });
     },
   },
 };

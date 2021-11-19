@@ -1,7 +1,7 @@
 <template>
-  <v-card height="400" class="mx-auto" width="70%" flat>
+  <v-card height="400" max-width="300px" width="100%" class="mx-auto" flat>
     <v-card-title
-      class="text-h5 title"
+      class="text-h5 title pl-7 pt-6"
       style="font-weight: 900; font-size: 25px !important"
     >
       {{ $store.state.auth.userId }}

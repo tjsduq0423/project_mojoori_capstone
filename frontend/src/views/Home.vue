@@ -96,7 +96,7 @@
 import Appbar from "@/components/Appbar.vue";
 
 export default {
-  name: "Default",
+  name: "Home",
   components: {
     Appbar,
   },
