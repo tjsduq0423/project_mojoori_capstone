@@ -22,6 +22,6 @@ export default {
   color: black !important;
 }
 .back {
-  background-color: #f2f2f2 !important;
+  background-color: #f2f2f2;
 }
 </style>

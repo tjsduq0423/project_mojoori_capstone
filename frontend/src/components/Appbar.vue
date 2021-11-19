@@ -1,14 +1,14 @@
 <template>
-  <v-app-bar color="#0D0D0D" dark app>
+  <v-app-bar color="#64ffda" app>
     <!-- 툴바 제목 Mojuri -->
     <v-toolbar-title>
       <router-link
         to="/"
         :style="{
-          color: 'white',
+          color: 'black',
           textDecoration: 'none',
           fontWeight: 'bold',
-          fontSize: '1.5em',
+          fontSize: '2em',
         }"
         class="ml-2"
         >Mojuri
@@ -16,9 +16,24 @@
     </v-toolbar-title>
 
     <v-spacer />
+    <!-- practice 바로가기 버튼 -->
+    <v-btn
+      class="ma-2"
+      rounded
+      text
+      :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
+      large
+      to="/practice"
+    >
+      게시판
+      <v-icon large right class="ml-3"> mdi-clipboard-edit-outline </v-icon>
+    </v-btn>
     <!-- 게시판 바로가기 버튼 -->
     <v-btn
-      class="ma-2 grey lighten-1"
+      class="ma-2"
+      color="#64ffda"
+      rounded
+      dark
       :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
       large
       to="/board"
@@ -28,7 +43,8 @@
     </v-btn>
     <!-- 회원가입버튼 -->
     <v-btn
-      class="ma-2 grey lighten-1"
+      class="ma-2"
+      text
       large
       to="/sign-up"
       :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
@@ -37,10 +53,11 @@
     </v-btn>
     <!-- 로그인버튼 -->
     <v-btn
-      class="ma-2 grey lighten-1"
+      class="ma-2"
+      text
       large
       to="/user-authentication"
-      :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
+      :style="{ fontColor: '#64ffda', fontSize: '1.25em', fontWeight: 'bold' }"
     >
       로그인
     </v-btn>
