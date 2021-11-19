@@ -60,7 +60,9 @@ export default {
     this.callInterest();
     this.callData();
   },
-
+  updated() {
+    this.callData();
+  },
   methods: {
     callInterest() {
       this.$store.dispatch("interest/callInterest");

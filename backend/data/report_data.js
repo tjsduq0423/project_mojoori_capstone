@@ -7,7 +7,7 @@ const reports=  [
     "author": "김한경",
     "pdfUrl": "https://ssl.pstatic.net/imgstock/upload/research/company/1635734563270.pdf",
     "date": "2021-11-01",
-    "likes":false,
+    "likes":true,
   },
   {
     "": 21,
@@ -17,7 +17,7 @@ const reports=  [
     "author": "위정원",
     "pdfUrl": "https://ssl.pstatic.net/imgstock/upload/research/company/1635734393956.pdf",
     "date": "2021-11-01",
-    "likes":false,
+    "likes":true,
   },
   {
     "": 22,

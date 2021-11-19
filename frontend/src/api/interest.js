@@ -16,6 +16,8 @@ const getinterestStocks = (userId) =>
 const getinterestIndustries = (userId) =>
   http.get("/interest/getinterestIndustries", { userId });
 
+const deleteinterestStocks = (userId, stock) =>
+  http.patch("/interest/deleteinterestStocks", { userId, stock });
 export {
   stock,
   industry,
@@ -23,4 +25,5 @@ export {
   registerIndustries,
   getinterestStocks,
   getinterestIndustries,
+  deleteinterestStocks,
 };

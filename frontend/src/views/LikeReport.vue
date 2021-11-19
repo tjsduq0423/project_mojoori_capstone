@@ -27,6 +27,14 @@ export default {
     MyPageBox,
     ReportCardList,
   },
+  mounted() {
+    this.callLikeData();
+  },
+  methods: {
+    callLikeData() {
+      this.$store.dispatch("list/callLikeData");
+    },
+  },
 };
 </script>
 

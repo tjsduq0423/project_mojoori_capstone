@@ -26,16 +26,16 @@
                   class="text--primary"
                   style="font-size: 24px; font-weight: bold; margin-top: 10px"
                 >
-                  "나눠보는"
+                  "모아보는"
                 </p>
                 <p
                   class="text--primary"
                   style="font-size: 16px; margin-top: 20px"
                 >
-                  기업, 산업, 시장 별로 나눠보는
+                  국내 5대 증권사 포함 22곳의 증권사
                 </p>
                 <p class="text--primary" style="font-size: 16px">
-                  25개의 산업분야 별로 나눠보는
+                  리포트를 한곳에서
                 </p>
               </v-card-text>
             </v-card>
@@ -72,16 +72,22 @@
                   class="text--primary"
                   style="font-size: 24px; font-weight: bold; margin-top: 10px"
                 >
-                  "나눠보는"
+                  "골라보는"
                 </p>
                 <p
                   class="text--primary"
                   style="font-size: 16px; margin-top: 20px"
                 >
-                  기업, 산업, 시장 별로 나눠보는
+                  관심있는 종목만 골라보는
                 </p>
                 <p class="text--primary" style="font-size: 16px">
-                  25개의 산업분야 별로 나눠보는
+                  관심있는 산업만 골라보는
+                </p>
+                <p class="text--primary" style="font-size: 16px">
+                  관심있는 리포트의 알림까지
+                </p>
+                <p class="text--primary" style="font-size: 16px">
+                  사용자 맞춤 리포트 추천까지
                 </p>
               </v-card-text>
             </v-card>
