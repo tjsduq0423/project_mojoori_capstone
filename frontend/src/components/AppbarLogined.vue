@@ -60,12 +60,12 @@
       <v-list class="py-0">
         <v-list-item>
           <div class="text-center">
-            <v-dialog v-model="dialog" width="900" min-height="800">
+            <v-dialog v-model="dialog" width="70%">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn text v-bind="attrs" v-on="on"> 관심종목설정 </v-btn>
               </template>
 
-              <v-card>
+              <v-card class="pa-3" min-height="670px">
                 <v-container>
                   <v-row>
                     <v-col cols="12">
@@ -77,8 +77,8 @@
                       </p>
                     </v-col>
                   </v-row>
-                  <v-row justify="end">
-                    <v-col cols="8">
+                  <v-row justify="center">
+                    <v-col cols="auto">
                       <v-text-field
                         v-model="magnify"
                         solo
@@ -98,41 +98,44 @@
                   <v-row>
                     <template v-for="(chunk, index) in stocks">
                       <v-container v-if="page == index + 1" :key="index">
-                        <v-row
-                          v-for="(a, i) in 5"
-                          :key="i"
-                          justify="space-around"
-                        >
-                          <v-col
-                            v-for="(ele, idx) in chunk.slice(
-                              i * 5,
-                              (i + 1) * 5
-                            )"
-                            :key="idx"
-                          >
-                            <v-checkbox
-                              v-model="selectedstocks"
-                              :label="ele.toString()"
-                              :value="ele"
+                        <v-row v-for="(a, i) in 5" :key="i" justify="center">
+                          <v-col v-for="(b, ind) in 5" :key="ind" cols="2">
+                            <v-card
+                              v-for="(ele, idx) in chunk.slice(
+                                i * 5 + b - 1,
+                                i * 5 + b
+                              )"
+                              :key="idx"
+                              style="border: 1px solid"
                             >
-                            </v-checkbox>
+                              <v-checkbox
+                                v-model="selectedstocks"
+                                :label="ele.toString()"
+                                :value="ele"
+                              >
+                              </v-checkbox>
+                            </v-card>
                           </v-col>
                         </v-row>
                       </v-container>
                     </template>
                   </v-row>
-                  <v-row justify="center">
-                    <v-pagination
-                      v-model="page"
-                      :length="pages"
-                      :total-visible="7"
-                      circle
-                    ></v-pagination>
-                  </v-row>
-                  <v-row justify="end">
-                    <v-btn text @click="[(dialog = false), registerStocks()]"
-                      >확인</v-btn
-                    >
+                  <v-row>
+                    <v-col></v-col>
+                    <v-col>
+                      <v-pagination
+                        v-model="page"
+                        :length="pages"
+                        :total-visible="7"
+                        circle
+                      ></v-pagination></v-col
+                    ><v-col align="right">
+                      <v-btn
+                        outlined
+                        @click="[(dialog = false), registerStocks()]"
+                        >확인</v-btn
+                      >
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card>
@@ -142,12 +145,12 @@
         <v-divider></v-divider>
         <v-list-item>
           <div class="text-center">
-            <v-dialog v-model="dialog2" width="900">
+            <v-dialog v-model="dialog2" width="70%">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn text v-bind="attrs" v-on="on"> 관심산업설정 </v-btn>
               </template>
 
-              <v-card>
+              <v-card class="pa-3" min-height="670px">
                 <v-container>
                   <v-row>
                     <v-col cols="12">
@@ -159,8 +162,8 @@
                       </p>
                     </v-col>
                   </v-row>
-                  <v-row justify="end">
-                    <v-col cols="8">
+                  <v-row justify="center">
+                    <v-col cols="auto">
                       <v-text-field
                         v-model="magnify"
                         solo
@@ -180,42 +183,44 @@
                   <v-row>
                     <template v-for="(chunk2, index2) in industries">
                       <v-container v-if="page2 == index2 + 1" :key="index2">
-                        <v-row
-                          v-for="(b, i2) in 5"
-                          :key="i2"
-                          justify="space-around"
-                        >
-                          <v-col
-                            v-for="(ele2, idx2) in chunk2.slice(
-                              i2 * 5,
-                              (i2 + 1) * 5
-                            )"
-                            :key="idx2"
-                          >
-                            <v-checkbox
-                              v-model="selectedindustries"
-                              :label="ele2.toString()"
-                              :value="ele2"
+                        <v-row v-for="(c, i2) in 5" :key="i2" justify="center">
+                          <v-col v-for="(d, ind2) in 5" :key="ind2" cols="2">
+                            <v-card
+                              v-for="(ele2, idx2) in chunk2.slice(
+                                i2 * 5 + d - 1,
+                                i2 * 5 + d
+                              )"
+                              :key="idx2"
+                              style="border: 1px solid"
                             >
-                            </v-checkbox>
+                              <v-checkbox
+                                v-model="selectedindustries"
+                                :label="ele2.toString()"
+                                :value="ele2"
+                              >
+                              </v-checkbox>
+                            </v-card>
                           </v-col>
                         </v-row>
                       </v-container>
                     </template>
                   </v-row>
-                  <v-row justify="center">
-                    <v-pagination
-                      v-model="page2"
-                      :length="pages2"
-                      :total-visible="7"
-                      circle
-                    ></v-pagination>
-                  </v-row>
-                  <v-row justify="end">
-                    <v-btn
-                      text
-                      @click="[(dialog2 = false), registerIndustries()]"
-                      >확인</v-btn
+                  <v-row>
+                    <v-col />
+                    <v-col>
+                      <v-pagination
+                        v-model="page2"
+                        :length="pages2"
+                        :total-visible="7"
+                        circle
+                      ></v-pagination
+                    ></v-col>
+                    <v-col align="right">
+                      <v-btn
+                        text
+                        @click="[(dialog2 = false), registerIndustries()]"
+                        >확인</v-btn
+                      ></v-col
                     >
                   </v-row>
                 </v-container>
