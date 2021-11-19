@@ -8,6 +8,12 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
+    name: "Start",
+    component: () => import("@/views/Start.vue"),
+    meta: { authReduired: false },
+  },
+  {
+    path: "/default",
     name: "Default",
     component: () => import("@/views/Default.vue"),
     meta: { authReduired: false },

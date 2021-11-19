@@ -1,6 +1,6 @@
 <template>
   <!-- 검색 태그들 by 칩+ 카드 -->
-  <v-card min-height="50" flat>
+  <v-card min-height="50">
     <template v-for="(tag, i) in stockstags">
       <v-chip
         v-if="corporation == true"

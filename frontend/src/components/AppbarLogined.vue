@@ -60,7 +60,7 @@
       <v-list class="py-0">
         <v-list-item>
           <div class="text-center">
-            <v-dialog v-model="dialog" width="900">
+            <v-dialog v-model="dialog" width="900" min-height="800">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn text v-bind="attrs" v-on="on"> 관심종목설정 </v-btn>
               </template>

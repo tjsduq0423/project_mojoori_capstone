@@ -11,6 +11,8 @@
           :key="idx"
           outlined
           class="mb-3 grey lighten-3"
+          :href="`${stock.pdfUrl}`"
+          target="_black"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -46,7 +48,7 @@
                 class="mx-2"
                 fab
                 icon
-                :href="`${stock.pdfUrl}`"
+                :href="'http://naver.com'"
                 target="_black"
               >
                 <v-icon dark large> mdi-open-in-new </v-icon>
