@@ -1,6 +1,5 @@
 <template>
   <v-app app>
-    <AppbarNone />
     <v-main class="back">
       <v-container fill-height fluid>
         <v-row justify="center">
@@ -17,9 +16,15 @@
                   <!-- 비밀번호 찾기 -->
                   <v-row class="mt-6">
                     <v-col cols="12">
-                      <p class="text-h4 text-center font-weight-black">
-                        Mojuri
-                      </p>
+                      <v-card flat class="text-center my-6">
+                        <router-link
+                          class="text-h4 font-weight-black"
+                          to="/"
+                          :style="{ color: 'black', textDecoration: 'none' }"
+                        >
+                          Mojuri
+                        </router-link>
+                      </v-card>
                     </v-col>
                     <v-col cols="12">
                       <p class="text-h5 text-left font-weight-bold">
@@ -98,13 +103,10 @@
 </template>
 
 <script>
-import AppbarNone from "@/components/AppbarNone.vue";
 import * as authApi from "@/api/auth";
 export default {
   name: "FindPassword",
-  components: {
-    AppbarNone,
-  },
+  components: {},
   data() {
     return {
       loginState: null,

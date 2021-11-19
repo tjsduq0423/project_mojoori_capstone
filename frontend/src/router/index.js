@@ -8,8 +8,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Start",
-    component: () => import("@/views/Start.vue"),
+    name: "Home",
+    component: () => import("@/views/Home.vue"),
     meta: { authReduired: false },
   },
   {

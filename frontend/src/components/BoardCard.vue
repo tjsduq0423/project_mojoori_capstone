@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="900px" min-width="400x" class="mx-auto" flat>
+  <v-card max-width="900px" min-width="400px" class="mx-auto" flat>
     <v-container>
       <!-- 게시판 글쓰기 -->
       <v-row justify="space-between">

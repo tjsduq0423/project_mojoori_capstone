@@ -1,6 +1,5 @@
 <template>
   <v-app app>
-    <AppbarNone />
     <v-main class="back">
       <v-container fill-height fluid>
         <v-row justify="center">
@@ -17,9 +16,15 @@
                   <!-- 이메일 인증 안내 -->
                   <v-row class="mt-6">
                     <v-col cols="12">
-                      <p class="text-h4 text-center font-weight-black">
-                        Mojuri
-                      </p>
+                      <v-card flat class="text-center my-6">
+                        <router-link
+                          class="text-h4 font-weight-black"
+                          to="/"
+                          :style="{ color: 'black', textDecoration: 'none' }"
+                        >
+                          Mojuri
+                        </router-link>
+                      </v-card>
                     </v-col>
                     <v-col cols="12">
                       <p class="text-h5 text-left font-weight-bold">
@@ -80,13 +85,9 @@
 </template>
 
 <script>
-import AppbarNone from "@/components/AppbarNone.vue";
-
 export default {
   name: "EmailAuthentication",
-  components: {
-    AppbarNone,
-  },
+  components: {},
 };
 </script>
 
