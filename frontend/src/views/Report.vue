@@ -3,9 +3,9 @@
     <Appbar />
 
     <v-main class="back">
-      <v-container>
+      <v-container fluid class="">
         <v-row justify="center" class="mt-6">
-          <v-col md="8" cols="12">
+          <v-col md="6" cols="12">
             <Search />
             <ReportCardList />
           </v-col>
@@ -15,7 +15,7 @@
               $vuetify.breakpoint.lg ||
               $vuetify.breakpoint.md
             "
-            md="4"
+            md="3"
           >
             <v-row
               v-for="(item, index) in items"

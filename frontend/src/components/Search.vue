@@ -4,7 +4,6 @@
       <!-- 검색 바 ==> autocomplete 기능 필요 -->
       <v-text-field
         v-model="magnify"
-        dense
         flat
         filled
         rounded
@@ -38,7 +37,7 @@
         <v-col cols="auto">
           <v-chip-group
             v-model="selection"
-            active-class="teal accent-2 white--text"
+            active-class="blue lighten-2 white--text"
             column
           >
             <v-chip
@@ -53,15 +52,23 @@
           </v-chip-group>
         </v-col>
         <v-col cols="auto">
-          <v-btn
-            large
-            class="red--text mt-auto px-3"
-            text
-            :style="{ fontSize: '18px', fontWeight: 'bold' }"
-          >
-            <v-icon class="pr-2"> mdi-arrow-up-bold-box </v-icon>
-            상승여력순 정렬
-          </v-btn>
+          <v-tooltip top color="blue lighten-1">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                large
+                class="red--text mt-auto px-3"
+                text
+                :style="{ fontSize: '18px', fontWeight: 'bold' }"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon class="pr-2"> mdi-arrow-up-bold-box </v-icon>
+                상승여력 기준 정렬
+              </v-btn>
+            </template>
+            <!-- :style="{ backgroundColor: 'white' }" -->
+            <span>상승여력 = 종목리포트 목표주가 - 현재 주가</span>
+          </v-tooltip>
         </v-col>
       </v-row>
     </v-col>

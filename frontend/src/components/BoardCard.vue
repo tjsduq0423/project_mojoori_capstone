@@ -25,12 +25,12 @@
             <v-btn
               v-for="(btn, i) in btns"
               :key="i"
-              class="px-4"
+              class="px-5 mx-4"
               :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
               :value="btn.value"
               active-class="ac"
             >
-              <v-icon left large class="px-3">{{ btn.icon }}</v-icon>
+              <v-icon left large class="px-4">{{ btn.icon }}</v-icon>
               {{ btn.text }}
             </v-btn>
           </v-btn-toggle>

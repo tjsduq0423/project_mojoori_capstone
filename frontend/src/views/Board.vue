@@ -7,10 +7,9 @@
         <v-row justify="center">
           <v-col
             v-if="
-              ($vuetify.breakpoint.xl ||
-                $vuetify.breakpoint.lg ||
-                $vuetify.breakpoint.md) &&
-              $store.state.auth.auth
+              $vuetify.breakpoint.xl ||
+              $vuetify.breakpoint.lg ||
+              $vuetify.breakpoint.md
             "
             md="3"
           >

@@ -1,5 +1,5 @@
 <template>
-  <v-card min-height="250px" max-width="400px" elevation="5" class="card">
+  <v-card min-height="280px" max-width="400px" elevation="5" class="card">
     <v-card-title class="justify-center text-h5 white--text black">
       {{ item.title }}
     </v-card-title>

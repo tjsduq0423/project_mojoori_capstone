@@ -12,13 +12,13 @@
           </p>
         </v-col>
       </v-row>
-      <v-row v-if="$store.state.auth.auth" class="grey lighten-1">
+      <v-row v-if="$store.state.auth.auth" class="blue lighten-3">
         <v-col>
           <v-card class="pa-6">
             <v-row>
               <v-textarea
                 v-model="inputText"
-                color="teal"
+                color="blue lighten-3"
                 :counter="80"
                 height="80px"
                 required
@@ -32,7 +32,7 @@
                 dark
                 height="20px"
                 rounded
-                class="teal--text font-weight-bold"
+                class="blue lighten-1 font-weight-black"
                 >작성</v-btn
               >
             </v-row>

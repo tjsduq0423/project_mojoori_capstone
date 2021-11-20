@@ -29,8 +29,14 @@
         </v-col>
       </v-row>
       <v-row justify="center" class="py-6">
-        <v-btn outlined x-large class="px-6" active-class="ac">
-          <v-icon left large color="#BDBDBD" class="px-6">
+        <v-btn
+          outlined
+          x-large
+          color="blue lighten-1"
+          :class="{ 'px-6': true, 'blue lighten-4': test }"
+          @click="clickLikeButton()"
+        >
+          <v-icon left large color="blue lighten-1" class="px-6">
             mdi-thumb-up
           </v-icon>
           3
@@ -52,11 +58,16 @@ export default {
   },
   data() {
     return {
+      test: true,
       login: false,
       viewerText: `<ol><li><p><strong>asdf<em>asdfsdfasdfsdfsdfdsfdsdfs</em></strong></p></li><li><p>dsfa</p><ol><li><p>df</p></li></ol></li><li><p>sdf</p><table class=""><thead><tr><th><p>sdf</p></th><th><p>sdfsf</p></th><th><p>sdf</p></th></tr></thead><tbody><tr><td><p>sdf</p></td><td><p>fdsf</p></td><td><p>sdf</p></td></tr><tr><td><p>asdf</p></td><td><p>fsdf</p></td><td><p>sd</p></td></tr><tr><td><p>dsf</p></td><td><p>dsf</p></td><td><p>dsf</p><p><br class="ProseMirror-trailingBreak"></p></td></tr></tbody></table></li></ol><p><br class="ProseMirror-trailingBreak"></p><div contenteditable="false"><hr></div><p><br class="ProseMirror-trailingBreak"></p><p><br class="ProseMirror-trailingBreak"></p><p><br class="ProseMirror-trailingBreak"></p>`,
     };
   },
-  methods: {},
+  methods: {
+    clickLikeButton() {
+      this.test = !this.test;
+    },
+  },
 };
 </script>
 

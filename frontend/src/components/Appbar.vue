@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app outlined flat color="blue darken-1">
+  <v-app-bar app outlined flat color="blue darken-1" dark>
     <!-- 툴바 제목 Mojuri -->
     <v-toolbar-title>
       <router-link
@@ -40,7 +40,7 @@
     </v-menu>
 
     <!-- 게시판 버튼 -->
-    <v-tooltip bottom>
+    <v-tooltip bottom color="blue darken-1">
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="mx-1" large icon to="/board" v-bind="attrs" v-on="on">
           <v-icon>mdi-clipboard-edit-outline </v-icon>
@@ -51,7 +51,7 @@
     </v-tooltip>
 
     <!-- 로그인버튼 -->
-    <v-tooltip v-if="!this.$store.state.auth.auth" bottom>
+    <v-tooltip v-if="!this.$store.state.auth.auth" bottom color="blue darken-1">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           class="mx-1"
@@ -69,7 +69,7 @@
     </v-tooltip>
 
     <!-- 설정버튼 -->
-    <v-tooltip v-if="this.$store.state.auth.auth" bottom>
+    <v-tooltip v-if="this.$store.state.auth.auth" bottom color="blue darken-1">
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="mx-1" large icon v-bind="attrs" v-on="on">
           <v-icon> mdi-pin-outline </v-icon>
@@ -80,7 +80,7 @@
     </v-tooltip>
 
     <!-- 설정버튼 -->
-    <v-tooltip v-if="this.$store.state.auth.auth" bottom>
+    <v-tooltip v-if="this.$store.state.auth.auth" bottom color="blue darken-1">
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="mx-1" large icon v-bind="attrs" v-on="on">
           <v-icon> mdi-account-outline </v-icon>
@@ -91,7 +91,7 @@
     </v-tooltip>
 
     <!-- 로그인버튼 -->
-    <v-tooltip v-if="this.$store.state.auth.auth" bottom>
+    <v-tooltip v-if="this.$store.state.auth.auth" bottom color="blue darken-1">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           class="mx-1"

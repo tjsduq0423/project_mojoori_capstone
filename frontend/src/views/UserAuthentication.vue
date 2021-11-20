@@ -9,7 +9,8 @@
               max-width="550px"
               max-height="700px"
               tile
-              style="border: solid"
+              outlined
+              elevation="1"
             >
               <v-container fluid>
                 <v-form ref="form" lazy-validation class="mx-6">
@@ -81,7 +82,8 @@
                         block
                         large
                         tile
-                        class="grey lighten-1 text-h5 font-weight-bold"
+                        elevation="1"
+                        class="blue lighten-1 text-h5 font-weight-bold mt-6"
                         @click="login()"
                       >
                         로그인

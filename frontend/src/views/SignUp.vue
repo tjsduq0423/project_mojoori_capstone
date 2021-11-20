@@ -10,7 +10,8 @@
               max-width="550px"
               max-height="700px"
               tile
-              style="border: solid"
+              outlined
+              elevation="1"
             >
               <v-container fluid>
                 <v-form ref="form" lazy-validation class="mx-6">
@@ -70,13 +71,14 @@
                   </v-row>
                   <!-- 가입하기 버튼 -->
                   <v-row justify="center">
-                    <v-col cols="6">
+                    <v-col cols="12">
                       <v-btn
                         dark
                         block
                         large
                         tile
-                        class="grey lighten-1 text-h5 font-weight-bold"
+                        elevation="1"
+                        class="blue lighten-1 text-h5 font-weight-bold"
                         @click="validate()"
                       >
                         가입하기

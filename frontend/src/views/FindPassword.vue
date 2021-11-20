@@ -9,7 +9,8 @@
               max-width="550px"
               max-height="700px"
               tile
-              style="border: solid"
+              outlined
+              elevation="1"
             >
               <v-container fluid>
                 <v-form ref="form" lazy-validation class="mx-6">
@@ -68,14 +69,15 @@
                   </v-row>
                   <!-- 임시비밀번호발급 버튼 -->
                   <v-row justify="center">
-                    <v-col cols="6">
+                    <v-col cols="12">
                       <v-btn
                         v-if="done === false"
                         dark
                         block
                         large
                         tile
-                        class="grey lighten-1 text-h5 font-weight-bold"
+                        elevation="1"
+                        class="blue lighten-1 text-h5 font-weight-bold"
                         @click="transport()"
                       >
                         전송

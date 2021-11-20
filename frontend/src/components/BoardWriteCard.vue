@@ -4,7 +4,7 @@
       <!-- 게시판 글쓰기 -->
       <v-row>
         <v-col cols="auto" class="mt-6 ml-6 pa-0">
-          <p class="text-h5 text-left font-weight-black mb-0">글쓰기</p>
+          <p class="text-h5 text-left font-weight-black">글쓰기</p>
         </v-col>
       </v-row>
 
@@ -55,8 +55,9 @@
       <v-row>
         <v-btn
           dark
-          style="background-color: #9fffed"
-          class="ml-auto mr-6 mb-4 mt-2"
+          tile
+          elevation="1"
+          class="ml-auto mr-6 mb-5 mt-2 blue lighten-1 font-weight-black"
           @click="getHTML"
         >
           작성완료

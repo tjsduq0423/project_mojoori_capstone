@@ -8,6 +8,7 @@
     elevation="1"
   >
     <v-card-title
+      v-if="$store.state.auth.auth"
       class="text-h5 title pl-7 pt-6"
       style="font-weight: 900; font-size: 25px !important"
     >
