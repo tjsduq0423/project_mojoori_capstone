@@ -58,12 +58,6 @@
 
 <script>
 export default {
-  props: {
-    login: {
-      type: Boolean,
-      default: false,
-    },
-  },
   data() {
     return {
       page: 2,

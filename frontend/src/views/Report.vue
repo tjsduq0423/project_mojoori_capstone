@@ -50,8 +50,8 @@ export default {
   data() {
     return {
       items: [
-        { title: "인기종목", color: "brown darken-2" },
-        { title: "추천저자", color: "deep-orange darken-1" },
+        { title: "인기종목", color: "deep-orange darken-1" },
+        { title: "인기저자", color: "brown lighten-2" },
         { title: "인기산업", color: "grey darken-1" },
       ],
     };

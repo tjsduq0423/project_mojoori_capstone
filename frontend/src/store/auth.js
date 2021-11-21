@@ -7,14 +7,10 @@ export default {
   },
   getters: {},
   mutations: {
-    setAuth(state, data) {
-      state.auth = data;
-    },
-    setUserId(state, data) {
-      state.userId = data;
-    },
-    setNickname(state, data) {
-      state.nickname = data;
+    setUserInfo(state, data) {
+      state.auth = data.auth;
+      state.userId = data.userId;
+      state.nickname = data.nickname;
     },
   },
   actions: {},

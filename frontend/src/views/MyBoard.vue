@@ -29,7 +29,7 @@ import Appbar from "@/components/Appbar.vue";
 import BoardBox from "@/components/BoardBox.vue";
 import MyBoardCardList from "@/components/MyBoardCardList.vue";
 export default {
-  name: "Bookmark",
+  name: "MyBoard",
   components: {
     Appbar,
     BoardBox,

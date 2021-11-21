@@ -1,13 +1,20 @@
 <template>
   <v-app app>
-    <AppbarLogined />
+    <Appbar />
     <v-main app class="back">
-      <v-container fluid>
-        <v-row>
-          <v-col md="3">
-            <MyPageBox :style="{ top: '88px', position: 'sticky' }" />
+      <v-container class="px-0 pt-0">
+        <v-row justify="center">
+          <v-col
+            v-if="
+              $vuetify.breakpoint.xl ||
+              $vuetify.breakpoint.lg ||
+              $vuetify.breakpoint.md
+            "
+            md="3"
+          >
+            <MyPageBox :style="{ top: '64px', position: 'sticky' }" />
           </v-col>
-          <v-col md="9">
+          <v-col md="8">
             <ReportCardList />
           </v-col>
         </v-row>
@@ -17,13 +24,13 @@
 </template>
 
 <script>
-import AppbarLogined from "@/components/AppbarLogined.vue";
+import Appbar from "@/components/Appbar.vue";
 import MyPageBox from "@/components/MyPageBox.vue";
 import ReportCardList from "@/components/ReportCardList.vue";
 export default {
-  name: "InterestIndustry",
+  name: "LikeReport",
   components: {
-    AppbarLogined,
+    Appbar,
     MyPageBox,
     ReportCardList,
   },

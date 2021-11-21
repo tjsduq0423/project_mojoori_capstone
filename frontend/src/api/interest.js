@@ -10,20 +10,24 @@ const registerStocks = (userId, selectedstocks) =>
 const registerIndustries = (userId, selectedindustries) =>
   http.post("/interest/registerIndustries", { userId, selectedindustries });
 
-const getinterestStocks = (userId) =>
-  http.get("/interest/getinterestStocks", { userId });
+const getInterestStocks = (userId) =>
+  http.get("/interest/getInterestStocks", { userId });
 
-const getinterestIndustries = (userId) =>
-  http.get("/interest/getinterestIndustries", { userId });
+const getInterestIndustries = (userId) =>
+  http.get("/interest/getInterestIndustries", { userId });
 
-const deleteinterestStocks = (userId, stock) =>
-  http.patch("/interest/deleteinterestStocks", { userId, stock });
+const deleteInterestStocks = (userId, stock) =>
+  http.patch("/interest/deleteInterestStocks", { userId, stock });
+
+const deleteInterestIndustries = (userId, industry) =>
+  http.patch("/interest/deleteInterestIndustries", { userId, industry });
 export {
   stock,
   industry,
   registerStocks,
   registerIndustries,
-  getinterestStocks,
-  getinterestIndustries,
-  deleteinterestStocks,
+  getInterestStocks,
+  getInterestIndustries,
+  deleteInterestStocks,
+  deleteInterestIndustries,
 };

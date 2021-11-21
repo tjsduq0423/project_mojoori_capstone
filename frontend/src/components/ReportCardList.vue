@@ -97,13 +97,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("list", {
-      list: (state) => state.list,
-      listCount: (state) => state.listCount,
-    }),
+    ...mapState("list", ["list", "listCount"]),
     ...mapState("auth", ["auth", "userId"]),
     pages() {
-      return Math.ceil(this.listCount / 8);
+      return Math.ceil(this.listCount / 20);
     },
   },
   methods: {

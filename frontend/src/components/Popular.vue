@@ -1,6 +1,6 @@
 <template>
-  <v-card min-height="280px" max-width="400px" elevation="5" class="card">
-    <v-card-title class="justify-center text-h5 white--text black">
+  <v-card min-height="280px" max-width="380px" elevation="1">
+    <v-card-title class="justify-center text-h5 white--text blue lighten-1">
       {{ item.title }}
     </v-card-title>
     <v-chip
@@ -48,11 +48,11 @@ export default {
 </script>
 
 <style scoped>
-.card {
+/* .card {
   width: 100%;
   border-radius: 20px !important;
   border-color: black !important;
   border: solid 1em;
   border-width: medium !important;
-}
+} */
 </style>

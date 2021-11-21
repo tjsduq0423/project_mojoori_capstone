@@ -17,7 +17,7 @@
           </v-col>
           <v-col md="8">
             <BoardCard class="mb-6" />
-            <BoardCardList :login="true" />
+            <BoardCardList />
           </v-col>
         </v-row>
       </v-container>

@@ -10,6 +10,19 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("@/views/Home.vue"),
+    beforeEnter: (to, from, next) => {
+      if (store.state.auth.auth) {
+        next({ path: "/report" });
+      } else {
+        next();
+      }
+    },
+    meta: { authReduired: false },
+  },
+  {
+    path: "/report",
+    name: "Report",
+    component: () => import("@/views/Report.vue"),
     meta: { authReduired: false },
   },
   {
@@ -48,18 +61,6 @@ const routes = [
     name: "EmailAuthenticationDone",
     component: () => import("@/views/EmailAuthenticationDone.vue"),
     meta: { authReduired: false },
-  },
-  {
-    path: "/report",
-    name: "Report",
-    component: () => import("@/views/Report.vue"),
-    meta: { authReduired: false },
-  },
-  {
-    path: "/bookmark",
-    name: "Bookmark",
-    component: () => import("@/views/Bookmark.vue"),
-    meta: { authReduired: true },
   },
   {
     path: "/like-report",
@@ -121,15 +122,21 @@ router.beforeEach(async (to, from, next) => {
       const response = await authApi.getUser();
 
       if (response.status === 200) {
-        store.commit("auth/setUserId", response.data.userId);
-        store.commit("auth/setNickname", response.data.nickname);
-        store.commit("auth/setAuth", true);
+        store.commit("auth/setUserInfo", {
+          auth: true,
+          userId: response.data.userId,
+          nickname: response.data.nickname,
+        });
         next();
       }
     } catch (err) {
       // console.log(err.response.data.message);
       alert("로그인이 필요합니다");
-      store.commit("auth/setAuth", false);
+      store.commit("auth/setUserInfo", {
+        auth: false,
+        userId: null,
+        nickname: null,
+      });
       next({ path: "/user-authentication" });
     }
   } else {
@@ -138,14 +145,20 @@ router.beforeEach(async (to, from, next) => {
 
       if (response.status === 200) {
         // console.log(response.data.data);
-        store.commit("auth/setUserId", response.data.userId);
-        store.commit("auth/setNickname", response.data.nickname);
-        store.commit("auth/setAuth", true);
+        store.commit("auth/setUserInfo", {
+          auth: true,
+          userId: response.data.userId,
+          nickname: response.data.nickname,
+        });
         next();
       }
     } catch (err) {
       // console.log(err.response);
-      store.commit("auth/setAuth", false);
+      store.commit("auth/setUserInfo", {
+        auth: false,
+        userId: null,
+        nickname: null,
+      });
       next();
     }
     // console.log(`routing success : '${to.path} '`);

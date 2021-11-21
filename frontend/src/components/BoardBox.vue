@@ -18,7 +18,7 @@
     <v-list class="py-0">
       <template v-for="(mypagebutton, index) in mypagebuttons">
         <v-list-item :key="index" link :to="mypagebutton.to">
-          <v-list-item-title class="text-md-center"
+          <v-list-item-title class="text-center"
             >{{ mypagebutton.content }}
           </v-list-item-title>
         </v-list-item>
@@ -40,10 +40,6 @@ export default {
         {
           content: "내가 쓴 글",
           to: "/my-board",
-        },
-        {
-          content: "북마크",
-          to: "/bookmark",
         },
       ],
     };

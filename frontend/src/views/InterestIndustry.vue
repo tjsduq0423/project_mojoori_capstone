@@ -1,14 +1,35 @@
 <template>
   <v-app app>
-    <AppbarLogined />
+    <Appbar />
     <v-main app class="back">
-      <v-container fluid>
-        <v-row>
-          <v-col md="3">
-            <MyPageBox :style="{ top: '88px', position: 'sticky' }" />
+      <v-container class="px-0 pt-0">
+        <v-row justify="center">
+          <v-col
+            v-if="
+              $vuetify.breakpoint.xl ||
+              $vuetify.breakpoint.lg ||
+              $vuetify.breakpoint.md
+            "
+            md="3"
+          >
+            <MyPageBox :style="{ top: '64px', position: 'sticky' }" />
           </v-col>
-          <v-col md="9">
-            <SearchTag :industry="true" :corporation="false" />
+          <v-col md="8">
+            <v-card width="100%" min-height="50" tile elevation="1">
+              <template v-for="(tag, i) in tags">
+                <v-chip
+                  :key="i"
+                  class="ma-2"
+                  text-color="white"
+                  color="grey darken-1"
+                  label
+                  close
+                  @click:close="removeTag(i)"
+                >
+                  {{ tag }}
+                </v-chip>
+              </template>
+            </v-card>
             <ReportCardList />
           </v-col>
         </v-row>
@@ -18,17 +39,58 @@
 </template>
 
 <script>
-import AppbarLogined from "@/components/AppbarLogined.vue";
+import Appbar from "@/components/Appbar.vue";
 import MyPageBox from "@/components/MyPageBox.vue";
-import SearchTag from "@/components/SearchTag.vue";
 import ReportCardList from "@/components/ReportCardList.vue";
+import { mapState } from "vuex";
+import * as interestApi from "@/api/interest";
 export default {
   name: "InterestIndustry",
   components: {
-    AppbarLogined,
+    Appbar,
     MyPageBox,
-    SearchTag,
     ReportCardList,
+  },
+  data() {
+    return {
+      tags: [],
+    };
+  },
+  computed: {
+    ...mapState("auth", ["userId"]),
+  },
+  mounted() {
+    this.callIndustryTags();
+  },
+  methods: {
+    async removeTag(index) {
+      try {
+        const response = await interestApi.deleteInterestIndustries(
+          this.userId,
+          this.tags[index]
+        );
+        if (response.status === 200) {
+          this.tags.splice(index, 1);
+        }
+      } catch (err) {
+        if (err.response.staus === 401) {
+          console.log(err.response.data.message);
+        }
+      }
+    },
+    async callIndustryTags() {
+      try {
+        const response = await interestApi.getInterestIndustries(this.userId);
+        if (response.status === 200) {
+          console.log(response.data.industriestags);
+          this.tags = response.data.industriestags;
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+        }
+      }
+    },
   },
 };
 </script>

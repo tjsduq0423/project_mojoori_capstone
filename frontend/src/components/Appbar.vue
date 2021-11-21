@@ -68,7 +68,7 @@
       <span>로그인</span>
     </v-tooltip>
 
-    <!-- 설정버튼 -->
+    <!-- 관심설정버튼 -->
     <v-tooltip v-if="this.$store.state.auth.auth" bottom color="blue darken-1">
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="mx-1" large icon v-bind="attrs" v-on="on">
@@ -79,10 +79,17 @@
       <span>골라보기</span>
     </v-tooltip>
 
-    <!-- 설정버튼 -->
+    <!-- 내정보 버튼 -->
     <v-tooltip v-if="this.$store.state.auth.auth" bottom color="blue darken-1">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="mx-1" large icon v-bind="attrs" v-on="on">
+        <v-btn
+          class="mx-1"
+          large
+          icon
+          v-bind="attrs"
+          to="/like-report"
+          v-on="on"
+        >
           <v-icon> mdi-account-outline </v-icon>
         </v-btn>
       </template>
@@ -141,7 +148,7 @@ export default {
           this.$router.push({ name: "Home" });
         }
       } catch (err) {
-        console.log("로그아웃 실패");
+        console.log(err.response);
       }
     },
   },

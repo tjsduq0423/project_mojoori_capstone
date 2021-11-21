@@ -3,13 +3,14 @@
     <v-main class="back">
       <v-container fill-height fluid>
         <v-row justify="center">
-          <v-col cols="12" md="5">
+          <v-col cols="12" md="4">
             <v-card
               class="mx-auto"
               max-width="550px"
               max-height="700px"
               tile
-              style="border: solid"
+              outlined
+              elevation="1"
             >
               <v-container fluid>
                 <v-form ref="form" lazy-validation class="mx-6">
@@ -91,7 +92,9 @@
                         block
                         large
                         tile
-                        class="grey lighten-1 text-h5 font-weight-bold"
+                        elevation="1"
+                        style="margin-bottom: 3rem"
+                        class="blue lighten-1 text-h5 font-weight-bold"
                         @click="changePassword()"
                       >
                         변경하기
