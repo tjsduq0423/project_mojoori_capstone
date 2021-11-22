@@ -80,7 +80,7 @@ export default {
     return {
       title: "",
       editorOptions: { hideModeSwitch: true },
-      themes: ["종목", "이슈", "유머", "자유"],
+      themes: ["종목", "이슈", "유머", "자유", "팁과 노하우"],
     };
   },
   methods: {

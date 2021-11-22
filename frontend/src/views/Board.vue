@@ -3,6 +3,8 @@
     <Appbar />
 
     <v-main class="back">
+      {{ this.$route.params.theme }}
+
       <v-container class="px-0 pt-0">
         <v-row justify="center">
           <v-col

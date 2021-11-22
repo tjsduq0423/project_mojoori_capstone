@@ -11,6 +11,7 @@
         hide-details="auto"
         append-icon="mdi-magnify"
         @keyup.enter="nothing()"
+        @click:append="nothing()"
       >
       </v-text-field>
     </v-col>

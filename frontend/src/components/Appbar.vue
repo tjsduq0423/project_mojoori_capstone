@@ -42,11 +42,17 @@
     <!-- 게시판 버튼 -->
     <v-tooltip bottom color="blue darken-1">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn class="mx-1" large icon to="/board" v-bind="attrs" v-on="on">
+        <v-btn
+          class="mx-1"
+          large
+          icon
+          to="/board/home"
+          v-bind="attrs"
+          v-on="on"
+        >
           <v-icon>mdi-clipboard-edit-outline </v-icon>
         </v-btn>
       </template>
-      <!-- :style="{ backgroundColor: 'white' }" -->
       <span>게시판</span>
     </v-tooltip>
 
@@ -64,20 +70,216 @@
           <v-icon> mdi-login </v-icon>
         </v-btn>
       </template>
-      <!-- :style="{ backgroundColor: 'white' }" -->
       <span>로그인</span>
     </v-tooltip>
 
     <!-- 관심설정버튼 -->
-    <v-tooltip v-if="this.$store.state.auth.auth" bottom color="blue darken-1">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn class="mx-1" large icon v-bind="attrs" v-on="on">
-          <v-icon> mdi-pin-outline </v-icon>
-        </v-btn>
+    <v-menu v-if="this.$store.state.auth.auth" offset-y>
+      <template v-slot:activator="{ on: menu, attrs }">
+        <v-tooltip bottom color="blue darken-1">
+          <template v-slot:activator="{ on: tooltip }">
+            <v-btn
+              class="mx-1"
+              large
+              icon
+              v-bind="attrs"
+              v-on="{ ...menu, ...tooltip }"
+            >
+              <v-icon> mdi-pin-outline </v-icon>
+            </v-btn>
+          </template>
+          <!-- :style="{ backgroundColor: 'white' }" -->
+          <span>골라보기</span>
+        </v-tooltip>
       </template>
-      <!-- :style="{ backgroundColor: 'white' }" -->
-      <span>골라보기</span>
-    </v-tooltip>
+
+      <v-list class="py-0">
+        <v-dialog v-model="dialog" persistent>
+          <template v-slot:activator="{ on: _dialog }">
+            <v-list-item v-on="{ ..._dialog }">
+              <v-list-item-icon class="pl-1">
+                <v-icon>mdi-domain</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="pr-3">종목</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+
+          <!-- 종목 골라보기 다이얼로그 -->
+          <v-card class="pa-3" min-height="670px">
+            <v-container class="py-6">
+              <v-row>
+                <v-col cols="12">
+                  <p
+                    style="color: #42a5f5"
+                    class="text-h4 text-center font-weight-black mb-0"
+                  >
+                    종목 골라보기
+                  </p>
+                </v-col>
+              </v-row>
+              <v-row justify="center">
+                <v-col cols="5">
+                  <v-text-field
+                    v-model="magnify"
+                    flat
+                    filled
+                    dense
+                    rounded
+                    placeholder="종목"
+                    hide-details="auto"
+                    append-icon="mdi-magnify"
+                    @keyup.enter="nothing()"
+                    @click:append="nothing()"
+                  >
+                  </v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <template v-for="(chunk, index) in stocks">
+                  <v-container v-if="page == index + 1" :key="index">
+                    <v-row v-for="(a, i) in 5" :key="i" justify="center">
+                      <v-col v-for="(b, ind) in 5" :key="ind" cols="2">
+                        <v-card
+                          v-for="(ele, idx) in chunk.slice(
+                            i * 5 + b - 1,
+                            i * 5 + b
+                          )"
+                          :key="idx"
+                          style="border: 1px solid"
+                        >
+                          <v-checkbox
+                            v-model="selectedstocks"
+                            class="ml-6"
+                            :label="ele.toString()"
+                            :value="ele"
+                          >
+                          </v-checkbox>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </template>
+              </v-row>
+              <v-row justify="space-between">
+                <v-col></v-col>
+                <v-col>
+                  <v-pagination
+                    v-model="page"
+                    :length="pages"
+                    :total-visible="7"
+                    circle
+                  ></v-pagination></v-col
+                ><v-col align="right" align-self="end">
+                  <v-btn
+                    x-large
+                    color="#42A5F5"
+                    dark
+                    class="text-h6 font-weight-bold"
+                    @click="[(dialog = false), registerStocks()]"
+                    >확인</v-btn
+                  >
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialog2" persistent>
+          <template v-slot:activator="{ on: _dialog2 }">
+            <v-list-item v-on="{ ..._dialog2 }">
+              <v-list-item-icon class="pl-1">
+                <v-icon>mdi-factory</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="pr-3">산업</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+
+          <!-- 다이얼로그 산업고르기 -->
+          <v-card class="pa-3" min-height="670px">
+            <v-container class="py-6">
+              <v-row>
+                <v-col>
+                  <p
+                    style="color: #42a5f5"
+                    class="text-h4 text-center font-weight-bold mb-0"
+                  >
+                    산업 골라보기
+                  </p>
+                </v-col>
+              </v-row>
+              <v-row justify="center">
+                <v-col cols="5">
+                  <v-text-field
+                    v-model="magnify"
+                    flat
+                    filled
+                    dense
+                    rounded
+                    placeholder="산업"
+                    hide-details="auto"
+                    append-icon="mdi-magnify"
+                    @keyup.enter="nothing()"
+                    @click:append="nothing()"
+                  >
+                  </v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <template v-for="(chunk2, index2) in industries">
+                  <v-container v-if="page2 == index2 + 1" :key="index2">
+                    <v-row v-for="(c, i2) in 5" :key="i2" justify="center">
+                      <v-col v-for="(d, ind2) in 5" :key="ind2" cols="2">
+                        <v-card
+                          v-for="(ele2, idx2) in chunk2.slice(
+                            i2 * 5 + d - 1,
+                            i2 * 5 + d
+                          )"
+                          :key="idx2"
+                          style="border: 1px solid"
+                        >
+                          <v-checkbox
+                            v-model="selectedindustries"
+                            class="ml-6"
+                            :label="ele2.toString()"
+                            :value="ele2"
+                          >
+                          </v-checkbox>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </template>
+              </v-row>
+              <v-row justify="space-between">
+                <v-col></v-col>
+                <v-col>
+                  <v-pagination
+                    v-model="page2"
+                    :length="pages2"
+                    :total-visible="7"
+                    circle
+                  ></v-pagination
+                ></v-col>
+                <v-col align-self="end" align="right">
+                  <v-btn
+                    x-large
+                    color="#42A5F5"
+                    dark
+                    class="text-h6 font-weight-bold"
+                    @click="[(dialog2 = false), registerIndustries()]"
+                    >확인</v-btn
+                  ></v-col
+                >
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-dialog>
+      </v-list>
+    </v-menu>
 
     <!-- 내정보 버튼 -->
     <v-tooltip v-if="this.$store.state.auth.auth" bottom color="blue darken-1">
@@ -94,7 +296,7 @@
         </v-btn>
       </template>
       <!-- :style="{ backgroundColor: 'white' }" -->
-      <span>내 정보</span>
+      <span>마이페이지</span>
     </v-tooltip>
 
     <!-- 로그인버튼 -->
@@ -119,15 +321,38 @@
 
 <script>
 import * as authApi from "@/api/auth";
-// import * as interestApi from "@/api/interest";
-// import { mapState } from "vuex";
+import * as interestApi from "@/api/interest";
+
+import { mapState } from "vuex";
 
 export default {
   name: "Appbar",
   data() {
     return {
       items: null,
+      dialog: false,
+      dialog2: false,
+      magnify: "",
+      page: 1,
+      page2: 1,
+      selectedstocks: [],
+      selectedindustries: [],
     };
+  },
+  computed: {
+    ...mapState("interest", [
+      "stocks",
+      "industries",
+      "stockscount",
+      "industriescount",
+    ]),
+    ...mapState("auth", ["userId"]),
+    pages() {
+      return Math.ceil(this.stockscount / 25);
+    },
+    pages2() {
+      return Math.ceil(this.industriescount / 25);
+    },
   },
   created() {
     this.items = [
@@ -149,6 +374,37 @@ export default {
         }
       } catch (err) {
         console.log(err.response);
+      }
+    },
+    nothing() {},
+    async registerStocks() {
+      try {
+        const response = await interestApi.registerStocks(
+          this.userId,
+          this.selectedstocks
+        );
+        if (response.status === 200) {
+          console.log(response.data.userintereststocks);
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+        }
+      }
+    },
+    async registerIndustries() {
+      try {
+        const response = await interestApi.registerIndustries(
+          this.userId,
+          this.selectedindustries
+        );
+        if (response.status === 200) {
+          console.log(response.data.userinterestindustries);
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+        }
       }
     },
   },

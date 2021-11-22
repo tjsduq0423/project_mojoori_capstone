@@ -69,7 +69,7 @@ const routes = [
     meta: { authReduired: true },
   },
   {
-    path: "/board",
+    path: "/board/:theme",
     name: "Board",
     component: () => import("@/views/Board.vue"),
     meta: { authReduired: false },

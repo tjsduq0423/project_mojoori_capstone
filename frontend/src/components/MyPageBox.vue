@@ -1,6 +1,6 @@
 <template>
   <v-card
-    height="400"
+    min-height="400"
     max-width="300px"
     width="100%"
     class="mx-auto"
@@ -9,12 +9,14 @@
   >
     <v-card-title
       v-if="$store.state.auth.auth"
-      class="text-h5 title pl-7 pt-6"
-      style="font-weight: 900; font-size: 25px !important"
+      class="text-h6 pl-7 pt-6 font-weight-bold"
     >
       {{ $store.state.auth.nickname }}
     </v-card-title>
-
+    <v-card-subtitle v-if="$store.state.auth.auth" class="text-subtitle-1 pl-7">
+      {{ $store.state.auth.nickname }}
+    </v-card-subtitle>
+    <v-divider></v-divider>
     <v-list class="py-0">
       <template v-for="(item, index) in items">
         <v-list-item :key="index" class="" link :to="item.to">
