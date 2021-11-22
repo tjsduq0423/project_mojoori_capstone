@@ -15,7 +15,7 @@
             <MyPageBox :style="{ top: '64px', position: 'sticky' }" />
           </v-col>
           <v-col md="8">
-            <ReportCardList />
+            <LikeReportCardList />
           </v-col>
         </v-row>
       </v-container>
@@ -26,13 +26,13 @@
 <script>
 import Appbar from "@/components/Appbar.vue";
 import MyPageBox from "@/components/MyPageBox.vue";
-import ReportCardList from "@/components/ReportCardList.vue";
+import LikeReportCardList from "@/components/LikeReportCardList.vue";
 export default {
   name: "LikeReport",
   components: {
     Appbar,
     MyPageBox,
-    ReportCardList,
+    LikeReportCardList,
   },
   mounted() {
     this.callLikeData();

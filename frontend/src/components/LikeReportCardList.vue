@@ -90,7 +90,7 @@
 import * as ReportApi from "@/api/report";
 import { mapState } from "vuex";
 export default {
-  name: "ReportCardList",
+  name: "LikeReportCardList",
   data() {
     return {
       page: 1,
@@ -104,25 +104,25 @@ export default {
     },
   },
   methods: {
-    async likeReport(title) {
-      try {
-        const response = await ReportApi.likeReports(this.userId, title);
-        if (response.status === 200) {
-          this.$store.dispatch("list/callData");
-          console.log(response);
-        }
-      } catch (err) {
-        if (err.response.status === 401) {
-          console.log(err.response.data.message);
-        }
-      }
-    },
+    // async likeReport(title) {
+    //   try {
+    //     const response = await ReportApi.likeReports(this.userId, title);
+    //     if (response.status === 200) {
+    //       this.$store.dispatch("list/callLikeData");
+    //       console.log(response);
+    //     }
+    //   } catch (err) {
+    //     if (err.response.status === 401) {
+    //       console.log(err.response.data.message);
+    //     }
+    //   }
+    // },
     async unlikeReport(title) {
       try {
         const response = await ReportApi.unlikeReports(this.userId, title);
         if (response.status === 200) {
-          this.$store.dispatch("list/callData");
-          console.log(response);
+          console.log(1);
+          this.$store.dispatch("list/callLikeData");
         }
       } catch (err) {
         if (err.response.status === 401) {

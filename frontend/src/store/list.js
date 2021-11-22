@@ -27,7 +27,7 @@ export default {
   actions: {
     async callData({ commit }) {
       const response = await reportApi.report();
-      console.log(response.data.data.reports);
+      console.log(response);
       commit("setList", response.data.data.reports);
       commit("setListCount", response.data.data.reports.length);
     },
