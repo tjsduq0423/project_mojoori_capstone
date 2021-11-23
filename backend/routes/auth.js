@@ -1,29 +1,51 @@
 require("dotenv").config();
 
-var express = require("express");
-var router = express.Router();
-var jwt = require("jsonwebtoken");
-var crypto = require("crypto");
+const express = require("express");
+const router = express.Router();
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+const pool = require("../db/config");
 
 let users = [
   { userId: "test", password: "test", nickname: "test", authToken: true },
 ];
 
 router.post("/signUp", async (req, res) => {
-  //검증 절차 필요함 userId 중복 nickname 중복 -> 401 err 리턴
-  const auth = await users.some((ele) => ele.userId === req.body.userId); // user Authentication -> DB 쿼리 작성으로 수정
-  const token = await crypto.randomBytes(32).toString("hex");
-  const user = {
-    userId: req.body.userId,
-    password: req.body.password,
-    nickname: req.body.nickname,
-    authToken: token,
+  const token = await crypto.randomBytes(16).toString("hex");
+  const payload = {
+    member_email: req.body.userId,
+    member_pwd: req.body.password,
+    member_nickname: req.body.nickname,
+    member_authToken: token,
   };
-  users.push(user); //DB 에 SQL user 추가로 수정
-  // 이메일로 인증메일 전송. nodemailer `http://example.com/email-authentication-done/${token}` 발송
 
-  console.log(users);
-  res.status(200).send(users);
+  const conn = await pool.getConnection();
+
+  try {
+    await conn.beginTransaction();
+
+    const [rows, fields] = await conn.query("INSERT INTO member_ SET ?", [
+      payload,
+    ]);
+    await conn.commit();
+    res.status(200).send({
+      rows,
+      fields,
+    });
+  } catch (err) {
+    await conn.rollback();
+    // sqlMessage : "Duplicate entry 'test2@gmail.com' for key 'member_.member_email_UNIQUE'"
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+
+  // 이메일로 인증메일 전송. nodemailer `http://example.com/email-authentication-done/${token}` 발송
 });
 
 router.post("/emailAuth", async (req, res) => {
@@ -60,9 +82,7 @@ router.post("/login", async (req, res, next) => {
     maxAge: 24 * 60 * 60 * 1000, // 쿠키 수명 하루
   }); // 쿠키에 토큰 저장
 
-  res.status(200).send({
-    message: "로그인 성공",
-  });
+  res.status(200).send(users[0]);
 });
 
 router.get("/user", async (req, res) => {

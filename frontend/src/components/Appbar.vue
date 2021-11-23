@@ -3,7 +3,7 @@
     <!-- 툴바 제목 Mojuri -->
     <v-toolbar-title>
       <router-link
-        to="/"
+        to="/report"
         :style="{
           color: 'white',
           textDecoration: 'none',

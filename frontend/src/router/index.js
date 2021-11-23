@@ -10,13 +10,6 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("@/views/Home.vue"),
-    beforeEnter: (to, from, next) => {
-      if (store.state.auth.auth) {
-        next({ path: "/report" });
-      } else {
-        next();
-      }
-    },
     meta: { authReduired: false },
   },
   {

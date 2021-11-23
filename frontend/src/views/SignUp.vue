@@ -21,7 +21,7 @@
                       <v-card flat class="text-center my-6">
                         <router-link
                           class="text-h4 font-weight-black"
-                          to="/"
+                          to="/report"
                           :style="{ color: 'black', textDecoration: 'none' }"
                         >
                           Mojuri
@@ -152,10 +152,11 @@ export default {
           );
 
           if (response.status === 200) {
+            console.log(response.data);
             this.$router.push({ name: "EmailAuthentication" });
           }
         } catch (err) {
-          alert(err.response.data.message);
+          console.log(err.response);
         }
 
         // axios call email 로 임시비밀번호 생성 후 전송

@@ -20,7 +20,7 @@
                       <v-card flat class="text-center my-6">
                         <router-link
                           class="text-h4 font-weight-black"
-                          to="/"
+                          to="/report"
                           :style="{ color: 'black', textDecoration: 'none' }"
                         >
                           Mojuri
