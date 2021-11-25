@@ -34,13 +34,10 @@ export default {
     async callInterest({ commit }) {
       const responsestock = await interestApi.stock();
       const responseindustry = await interestApi.industry();
-      commit("setStocks", responsestock.data.stocks.stocks);
-      commit("setStocksCount", responsestock.data.stocks.stocks.length);
-      commit("setIndustries", responseindustry.data.industries.industries);
-      commit(
-        "setIndustriesCount",
-        responseindustry.data.industries.industries.length
-      );
+      commit("setStocks", responsestock.data.stocks);
+      commit("setStocksCount", responsestock.data.stocks.length);
+      commit("setIndustries", responseindustry.data.industries);
+      commit("setIndustriesCount", responseindustry.data.industries.length);
     },
   },
 };

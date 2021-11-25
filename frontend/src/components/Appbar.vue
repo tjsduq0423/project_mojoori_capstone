@@ -152,8 +152,8 @@
                           <v-checkbox
                             v-model="selectedstocks"
                             class="ml-6"
-                            :label="ele.toString()"
-                            :value="ele"
+                            :label="ele.company_name.toString()"
+                            :value="ele.company_no"
                           >
                           </v-checkbox>
                         </v-card>
@@ -244,8 +244,8 @@
                           <v-checkbox
                             v-model="selectedindustries"
                             class="ml-6"
-                            :label="ele2.toString()"
-                            :value="ele2"
+                            :label="ele2.industry_type.toString()"
+                            :value="ele2.industry_no"
                           >
                           </v-checkbox>
                         </v-card>
@@ -384,7 +384,7 @@ export default {
           this.selectedstocks
         );
         if (response.status === 200) {
-          console.log(response.data.userintereststocks);
+          console.log(response);
         }
       } catch (err) {
         if (err.response.status === 401) {
@@ -399,7 +399,7 @@ export default {
           this.selectedindustries
         );
         if (response.status === 200) {
-          console.log(response.data.userinterestindustries);
+          console.log(response);
         }
       } catch (err) {
         if (err.response.status === 401) {
