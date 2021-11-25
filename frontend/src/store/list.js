@@ -28,8 +28,8 @@ export default {
     async callData({ commit }) {
       const response = await reportApi.report();
       console.log(response);
-      commit("setList", response.data.data.reports);
-      commit("setListCount", response.data.data.reports.length);
+      commit("setList", response.data.data);
+      commit("setListCount", response.data.data.length);
     },
     async callLikeData({ commit }) {
       const response = await reportApi.likereport();

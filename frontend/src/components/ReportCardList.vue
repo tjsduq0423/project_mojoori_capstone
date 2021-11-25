@@ -9,7 +9,7 @@
             tile
             elevation="1"
             class="mb-2"
-            :href="`${stock.pdfUrl}`"
+            :href="`${stock.report_url}`"
             target="_black"
           >
             <v-list-item three-line>
@@ -21,24 +21,22 @@
                     text-color="white"
                     color="deep-orange darken-1"
                   >
-                    {{ stock.name }}
+                    {{ stock.company_name }}
                   </v-chip>
                   <v-chip
-                    v-for="(tags, index2) in stock.tag"
-                    :key="index2"
                     class="ma-2"
                     label
                     text-color="white"
                     color="grey darken-2"
                   >
-                    {{ tags }}
+                    {{ stock.industry_type }}
                   </v-chip>
                 </div>
                 <v-list-item-title class="text-left headline">
-                  {{ stock.title }}
+                  {{ stock.report_title }}
                 </v-list-item-title>
                 <v-list-item-subtitle class="text-left subtitle">
-                  {{ stock.author }}
+                  {{ stock.report_tp }}
                 </v-list-item-subtitle>
               </v-list-item-content>
 
