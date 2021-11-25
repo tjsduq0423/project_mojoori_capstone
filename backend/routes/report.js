@@ -1,14 +1,34 @@
 var express = require('express');  
 var reports = require('../data/report_data');
 const { report } = require('./auth');
-
+const pool = require("../db/config");
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', (req, res) => {
-  res.status(200).send({
-    data:reports
-  });
+router.get('/', async(req, res) => {
+  const conn = await pool.getConnection();
+
+  try {
+    await conn.beginTransaction();
+
+    const [rows,fields] = await conn.query("SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON company.industry_no=industry.industry_no");
+    await conn.commit();
+    res.status(200).send({
+      data:rows,
+      fields,
+    });
+  } catch (err) {
+    await conn.rollback();
+    // sqlMessage : "Duplicate entry 'test2@gmail.com' for key 'member_.member_email_UNIQUE'"
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
 });
 
 router.get('/likereport', (req, res) => {
