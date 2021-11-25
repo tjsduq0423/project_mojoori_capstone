@@ -44,6 +44,7 @@
                         outlined
                         label="이메일(ID)"
                         required
+                        @keyup.enter="signUp()"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" class="py-0">
@@ -52,8 +53,9 @@
                         :counter="14"
                         :rules="nameRules"
                         outlined
-                        label="닉네임"
                         required
+                        label="닉네임"
+                        @keyup.enter="signUp()"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" class="py-0">
@@ -66,6 +68,7 @@
                         label="비밀번호"
                         required
                         @click:append="show = !show"
+                        @keyup.enter="signUp()"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -79,7 +82,7 @@
                         tile
                         elevation="1"
                         class="blue lighten-1 text-h5 font-weight-bold"
-                        @click="validate()"
+                        @click="signUp()"
                       >
                         가입하기
                       </v-btn>
@@ -141,7 +144,7 @@ export default {
     };
   },
   methods: {
-    async validate() {
+    async signUp() {
       const val = await this.$refs.form.validate();
       if (val) {
         try {

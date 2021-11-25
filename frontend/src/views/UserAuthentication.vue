@@ -43,6 +43,7 @@
                         label="이메일"
                         outlined
                         required
+                        @keyup.enter="login()"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" class="py-0">
@@ -55,6 +56,7 @@
                         label="비밀번호"
                         required
                         @click:append="show = !show"
+                        @keyup.enter="login()"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="auto" class="py-0">
@@ -146,7 +148,7 @@ export default {
             this.$router.push({ name: "Report" });
           }
         } catch (err) {
-          if (err.response.status === 401) {
+          if (err.response.status === 500) {
             alert(err.response.data.message);
           }
         }

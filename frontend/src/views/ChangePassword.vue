@@ -57,6 +57,7 @@
                         label="기존 비밀번호 입력"
                         required
                         @click:append="show = !show"
+                        @keyup.enter="changePassword()"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" class="py-0">
@@ -69,6 +70,7 @@
                         label="신규 비밀번호 입력"
                         required
                         @click:append="show = !show"
+                        @keyup.enter="changePassword()"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" class="py-0">
@@ -81,6 +83,7 @@
                         label="신규 비밀번호 재입력"
                         required
                         @click:append="show = !show"
+                        @keyup.enter="changePassword()"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -132,12 +135,11 @@ export default {
           /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,14}$/.test(
             v
           ) || "비밀번호 조건 : 최소 8자, 최대 14자, 특수문자, 숫자, 문자",
+        (v) => this.password !== v || "이전과 다른 비밀번호를 입력해주세요.",
       ],
       samepasswordRules: [
         (v) => !!v || "필수 입력입니다.",
-        () =>
-          this.newPassword == this.samePassword ||
-          "비밀번호가 동일하지 않습니다.",
+        (v) => v === this.samePassword || "비밀번호가 동일하지 않습니다.",
       ],
     };
   },
@@ -154,7 +156,7 @@ export default {
 
           if (response.status === 200) {
             alert(response.data.message);
-            this.$router.push({ name: "Logined" });
+            this.$router.push({ path: "/report" });
           }
         } catch (err) {
           alert(err.response.data.message);

@@ -64,6 +64,7 @@
                         outlined
                         label="이메일"
                         required
+                        @keyup.enter="transport()"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -111,7 +112,6 @@ export default {
   components: {},
   data() {
     return {
-      loginState: null,
       email: "",
       done: false,
       emailRules: [
