@@ -11,10 +11,10 @@ const registerIndustries = (userId, selectedindustries) =>
   http.post("/interest/registerIndustries", { userId, selectedindustries });
 
 const getInterestStocks = (userId) =>
-  http.get("/interest/getInterestStocks", { userId });
+  http.get("/interest/getInterestStocks/" + userId);
 
 const getInterestIndustries = (userId) =>
-  http.get("/interest/getInterestIndustries", { userId });
+  http.get("/interest/getInterestIndustries/" + userId);
 
 const deleteInterestStocks = (userId, stock) =>
   http.patch("/interest/deleteInterestStocks", { userId, stock });

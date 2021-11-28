@@ -26,7 +26,7 @@
                   close
                   @click:close="removeTag(i)"
                 >
-                  {{ tag }}
+                  {{ tag.company_name }}
                 </v-chip>
               </template>
             </v-card>
@@ -68,10 +68,12 @@ export default {
       try {
         const response = await interestApi.deleteInterestStocks(
           this.userId,
-          this.tags[index]
+          this.tags[index].company_name
         );
         if (response.status === 200) {
-          this.tags.splice(index, 1);
+          console.log(response);
+          this.callStockTags();
+          //this.tags.splice(index, 1);
         }
       } catch (err) {
         if (err.response.staus === 401) {
@@ -84,11 +86,11 @@ export default {
         const response = await interestApi.getInterestStocks(this.userId);
 
         if (response.status === 200) {
-          console.log(response.data);
-          this.tags = response.data.stockstags;
+          console.log(response.data.rows2);
+          this.tags = response.data.rows2;
         }
       } catch (err) {
-        if (err.reponse.status === 401) {
+        if (err.reponse.status === 500) {
           console.log(err.response.data.message);
         }
       }
