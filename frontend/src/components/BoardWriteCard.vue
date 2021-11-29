@@ -13,12 +13,14 @@
         <v-col cols="auto">
           <v-card width="100px" class="ml-3 mt-1" flat>
             <v-select
+              v-model="theme"
               :items="themes"
               label="분야"
               solo
               flat
               outlined
-              hide-details="auto"
+              menu-props="auto"
+              hide-details
             ></v-select>
           </v-card>
         </v-col>
@@ -58,7 +60,7 @@
           tile
           elevation="1"
           class="ml-auto mr-6 mb-5 mt-2 blue lighten-1 font-weight-black"
-          @click="getHTML"
+          @click="boardWrite()"
         >
           작성완료
         </v-btn>
@@ -69,6 +71,8 @@
 
 <script>
 import "@toast-ui/editor/dist/toastui-editor.css";
+import * as boardApi from "@/api/board";
+import { mapState } from "vuex";
 
 import { Editor } from "@toast-ui/vue-editor";
 export default {
@@ -79,14 +83,32 @@ export default {
   data() {
     return {
       title: "",
+      theme: "",
       editorOptions: { hideModeSwitch: true },
       themes: ["종목", "이슈", "유머", "자유", "팁과 노하우"],
     };
   },
+  computed: {
+    ...mapState("auth", ["nickname"]),
+  },
   methods: {
-    getHTML() {
-      let html = this.$refs.toastuiEditor.invoke("getHTML");
-      console.log(html);
+    async boardWrite() {
+      const html = this.$refs.toastuiEditor.invoke("getHTML");
+      try {
+        const response = await boardApi.write(
+          this.nickname,
+          this.title,
+          html,
+          this.theme
+        );
+        if (response.status === 200) {
+          this.$router.push({ path: "/board/home" });
+        }
+      } catch (err) {
+        if (err.response.status === 500) {
+          alert("작성 실패");
+        }
+      }
     },
   },
 };

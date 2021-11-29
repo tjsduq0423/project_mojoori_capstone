@@ -48,7 +48,7 @@
                         block
                         large
                         tile
-                        class="grey lighten-1 text-h5 font-weight-bold"
+                        class="blue lighten-1 text-h5 font-weight-bold"
                         to="/user-authentication"
                       >
                         로그인

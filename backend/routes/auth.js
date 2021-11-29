@@ -26,7 +26,7 @@ router.post("/signUp", async (req, res) => {
 
     const sendData = {
       subject: "이메일 인증 요청 메일입니다.",
-      html: `<p> Mojuri에 회원가입 해주셔서 감사합니다. </p> <a href = "http://ec2-13-124-134-15.ap-northeast-2.compute.amazonaws.com/email-authentication-done/${token}">Mojuri 인증 확인</a>`,
+      html: `<p> Mojuri에 회원가입 해주셔서 감사합니다. </p> <a href = "http://ec2-13-124-134-15.ap-northeast-2.compute.amazonaws.com/email-authentication-done/${token}">Mojuri 인증 링크(클릭)</a>`,
     };
     const info = await mailSender(req.body.userId, sendData);
 
@@ -184,7 +184,7 @@ router.post("/changePassword", async (req, res) => {
   }
 });
 
-router.post("/password", async (req, res) => {
+router.post("/findPassword", async (req, res) => {
   const tempPassword = await crypto.randomBytes(8).toString("hex");
   const conn = await pool.getConnection();
   await conn.beginTransaction();

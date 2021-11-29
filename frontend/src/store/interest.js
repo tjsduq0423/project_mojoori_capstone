@@ -12,7 +12,7 @@ export default {
     setStocks(state, data) {
       let arr = [];
       data.forEach((value, index) => {
-        if (index % 25 == 0) arr.push(data.slice(index, index + 25));
+        if (index % 25 === 0) arr.push(data.slice(index, index + 25));
       });
       state.stocks = arr;
     },

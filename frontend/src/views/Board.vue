@@ -3,8 +3,6 @@
     <Appbar />
 
     <v-main class="back">
-      {{ this.$route.params.theme }}
-
       <v-container class="px-0 pt-0">
         <v-row justify="center">
           <v-col
@@ -43,6 +41,20 @@ export default {
   },
   data() {
     return {};
+  },
+  mounted() {
+    this.callArticles(this.$route.params.theme);
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.callArticles(to.params.theme);
+    next();
+  },
+  methods: {
+    callArticles(theme) {
+      this.$store.dispatch("board/callArticles", {
+        theme,
+      });
+    },
   },
 };
 </script>

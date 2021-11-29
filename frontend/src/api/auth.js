@@ -15,7 +15,7 @@ const changePassword = (userId, password, newPassword) =>
 
 const emailAuth = (token) => http.post("/auth/emailAuth", { token });
 
-const passwordTransport = (email) => http.post("/auth/password", { email });
+const passwordTransport = (email) => http.post("/auth/findPassword", { email });
 
 export {
   signUp,

@@ -1,20 +1,21 @@
-var express = require('express');  
-var reports = require('../data/report_data');
-const { report } = require('./auth');
-const pool = require("../db/config");
-var router = express.Router();
+const express = require("express");
+const reports = require("../data/report_data");
+const pool = require("../db/pool");
+const router = express.Router();
 
 /* GET home page. */
-router.get('/', async(req, res) => {
+router.get("/", async (req, res) => {
   const conn = await pool.getConnection();
 
   try {
     await conn.beginTransaction();
 
-    const [rows,fields] = await conn.query("SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON company.industry_no=industry.industry_no");
+    const [rows, fields] = await conn.query(
+      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON company.industry_no=industry.industry_no"
+    );
     await conn.commit();
     res.status(200).send({
-      data:rows,
+      data: rows,
       fields,
     });
   } catch (err) {
@@ -31,30 +32,34 @@ router.get('/', async(req, res) => {
   }
 });
 
-router.get('/likereport', (req, res) => {
-  likereports=reports.reports.filter(element=>element.likes===true);
+router.get("/likereport", (req, res) => {
+  likereports = reports.reports.filter((element) => element.likes === true);
   res.status(200).send({
-    data:likereports
+    data: likereports,
   });
 });
 
-router.patch('/likeReports',(req,res)=>{
-  try{
-  likereport=reports.reports.find(element=>element.title===req.body.title);
-  likereport.likes=true;
-  res.status(200).send({likereport});
-  }catch(e){
+router.patch("/likeReports", (req, res) => {
+  try {
+    likereport = reports.reports.find(
+      (element) => element.title === req.body.title
+    );
+    likereport.likes = true;
+    res.status(200).send({ likereport });
+  } catch (e) {
     res.status(401).send({
       message: "찜하기 실패",
     });
   }
 });
-router.patch('/unlikeReports',(req,res)=>{
-  try{
-  unlikereport=reports.reports.find(element=>element.title===req.body.title);
-  unlikereport.likes=false;
-  res.status(200).send({unlikereport});
-  }catch(e){
+router.patch("/unlikeReports", (req, res) => {
+  try {
+    unlikereport = reports.reports.find(
+      (element) => element.title === req.body.title
+    );
+    unlikereport.likes = false;
+    res.status(200).send({ unlikereport });
+  } catch (e) {
     res.status(401).send({
       message: "찜하기 삭제 실패",
     });
