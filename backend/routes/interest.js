@@ -56,6 +56,33 @@ router.get("/industries", async(req, res) => {
   }
 });
 
+router.get("/getSearchStocks", async(req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const querystring="SELECT * FROM company WHERE company_name LIKE ?";
+    const queryParams=[`%${req.query.key1}%`];
+    const [rows,fields]=await conn.execute(querystring,queryParams);
+    await conn.commit();
+    res.status(200).send({
+      querystring,
+      queryParams,
+      stocks:rows,
+      fields,
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
 router.post("/registerStocks", async (req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
@@ -64,16 +91,19 @@ router.post("/registerStocks", async (req, res) => {
     const queryParams=[req.body.userId];
     const [rows,fields]=await conn.execute(querystring,queryParams);
      member_number=rows[0].member_no;
+     const querystring02="DELETE FROM member_company WHERE member_no=?";
+     const queryParams02=[member_number];
+     const [rows2,fields2]=await conn.execute(querystring02,queryParams02);
        for(var i=0; i< req.body.selectedstocks.length; i++){
-         const queryString02=
+         const queryString03=
          "SELECT * FROM member_company WHERE member_no=? AND company_no=?";
-        const queryParams02=[member_number,req.body.selectedstocks[i]];
-        const [rows,fields] = await conn.execute(queryString02,queryParams02 );
+        const queryParams03=[member_number,req.body.selectedstocks[i]];
+        const [rows,fields] = await conn.execute(queryString03,queryParams03 );
       
          if(Array.isArray(rows) && rows.length === 0)
-         {const queryString03="INSERT INTO member_company SET member_no=?,company_no=?";
-         const queryParams03=[member_number,req.body.selectedstocks[i]];
-         const[rows,fields]=await conn.execute(queryString03,queryParams03);}
+         {const queryString04="INSERT INTO member_company SET member_no=?,company_no=?";
+         const queryParams04=[member_number,req.body.selectedstocks[i]];
+         const[rows,fields]=await conn.execute(queryString04,queryParams04);}
         await conn.commit();
      
     }
@@ -104,18 +134,21 @@ router.post("/registerIndustries", async (req, res) => {
     const queryParams=[req.body.userId];
     const [rows,fields]=await conn.execute(querystring,queryParams);
      member_number=rows[0].member_no;
-     await conn.commit();
+     const querystring02="DELETE FROM member_industry WHERE member_no=?";
+     const queryParams02=[member_number];
+     const [rows2,fields2]=await conn.execute(querystring02,queryParams02);
+    
        for(var i=0; i< req.body.selectedindustries.length; i++){
-         const queryString02=
+         const queryString03=
          "SELECT * FROM member_industry WHERE member_no=? AND industry_no=?";
-        const queryParams02=[member_number,req.body.selectedindustries[i]];
-        const [rows,fields] = await conn.execute(queryString02,queryParams02 );
+        const queryParams03=[member_number,req.body.selectedindustries[i]];
+        const [rows,fields] = await conn.execute(queryString03,queryParams03 );
       
          if(Array.isArray(rows) && rows.length === 0)
-         {const queryString03="INSERT INTO member_industry SET member_no=?,industry_no=?";
-         const queryParams03=[member_number,req.body.selectedindustries[i]];
-         const[rows,fields]=await conn.execute(queryString03,queryParams03);}
-        await conn.commit();
+         {const queryString04="INSERT INTO member_industry SET member_no=?,industry_no=?";
+         const queryParams04=[member_number,req.body.selectedindustries[i]];
+         const[rows,fields]=await conn.execute(queryString04,queryParams04);}
+      
      
     }
     await conn.commit();
@@ -136,6 +169,63 @@ router.post("/registerIndustries", async (req, res) => {
     conn.release();
   }
 });
+
+router.get("/getselectedStocks/:id", async(req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const querystring="SELECT member_no FROM member_ WHERE member_email=?";
+    const queryParams=[req.params.id];
+    const [rows,fields]=await conn.execute(querystring,queryParams);
+     member_number=rows[0].member_no;
+    const querystring02="SELECT company_no FROM member_company WHERE member_no=?";
+    const queryParams02=[member_number];
+    const [rows2,fields2]=await conn.execute(querystring02,queryParams02);
+    await conn.commit();
+    res.status(200).send({
+      rows2,fields2
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
+router.get("/getselectedIndustries/:id", async(req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const querystring="SELECT member_no FROM member_ WHERE member_email=?";
+    const queryParams=[req.params.id];
+    const [rows,fields]=await conn.execute(querystring,queryParams);
+     member_number=rows[0].member_no;
+    const querystring02="SELECT industry_no FROM member_industry WHERE member_no=?";
+    const queryParams02=[member_number];
+    const [rows2,fields2]=await conn.execute(querystring02,queryParams02);
+    await conn.commit();
+    res.status(200).send({
+      rows2,fields2
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
 //관심종목 태그만들기 userid필요한가?
 router.get("/getInterestStocks/:id", async(req, res) => {
   const conn = await pool.getConnection();

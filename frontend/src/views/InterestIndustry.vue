@@ -87,7 +87,7 @@ export default {
           this.tags = response.data.rows2;
         }
       } catch (err) {
-        if (err.response.status === 401) {
+        if (err.response.status === 500) {
           console.log(err.response.data.message);
         }
       }

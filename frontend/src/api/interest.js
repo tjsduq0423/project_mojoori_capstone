@@ -10,8 +10,19 @@ const registerStocks = (userId, selectedstocks) =>
 const registerIndustries = (userId, selectedindustries) =>
   http.post("/interest/registerIndustries", { userId, selectedindustries });
 
+const getselectedStocks = (userId) =>
+  http.get("/interest/getselectedStocks/" + userId);
+
+const getSearchStocks = (search) =>
+  http.get("/interest/getSearchStocks?key1=" + search);
+
+const getselectedIndustries = (userId) =>
+  http.get("/interest/getselectedIndustries/" + userId);
+
 const getInterestStocks = (userId) =>
   http.get("/interest/getInterestStocks/" + userId);
+// const getInterestStocks = (userId) =>
+// http.get("/interest/getInterestStocks?key1=" + userId);
 
 const getInterestIndustries = (userId) =>
   http.get("/interest/getInterestIndustries/" + userId);
@@ -30,4 +41,7 @@ export {
   getInterestIndustries,
   deleteInterestStocks,
   deleteInterestIndustries,
+  getselectedStocks,
+  getselectedIndustries,
+  getSearchStocks,
 };
