@@ -4,19 +4,19 @@
       <v-row>
         <v-col cols="auto" class="mt-9 ml-12 pa-0">
           <p class="text-h5 text-left font-weight-black mb-9">
-            게시글 리스트({{ articles.length }})
+            게시글 리스트({{ articleslength }})
           </p>
         </v-col>
       </v-row>
       <v-list class="pa-0">
         <v-list-item-group>
-          <template v-for="(article, index) in articles">
+          <template v-for="(article, index) in articles[page - 1]">
             <!-- v-list-item 에 추가 + ariticle link :to="`board/article/${article._id}`"" -->
             <v-list-item
               :key="index"
               two-line
               class="pa-0"
-              @click="viewArticle(index)"
+              @click="viewArticle(article.board_id)"
             >
               <v-btn text disabled>
                 <v-row justify="center" align="center">
@@ -24,15 +24,17 @@
                     <v-icon>mdi-menu-up</v-icon>
                   </v-col>
                   <v-col cols="12" class="pa-0">
-                    <div>{{ article.likeCount }}</div>
+                    <div>{{ article.board_like }}</div>
                   </v-col>
                 </v-row>
               </v-btn>
 
               <v-list-item-content>
-                <v-list-item-title>{{ article.title }} </v-list-item-title>
+                <v-list-item-title
+                  >{{ article.board_title }}
+                </v-list-item-title>
                 <v-list-item-subtitle class="mt-3">
-                  {{ article.theme }} | {{ article.writer }}
+                  {{ article.board_theme }} | {{ article.board_writer }}
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
@@ -42,7 +44,7 @@
                     large
                     elevation="1"
                     class="mt-0 mr-6 blue lighten-1"
-                    @click.capture.stop="clickEdit()"
+                    @click.capture.stop="clickEdit(article.board_id)"
                     >수정</v-btn
                   >
                   <v-btn
@@ -50,10 +52,9 @@
                     large
                     elevation="1"
                     class="mt-0 mr-6 red lighten-1"
-                    @click.capture.stop="clickRemove()"
+                    @click.capture.stop="clickRemove(article.board_id)"
                     >삭제</v-btn
                   >
-                  {{ article.lastTime }} 시간 전
                 </v-list-item-action-text>
               </v-list-item-action>
             </v-list-item>
@@ -64,13 +65,13 @@
       <v-row align="center" justify="center" class="mt-3">
         <v-col cols="3"></v-col>
         <v-col v-if="page > 1" cols="auto">
-          <v-btn elevation="1">
+          <v-btn tile elevation="1" @click="page--">
             <v-icon> mdi-menu-left </v-icon>
             이전
           </v-btn>
         </v-col>
-        <v-col cols="auto">
-          <v-btn class="ml-auto" elevation="1"
+        <v-col v-if="page < pages" cols="auto">
+          <v-btn class="ml-auto" elevation="1" @click="page++"
             >다음
             <v-icon> mdi-menu-right </v-icon>
           </v-btn>
@@ -82,39 +83,42 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import * as boardApi from "@/api/board";
 export default {
   data() {
     return {
       page: 1,
-      articles: [
-        {
-          _id: 1,
-          title: "아무제목",
-          writer: "아무개",
-          likeCount: 8,
-          lastTime: 10,
-          theme: "자유",
-        },
-        {
-          _id: 2,
-          title: "아무제목",
-          writer: "아무개",
-          likeCount: 8,
-          lastTime: 10,
-          theme: "자유",
-        },
-      ],
     };
   },
+  computed: {
+    ...mapState("board", ["articles", "pages", "articleslength"]),
+    ...mapState("auth", ["userId"]),
+  },
   methods: {
-    viewArticle(index) {
-      this.$router.push({ path: `/article/${this.articles[index]._id}` });
+    viewArticle(id) {
+      this.$router.push({
+        path: `/article/${id}`,
+      });
     },
-    clickEdit() {
-      console.log("test");
+    clickEdit(id) {
+      this.$router.push({
+        path: `/board-modify/${id}`,
+      });
     },
-    clickRemove() {
-      console.log("test remove");
+    async clickRemove(boardId) {
+      try {
+        const response = await boardApi.deletearticle(boardId);
+
+        if (response.status === 200) {
+          console.log(response);
+          this.$store.dispatch("board/callMyArticles", this.userId);
+        }
+      } catch (err) {
+        if (err.reponse.status === 500) {
+          console.log(err.response.data.message);
+        }
+      }
     },
   },
 };
