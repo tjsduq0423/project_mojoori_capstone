@@ -96,7 +96,7 @@
       <v-list class="py-0">
         <v-dialog v-model="dialog" persistent>
           <template v-slot:activator="{ on: _dialog }">
-            <v-list-item v-on="{ ..._dialog }">
+            <v-list-item @click="getselectedStocks()" v-on="{ ..._dialog }">
               <v-list-item-icon class="pl-1">
                 <v-icon>mdi-domain</v-icon>
               </v-list-item-icon>
@@ -114,6 +114,7 @@
                   <p
                     style="color: #42a5f5"
                     class="text-h4 text-center font-weight-black mb-0"
+                    @click="dialog = true"
                   >
                     종목 골라보기
                   </p>
@@ -122,7 +123,7 @@
               <v-row justify="center">
                 <v-col cols="5">
                   <v-text-field
-                    v-model="magnify"
+                    v-model="magnify_stock"
                     flat
                     filled
                     dense
@@ -130,15 +131,15 @@
                     placeholder="종목"
                     hide-details="auto"
                     append-icon="mdi-magnify"
-                    @keyup.enter="nothing()"
-                    @click:append="nothing()"
+                    @keyup.enter="searchstocks()"
+                    @click:append="searchstocks()"
                   >
                   </v-text-field>
                 </v-col>
               </v-row>
               <v-row>
                 <template v-for="(chunk, index) in stocks">
-                  <v-container v-if="page == index + 1" :key="index">
+                  <v-container v-if="page == index + 1" :key="candy + index">
                     <v-row v-for="(a, i) in 5" :key="i" justify="center">
                       <v-col v-for="(b, ind) in 5" :key="ind" cols="2">
                         <v-card
@@ -152,8 +153,8 @@
                           <v-checkbox
                             v-model="selectedstocks"
                             class="ml-6"
-                            :label="ele.toString()"
-                            :value="ele"
+                            :label="ele.company_name.toString()"
+                            :value="ele.company_no"
                           >
                           </v-checkbox>
                         </v-card>
@@ -188,7 +189,10 @@
 
         <v-dialog v-model="dialog2" persistent>
           <template v-slot:activator="{ on: _dialog2 }">
-            <v-list-item v-on="{ ..._dialog2 }">
+            <v-list-item
+              @click="getselectedIndustries()"
+              v-on="{ ..._dialog2 }"
+            >
               <v-list-item-icon class="pl-1">
                 <v-icon>mdi-factory</v-icon>
               </v-list-item-icon>
@@ -212,25 +216,11 @@
                 </v-col>
               </v-row>
               <v-row justify="center">
-                <v-col cols="5">
-                  <v-text-field
-                    v-model="magnify"
-                    flat
-                    filled
-                    dense
-                    rounded
-                    placeholder="산업"
-                    hide-details="auto"
-                    append-icon="mdi-magnify"
-                    @keyup.enter="nothing()"
-                    @click:append="nothing()"
-                  >
-                  </v-text-field>
-                </v-col>
-              </v-row>
-              <v-row>
                 <template v-for="(chunk2, index2) in industries">
-                  <v-container v-if="page2 == index2 + 1" :key="index2">
+                  <v-container
+                    v-if="page2 == index2 + 1"
+                    :key="candy2 + index2"
+                  >
                     <v-row v-for="(c, i2) in 5" :key="i2" justify="center">
                       <v-col v-for="(d, ind2) in 5" :key="ind2" cols="2">
                         <v-card
@@ -244,8 +234,8 @@
                           <v-checkbox
                             v-model="selectedindustries"
                             class="ml-6"
-                            :label="ele2.toString()"
-                            :value="ele2"
+                            :label="ele2.industry_type.toString()"
+                            :value="ele2.industry_no"
                           >
                           </v-checkbox>
                         </v-card>
@@ -332,11 +322,13 @@ export default {
       items: null,
       dialog: false,
       dialog2: false,
-      magnify: "",
+      magnify_stock: "",
       page: 1,
       page2: 1,
       selectedstocks: [],
       selectedindustries: [],
+      candy: 0,
+      candy2: 0,
     };
   },
   computed: {
@@ -376,7 +368,44 @@ export default {
         console.log(err.response);
       }
     },
-    nothing() {},
+    async searchstocks() {
+      await this.$store.dispatch(
+        "interest/callSearchStocks",
+        this.magnify_stock
+      );
+      this.candy += 1000;
+      this.page = 1;
+    },
+    async getselectedStocks() {
+      try {
+        const response = await interestApi.getselectedStocks(this.userId);
+
+        if (response.status === 200) {
+          await console.log(response.data.rows2[0].company_no);
+          for (var i = 0; i < response.data.rows2.length; i++)
+            this.selectedstocks.push(response.data.rows2[i].company_no);
+        }
+      } catch (err) {
+        if (err.reponse.status === 500) {
+          console.log(err.response.data.message);
+        }
+      }
+    },
+    async getselectedIndustries() {
+      try {
+        const response = await interestApi.getselectedIndustries(this.userId);
+
+        if (response.status === 200) {
+          await console.log(response.data.rows2[0].industry_no);
+          for (var i = 0; i < response.data.rows2.length; i++)
+            this.selectedindustries.push(response.data.rows2[i].industry_no);
+        }
+      } catch (err) {
+        if (err.reponse.status === 500) {
+          console.log(err.response.data.message);
+        }
+      }
+    },
     async registerStocks() {
       try {
         const response = await interestApi.registerStocks(
@@ -384,7 +413,7 @@ export default {
           this.selectedstocks
         );
         if (response.status === 200) {
-          console.log(response.data.userintereststocks);
+          console.log(response);
         }
       } catch (err) {
         if (err.response.status === 401) {
@@ -399,7 +428,7 @@ export default {
           this.selectedindustries
         );
         if (response.status === 200) {
-          console.log(response.data.userinterestindustries);
+          console.log(response);
         }
       } catch (err) {
         if (err.response.status === 401) {

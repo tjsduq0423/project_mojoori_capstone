@@ -6,13 +6,11 @@ const router = express.Router();
 /* GET home page. */
 router.get("/", async (req, res) => {
   const conn = await pool.getConnection();
-
+  await conn.beginTransaction();
   try {
-    await conn.beginTransaction();
-
-    const [rows, fields] = await conn.query(
-      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON company.industry_no=industry.industry_no"
-    );
+    const queryString =
+      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON company.industry_no=industry.industry_no";
+    const [rows, fields] = await conn.query(queryString);
     await conn.commit();
     res.status(200).send({
       data: rows,

@@ -26,7 +26,7 @@
                   close
                   @click:close="removeTag(i)"
                 >
-                  {{ tag }}
+                  {{ tag.industry_type }}
                 </v-chip>
               </template>
             </v-card>
@@ -67,10 +67,11 @@ export default {
       try {
         const response = await interestApi.deleteInterestIndustries(
           this.userId,
-          this.tags[index]
+          this.tags[index].industry_type
         );
         if (response.status === 200) {
-          this.tags.splice(index, 1);
+          this.callIndustryTags();
+          //this.tags.splice(index, 1);
         }
       } catch (err) {
         if (err.response.staus === 401) {
@@ -82,11 +83,11 @@ export default {
       try {
         const response = await interestApi.getInterestIndustries(this.userId);
         if (response.status === 200) {
-          console.log(response.data.industriestags);
-          this.tags = response.data.industriestags;
+          console.log(response.data.rows2);
+          this.tags = response.data.rows2;
         }
       } catch (err) {
-        if (err.response.status === 401) {
+        if (err.response.status === 500) {
           console.log(err.response.data.message);
         }
       }
