@@ -46,7 +46,15 @@ export default {
     this.callArticles(this.$route.params.theme);
   },
   beforeRouteUpdate(to, from, next) {
-    this.callArticles(to.params.theme);
+    const theme_dict = {
+      home: "home",
+      stock: "종목",
+      issue: "이슈",
+      freedom: "자유",
+      humor: "유머",
+      tip: "팁과 노하우",
+    };
+    this.callArticles(theme_dict[to.params.theme]);
     next();
   },
   methods: {

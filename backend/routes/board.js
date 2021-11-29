@@ -23,7 +23,6 @@ router.post("/articles", async (req, res) => {
     if (err.sqlMessage) {
       return res.status(500).send({ message: err.sqlMessage });
     }
-    console.log(err);
     res.status(500).send({ err });
   } finally {
     conn.release();
@@ -50,7 +49,6 @@ router.post("/write", async (req, res) => {
     if (err.sqlMessage) {
       return res.status(500).send({ message: err.sqlMessage });
     }
-    console.log(err);
     res.status(500).send({ err });
   } finally {
     conn.release();
@@ -69,6 +67,10 @@ router.post("/content", async (req, res) => {
     const queryParams02 = [req.body.id];
     const [rows02, fields02] = await conn.execute(queryString02, queryParams02);
 
+    const queryString03 = "SELECT * FROM reply WHERE board_id = ?";
+    const queryParams03 = [req.body.id];
+    const [rows03, fields03] = await conn.execute(queryString03, queryParams03);
+
     await conn.commit();
     if (Array.isArray(rows) && rows.length === 0) {
       return res.sendStatus(404);
@@ -77,18 +79,41 @@ router.post("/content", async (req, res) => {
       return res.status(200).send({
         data: rows[0],
         likeStatus: false,
+        comment: rows03,
       });
     }
     res.status(200).send({
       data: rows[0],
       likeStatus: true,
+      comment: rows03,
     });
   } catch (err) {
     await conn.rollback();
     if (err.sqlMessage) {
       return res.status(500).send({ message: err.sqlMessage });
     }
-    console.log(err);
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
+router.post("/replyWrite", async (req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const queryString =
+      "INSERT INTO reply SET board_id = ?, reply_writer = ? , reply_content = ?";
+    const queryParams = [req.body.id, req.body.nickname, req.body.content];
+    const [rows, fields] = await conn.execute(queryString, queryParams);
+
+    await conn.commit();
+    res.sendStatus(200);
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({ message: err.sqlMessage });
+    }
     res.status(500).send({ err });
   } finally {
     conn.release();
@@ -121,7 +146,6 @@ router.post("/like", async (req, res) => {
     if (err.sqlMessage) {
       return res.status(500).send({ message: err.sqlMessage });
     }
-    console.log(err);
     res.status(500).send({ err });
   } finally {
     conn.release();

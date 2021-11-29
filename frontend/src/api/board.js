@@ -10,4 +10,7 @@ const content = (id) => http.post("/board/content", { id });
 const like = (id, status, likeCount, nickname) =>
   http.post("/board/like", { id, status, likeCount, nickname });
 
-export { board, write, content, like };
+const reply = (id, nickname, content) =>
+  http.post("/board/replyWrite", { id, nickname, content });
+
+export { board, write, content, like, reply };

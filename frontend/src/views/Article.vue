@@ -77,7 +77,7 @@
                   </v-col>
                   <v-col cols="auto" class="mt-8 ml-6 pa-0">
                     <p class="text-subtitle-1 mb-0 font-weight-black">
-                      총 {{ comments.length }} 개
+                      총 {{ comments !== undefined ? 0 : comments.length }} 개
                     </p>
                   </v-col>
                 </v-row>
@@ -102,6 +102,7 @@
                           height="20px"
                           rounded
                           class="blue lighten-1 font-weight-black"
+                          @click="replyWrite()"
                           >작성</v-btn
                         >
                       </v-row>
@@ -116,9 +117,9 @@
                         <template v-for="(comment, index) in comments">
                           <v-list-item :key="index">
                             <v-list-item-title class="text-md-left mt-3"
-                              >{{ comment.writer }}
+                              >{{ comment.reply_writer }}
                               <v-list-item-title class="my-3 pb-3">
-                                {{ comment.content }}
+                                {{ comment.reply_content }}
                               </v-list-item-title>
                             </v-list-item-title>
                           </v-list-item>
@@ -145,6 +146,7 @@
 import Appbar from "@/components/Appbar.vue";
 import BoardBox from "@/components/BoardBox.vue";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import { mapState } from "vuex";
 import { Viewer } from "@toast-ui/vue-editor";
 import * as boardApi from "@/api/board";
 
@@ -158,20 +160,17 @@ export default {
   data() {
     return {
       likeStatus: false,
-      comments: [
-        { content: " 댓글 내용", writer: "작성자 이름" },
-        { content: " 댓글 내용", writer: "작성자 이름" },
-        { content: " 댓글 내용", writer: "작성자 이름" },
-      ],
+      comments: null,
       inputText: "",
       title: null,
       writer: null,
       viewerText: null,
       likeCount: null,
-      comments2: null,
     };
   },
-  computed: {},
+  computed: {
+    ...mapState("auth", ["nickname"]),
+  },
   mounted() {
     this.callContent();
   },
@@ -205,11 +204,31 @@ export default {
           this.writer = response.data.data.board_writer;
           this.viewerText = response.data.data.board_content;
           this.likeStatus = response.data.likeStatus;
-          this.comments2 = response.data.comment;
+          this.comments = response.data.comment;
         }
       } catch (err) {
         if (err.response.status === 404) {
           this.$router.push({ path: "/board/home" });
+        }
+      }
+    },
+    async replyWrite() {
+      if (this.inputText === "") {
+        alert("입력이 필요합니다.");
+        return;
+      }
+      try {
+        const response = await boardApi.reply(
+          this.$route.params.id,
+          this.nickname,
+          this.inputText
+        );
+        if (response.status === 200) {
+          this.$router.go(0);
+        }
+      } catch (err) {
+        if (err.response) {
+          console.log(err.response);
         }
       }
     },
