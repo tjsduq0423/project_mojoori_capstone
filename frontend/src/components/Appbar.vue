@@ -169,7 +169,7 @@
                   <v-pagination
                     v-model="page"
                     :length="pages"
-                    :total-visible="7"
+                    :total-visible="visible"
                     circle
                   ></v-pagination></v-col
                 ><v-col align="right" align-self="end">
@@ -325,6 +325,7 @@ export default {
       magnify_stock: "",
       page: 1,
       page2: 1,
+      visible: 7,
       selectedstocks: [],
       selectedindustries: [],
       candy: 0,
@@ -337,11 +338,10 @@ export default {
       "industries",
       "stockscount",
       "industriescount",
+      "pages",
     ]),
     ...mapState("auth", ["userId"]),
-    pages() {
-      return Math.ceil(this.stockscount / 25);
-    },
+
     pages2() {
       return Math.ceil(this.industriescount / 25);
     },
@@ -373,11 +373,13 @@ export default {
         "interest/callSearchStocks",
         this.magnify_stock
       );
-      this.candy += 1000;
+      this.candy += 1;
+      console.log(this.candy);
       this.page = 1;
     },
     async getselectedStocks() {
       try {
+        await this.$store.dispatch("interest/callInterest");
         const response = await interestApi.getselectedStocks(this.userId);
 
         if (response.status === 200) {
@@ -408,6 +410,8 @@ export default {
     },
     async registerStocks() {
       try {
+        this.page = 1;
+        this.magnify_stock = "";
         const response = await interestApi.registerStocks(
           this.userId,
           this.selectedstocks

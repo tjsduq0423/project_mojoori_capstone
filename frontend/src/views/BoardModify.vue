@@ -62,7 +62,9 @@
                   <v-col cols="12" class="ml-3">
                     <v-card flat class="pr-6">
                       <editor
+                        v-if="text !== null"
                         ref="toastuiEditor"
+                        :initial-value="text"
                         height="500px"
                         initial-edit-type="wysiwyg"
                         preview-style="vertical"
@@ -120,6 +122,7 @@ export default {
       theme: "",
       editorOptions: { hideModeSwitch: true },
       themes: ["종목", "이슈", "유머", "자유", "팁과 노하우"],
+      text: null,
     };
   },
   computed: {
@@ -136,6 +139,7 @@ export default {
           console.log(response);
           this.theme = response.data.rows[0].board_theme;
           this.title = response.data.rows[0].board_title;
+          this.text = response.data.rows[0].board_content;
         }
       } catch (err) {
         if (err.reponse.status === 500) {

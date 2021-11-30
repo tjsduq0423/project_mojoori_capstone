@@ -8,7 +8,7 @@ export default {
     stockscount: "",
     industriescount: "",
     _stocks: [],
-    s: "",
+    pages: "",
   },
   mutations: {
     setStocks(state, data) {
@@ -18,6 +18,9 @@ export default {
       });
       state.stocks = arr;
       state._stocks = data;
+    },
+    setpages(state, data) {
+      state.pages = Math.ceil(data / 25);
     },
     setStocksCount(state, data) {
       state.stockscount = data;
@@ -39,6 +42,7 @@ export default {
       const responseindustry = await interestApi.industry();
       commit("setStocks", responsestock.data.stocks);
       commit("setStocksCount", responsestock.data.stocks.length);
+      commit("setpages", responsestock.data.stocks.length);
       commit("setIndustries", responseindustry.data.industries);
       commit("setIndustriesCount", responseindustry.data.industries.length);
     },
@@ -48,6 +52,7 @@ export default {
       //const responseindustry = await interestApi.industry();
       commit("setStocks", responsestock.data.stocks);
       commit("setStocksCount", responsestock.data.stocks.length);
+      commit("setpages", responsestock.data.stocks.length);
       //commit("setIndustries", responseindustry.data.industries);
       //commit("setIndustriesCount", responseindustry.data.industries.length);
     },

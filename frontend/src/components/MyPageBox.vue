@@ -11,7 +11,7 @@
       v-if="$store.state.auth.auth"
       class="text-h6 pl-7 pt-6 font-weight-bold"
     >
-      {{ $store.state.auth.nickname }}
+      {{ $store.state.auth.userId }}
     </v-card-title>
     <v-card-subtitle v-if="$store.state.auth.auth" class="text-subtitle-1 pl-7">
       {{ $store.state.auth.nickname }}
