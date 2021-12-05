@@ -53,7 +53,7 @@
                 <v-icon dark color="pink"> mdi-heart </v-icon>
               </v-btn>
               <v-btn
-                v-if="auth == true && !including(stock.report_no)"
+                v-else-if="auth == true && !including(stock.report_no)"
                 :id="`button${stock.report_no}`"
                 class="mx-2"
                 fab
