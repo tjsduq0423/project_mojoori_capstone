@@ -53,23 +53,21 @@
                 <v-icon dark color="pink"> mdi-heart </v-icon>
               </v-btn>
               <v-btn
-                v-if="auth == true"
+                v-if="auth == true && !including(stock.report_no)"
                 :id="`button${stock.report_no}`"
                 class="mx-2"
                 fab
                 icon
-                @click.prevent="
-                  [likeReport(stock.report_no), changebutton(stock.report_no)]
-                "
+                @click.prevent="likeReport(stock.report_no)"
               >
                 <v-icon dark color="pink" large> mdi-heart-outline </v-icon>
               </v-btn>
               <v-btn
-                v-if="auth == true && stock.likes == true"
+                v-else
                 class="mx-2"
                 fab
                 icon
-                @click.prevent="unlikeReport(stock.title)"
+                @click.prevent="unlikeReport(stock.report_no)"
               >
                 <v-icon dark color="pink" large> mdi-heart </v-icon>
               </v-btn>
@@ -95,6 +93,7 @@ export default {
   data() {
     return {
       page: 1,
+      likereports: [],
     };
   },
   computed: {
@@ -104,16 +103,39 @@ export default {
       return Math.ceil(this.listCount / 20);
     },
   },
+  mounted() {
+    this.getLikeReport();
+  },
   methods: {
+    including(reportNumber) {
+      return this.likereports.includes(reportNumber);
+    },
+    async getLikeReport() {
+      if (this.userId) {
+        try {
+          const response = await ReportApi.likeReport(this.userId);
+
+          if (response.status === 200) {
+            for (var i = 0; i < response.data.data.length; i++) {
+              this.likereports.push(response.data.data[i].report_no);
+            }
+          }
+        } catch (err) {
+          if (err.response.status === 500) {
+            console.log(err.response);
+          }
+        }
+      }
+    },
     changebutton(report_no) {
       var elem = document.getElementById(`button${report_no}`);
       elem.icon = "mdi-heart";
     },
     async likeReport(report_no) {
       try {
+        this.likereports.push(report_no);
         const response = await ReportApi.likeReports(this.userId, report_no);
         if (response.status === 200) {
-          this.$store.dispatch("list/callData");
           console.log(response);
         }
       } catch (err) {
@@ -122,16 +144,16 @@ export default {
         }
       }
     },
-    async unlikeReport(title) {
+    async unlikeReport(report_no) {
       try {
-        const response = await ReportApi.unlikeReports(this.userId, title);
+        this.likereports.splice(this.likereports.indexOf(report_no), 1);
+        const response = await ReportApi.unlikeReports(this.userId, report_no);
         if (response.status === 200) {
-          this.$store.dispatch("list/callData");
           console.log(response);
         }
       } catch (err) {
-        if (err.response.status === 401) {
-          console.log(err.response.data.message);
+        if (err.response.status === 500) {
+          console.log(err.response);
         }
       }
     },
