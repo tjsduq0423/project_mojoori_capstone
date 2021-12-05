@@ -36,7 +36,7 @@
                   {{ stock.report_title }}
                 </v-list-item-title>
                 <v-list-item-subtitle class="text-left subtitle">
-                  {{ stock.report_tp }}
+                  {{ stock.anal_name }}
                 </v-list-item-subtitle>
               </v-list-item-content>
 
@@ -44,7 +44,7 @@
                 class="mx-2"
                 fab
                 icon
-                :href="'http://naver.com'"
+                :href="`https://finance.naver.com/item/main.naver?code=${stock.company_no}`"
                 target="_black"
               >
                 <v-icon dark large> mdi-open-in-new </v-icon>
@@ -53,11 +53,14 @@
                 <v-icon dark color="pink"> mdi-heart </v-icon>
               </v-btn>
               <v-btn
-                v-if="auth == true && stock.likes == false"
+                v-if="auth == true"
+                :id="`button${stock.report_no}`"
                 class="mx-2"
                 fab
                 icon
-                @click.prevent="likeReport(stock.title)"
+                @click.prevent="
+                  [likeReport(stock.report_no), changebutton(stock.report_no)]
+                "
               >
                 <v-icon dark color="pink" large> mdi-heart-outline </v-icon>
               </v-btn>
@@ -102,16 +105,20 @@ export default {
     },
   },
   methods: {
-    async likeReport(title) {
+    changebutton(report_no) {
+      var elem = document.getElementById(`button${report_no}`);
+      elem.icon = "mdi-heart";
+    },
+    async likeReport(report_no) {
       try {
-        const response = await ReportApi.likeReports(this.userId, title);
+        const response = await ReportApi.likeReports(this.userId, report_no);
         if (response.status === 200) {
           this.$store.dispatch("list/callData");
           console.log(response);
         }
       } catch (err) {
-        if (err.response.status === 401) {
-          console.log(err.response.data.message);
+        if (err.response.status === 500) {
+          console.log(err.response);
         }
       }
     },
