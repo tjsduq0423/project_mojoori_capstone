@@ -47,6 +47,7 @@
               label
               :style="{ fontSize: '18px', fontWeight: 'bold' }"
               class="white px-6 py-5 mr-6"
+              @click="showlist(i)"
             >
               {{ button }}
             </v-chip>
@@ -62,6 +63,7 @@
                 :style="{ fontSize: '18px', fontWeight: 'bold' }"
                 v-bind="attrs"
                 v-on="on"
+                @click="IncreaseSort()"
               >
                 <v-icon class="pr-2"> mdi-arrow-up-bold-box </v-icon>
                 상승여력 기준 정렬
@@ -94,6 +96,24 @@ export default {
     },
     remove(idx) {
       this.tags.splice(idx, 1);
+    },
+    showlist(i) {
+      console.log(i);
+      if (i == 0) {
+        this.$store.dispatch("list/callData");
+      }
+      if (i == 1) {
+        this.$store.dispatch("list/callCorporationData");
+      }
+      if (i == 2) {
+        this.$store.dispatch("list/callIndustryData");
+      }
+      if (i == 3) {
+        this.$store.dispatch("list/callMarketData");
+      }
+    },
+    IncreaseSort() {
+      this.$store.commit("list/IncreaseSort");
     },
   },
 };
