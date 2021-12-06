@@ -32,7 +32,10 @@
                     {{ stock.industry_type }}
                   </v-chip>
                 </div>
-                <v-list-item-title class="text-left headline">
+                <v-list-item-title
+                  class="text-left"
+                  :style="{ fontSize: '1.1rem', fontWeight: 'bold' }"
+                >
                   {{ stock.report_title }}
                 </v-list-item-title>
                 <v-list-item-subtitle class="text-left subtitle">

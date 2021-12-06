@@ -29,6 +29,81 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/CorporationReport", async (req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const queryString =
+      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE report.cla_no=1";
+    const [rows, fields] = await conn.query(queryString);
+    await conn.commit();
+    res.status(200).send({
+      data: rows,
+      fields,
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
+router.get("/IndustryReport", async (req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const queryString =
+      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE report.cla_no=2";
+    const [rows, fields] = await conn.query(queryString);
+    await conn.commit();
+    res.status(200).send({
+      data: rows,
+      fields,
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
+router.get("/MarketReport", async (req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const queryString =
+      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE report.cla_no=3";
+    const [rows, fields] = await conn.query(queryString);
+    await conn.commit();
+    res.status(200).send({
+      data: rows,
+      fields,
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
 router.post("/likeReport", async(req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
@@ -63,17 +138,47 @@ router.post("/callInterestCorporationData", async(req, res) => {
   await conn.beginTransaction();
   try {
     //내일 여기부터 시작하면됨 tags는 가지고 왔음
-    const k=req.body.tags// const querystring="SELECT member_no FROM member_ WHERE member_email=?";
-    // const queryParams=[req.body.userId];
-    // const [rows,fields]=await conn.execute(querystring,queryParams);
-    //  member_number=rows[0].member_no;
-    //  const querystring02="SELECT report_no FROM member_report WHERE member_no=?";
-    //  const queryParams02=[member_number];
-    //  const [rows02,fields02]=await conn.execute(querystring02,queryParams02);
+    const k=req.body.tags
+    rows3=[];
+    for(var i=0;i<k.length;i++){
+    const querystring="SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE company.company_name=?";
+     const queryParams=[k[i].company_name];
+     const [rows,fields]=await conn.execute(querystring,queryParams);
+     rows3=rows3.concat(rows);
+    }
     await conn.commit();
     res.status(200).send({
-      k,
-      
+      rows3,
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
+router.post("/callInterestIndustryData", async(req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    //내일 여기부터 시작하면됨 tags는 가지고 왔음
+    const k=req.body.tags
+    rows3=[];
+    for(var i=0;i<k.length;i++){
+    const querystring="SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE industry.industry_type=?";
+     const queryParams=[k[i].industry_type];
+     const [rows,fields]=await conn.execute(querystring,queryParams);
+     rows3=rows3.concat(rows);
+    }
+    await conn.commit();
+    res.status(200).send({
+      rows3,
     });
   } catch (err) {
     await conn.rollback();
