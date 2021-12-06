@@ -80,6 +80,12 @@ const routes = [
     meta: { authReduired: true },
   },
   {
+    path: "/board-modify/:id",
+    name: "BoardModify",
+    component: () => import("@/views/BoardModify.vue"),
+    meta: { authReduired: true },
+  },
+  {
     path: "/interest-corporation",
     name: "InterestCorporation",
     component: () => import("@/views/InterestCorporation.vue"),

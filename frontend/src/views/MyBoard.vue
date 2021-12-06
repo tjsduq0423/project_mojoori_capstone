@@ -28,12 +28,25 @@
 import Appbar from "@/components/Appbar.vue";
 import BoardBox from "@/components/BoardBox.vue";
 import MyBoardCardList from "@/components/MyBoardCardList.vue";
+import { mapState } from "vuex";
 export default {
   name: "MyBoard",
   components: {
     Appbar,
     BoardBox,
     MyBoardCardList,
+  },
+  computed: {
+    ...mapState("auth", ["userId"]),
+  },
+  mounted() {
+    this.callMyArticles();
+  },
+  methods: {
+    callMyArticles() {
+      console.log(this.userId);
+      this.$store.dispatch("board/callMyArticles", this.userId);
+    },
   },
 };
 </script>

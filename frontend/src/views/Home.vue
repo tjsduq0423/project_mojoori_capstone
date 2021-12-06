@@ -110,6 +110,14 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    this.callInterest();
+  },
+  methods: {
+    callInterest() {
+      this.$store.dispatch("interest/callInterest");
+    },
+  },
 };
 </script>
 

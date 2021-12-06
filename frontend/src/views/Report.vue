@@ -38,7 +38,7 @@ import Appbar from "@/components/Appbar.vue";
 import Search from "@/components/Search.vue";
 import ReportCardList from "@/components/ReportCardList.vue";
 import Popular from "@/components/Popular.vue";
-
+import { mapState } from "vuex";
 export default {
   name: "Report",
   components: {
@@ -55,6 +55,9 @@ export default {
         { title: "인기산업", color: "grey darken-1" },
       ],
     };
+  },
+  computed: {
+    ...mapState("auth", ["userId"]),
   },
   mounted() {
     this.callInterest();

@@ -31,11 +31,17 @@ export default {
       commit("setList", response.data.data);
       commit("setListCount", response.data.data.length);
     },
-    async callLikeData({ commit }) {
-      const response = await reportApi.likereport();
-      console.log(response.data.data);
-      commit("setList", response.data.data);
-      commit("setListCount", response.data.data.length);
+    async callLikeData({ commit }, payload) {
+      const response = await reportApi.callLikeReport(payload);
+      console.log(response.data.rows02);
+      commit("setList", response.data.rows02);
+      commit("setListCount", response.data.rows02.length);
+    },
+    async callInterestCorporationData({ commit }, payload) {
+      const response = await reportApi.callInterestCorporationData(payload);
+      console.log(response);
+      commit("setList", response.data.rows02);
+      commit("setListCount", response.data.rows02.length);
     },
   },
 };

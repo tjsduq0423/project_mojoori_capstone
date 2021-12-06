@@ -71,12 +71,11 @@ export default {
           this.tags[index].company_name
         );
         if (response.status === 200) {
-          console.log(response);
           this.callStockTags();
           //this.tags.splice(index, 1);
         }
       } catch (err) {
-        if (err.response.staus === 401) {
+        if (err.response.staus === 500) {
           console.log(err.response.data.message);
         }
       }
@@ -88,6 +87,7 @@ export default {
         if (response.status === 200) {
           console.log(response.data.rows2);
           this.tags = response.data.rows2;
+          this.$store.dispatch("list/callInterestCorporationData", this.tags);
         }
       } catch (err) {
         if (err.reponse.status === 500) {
