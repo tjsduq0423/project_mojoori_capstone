@@ -79,12 +79,16 @@ router.post("/content", async (req, res) => {
       return res.status(200).send({
         data: rows[0],
         likeStatus: false,
+        likeCount: 0,
         comment: rows03,
       });
     }
     res.status(200).send({
       data: rows[0],
-      likeStatus: true,
+      likeStatus: rows02[0].some(
+        (ele) => ele.board_nickname === req.body.nickname
+      ),
+      likeCount: rows02[0].length,
       comment: rows03,
     });
   } catch (err) {
@@ -124,25 +128,17 @@ router.post("/like", async (req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
   try {
-    const likeCount = req.body.status
-      ? req.body.likeCount - 1
-      : req.body.likeCount + 1;
-    const queryString = "UPDATE board SET board_like = ? WHERE board_id = ?";
-    const queryParams = [likeCount, req.body.id];
+    const queryString = req.body.status
+      ? "DELETE FROM board_like WHERE board_id = ? AND board_nickname = ?"
+      : "INSERT INTO board_like SET board_id = ? ,board_nickname = ?";
+    const queryParams = [req.body.id, req.body.nickname];
     const [rows, fields] = await conn.execute(queryString, queryParams);
-
-    const queryString02 = req.body.status
-      ? "DELETE FROM board_like WHERE board_id = ?"
-      : "INSERT INTO board_like SET board_id = ? ,board_writer = ?";
-    const queryParams02 = req.body.status
-      ? [req.body.id]
-      : [req.body.id, req.body.nickname];
-    const [rows02, fields02] = await conn.execute(queryString02, queryParams02);
 
     await conn.commit();
     res.sendStatus(200);
   } catch (err) {
     await conn.rollback();
+    console.log(err);
     if (err.sqlMessage) {
       return res.status(500).send({ message: err.sqlMessage });
     }

@@ -77,7 +77,7 @@
                   </v-col>
                   <v-col cols="auto" class="mt-8 ml-6 pa-0">
                     <p class="text-subtitle-1 mb-0 font-weight-black">
-                      총 {{ comments !== undefined ? 0 : comments.length }} 개
+                      총 {{ comments == undefined ? 0 : comments.length }} 개
                     </p>
                   </v-col>
                 </v-row>
@@ -116,10 +116,10 @@
                       <v-list class="py-0">
                         <template v-for="(comment, index) in comments">
                           <v-list-item :key="index">
-                            <v-list-item-title class="text-md-left mt-3"
-                              >{{ comment.reply_writer }}
+                            <v-list-item-title class="text-left mt-3"
+                              >[ {{ comment.reply_writer }} ]
                               <v-list-item-title class="my-3 pb-3">
-                                {{ comment.reply_content }}
+                                - {{ comment.reply_content }}
                               </v-list-item-title>
                             </v-list-item-title>
                           </v-list-item>
@@ -176,12 +176,15 @@ export default {
   },
   methods: {
     async clickLikeButton() {
+      if (!this.nickname) {
+        alert("로그인 해주세요.");
+        this.$router.push({ path: "/user-authentication" });
+      }
       try {
         const response = await boardApi.like(
           this.$route.params.id,
           this.likeStatus,
-          this.likeCount,
-          this.writer
+          this.nickname
         );
         if (response.status === 200) {
           this.likeCount = this.likeStatus
@@ -197,14 +200,18 @@ export default {
     },
     async callContent() {
       try {
-        const response = await boardApi.content(this.$route.params.id);
+        const response = await boardApi.content(
+          this.$route.params.id,
+          this.nickname
+        );
         if (response.status === 200) {
-          this.likeCount = response.data.data.board_like;
+          console.log(response.data);
           this.title = response.data.data.board_title;
           this.writer = response.data.data.board_writer;
           this.viewerText = response.data.data.board_content;
           this.likeStatus = response.data.likeStatus;
           this.comments = response.data.comment;
+          this.likeCount = response.data.likeCount;
         }
       } catch (err) {
         if (err.response.status === 404) {
