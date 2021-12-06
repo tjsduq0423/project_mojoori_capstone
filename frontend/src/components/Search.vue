@@ -2,18 +2,43 @@
   <v-row>
     <v-col cols="12">
       <!-- 검색 바 ==> autocomplete 기능 필요 -->
-      <v-text-field
+      <v-autocomplete
         v-model="magnify"
-        flat
-        filled
-        rounded
-        placeholder="제목"
-        hide-details="auto"
+        :items="items"
+        :search-input.sync="search"
+        chips
+        clearable
+        hide-details
+        hide-selected
+        label="Search"
+        solo
         append-icon="mdi-magnify"
-        @keyup.enter="nothing()"
-        @click:append="nothing()"
+        @click:append="SearchReport()"
       >
-      </v-text-field>
+        <template v-slot:no-data>
+          <v-list-item>
+            <v-list-item-title> 검색 결과가 없습니다. </v-list-item-title>
+          </v-list-item>
+        </template>
+        <template v-slot:selection="{ attr, on, item, selected }">
+          <v-chip
+            v-bind="attr"
+            :input-value="selected"
+            color="blue darken-1"
+            class="white--text"
+            label
+            v-on="on"
+          >
+            <v-icon left> mdi-label </v-icon>
+            <span v-text="item"></span>
+          </v-chip>
+        </template>
+        <template v-slot:item="{ item }">
+          <v-list-item-content>
+            <v-list-item-title v-text="item"></v-list-item-title>
+          </v-list-item-content>
+        </template>
+      </v-autocomplete>
     </v-col>
     <v-col cols="12">
       <v-card width="100%" min-height="50" tile elevation="1">
@@ -22,13 +47,13 @@
             :key="idx"
             class="ma-2"
             text-color="white"
-            :color="tag.color"
+            color="blue darken-1"
             label
             close
             @click:close="remove(idx)"
           >
             <!-- removetag구현필요 -->
-            {{ tag.name }}
+            {{ tag }}
           </v-chip>
         </template>
       </v-card>
@@ -79,20 +104,41 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   components: {},
   data() {
     return {
-      magnify: "",
+      magnify: null,
       selection: 0,
       historyList: [],
-      tags: [{ name: "아프리카TV", color: "deep-orange darken-1" }],
+      tags: [],
       buttonitem: ["전체", "기업", "산업", "시장"],
     };
   },
+  computed: {
+    ...mapState("interest", ["_stocks", "_industries"]),
+    items() {
+      let a = [];
+      for (var i = 0; i < this._stocks.length; i++) {
+        a.push(this._stocks[i].company_name);
+      }
+      for (var j = 0; j < this._industries.length; j++) {
+        a.push(this._industries[j].industry_type);
+      }
+      return a;
+    },
+  },
   methods: {
-    nothing() {
-      console.log("heloo");
+    SearchReport() {
+      if (this.magnify != null && !this.tags.includes(this.magnify)) {
+        if (this.tags.length < 5) {
+          this.tags.unshift(this.magnify);
+        } else {
+          this.tags.pop();
+          this.tags.unshift(this.magnify);
+        }
+      }
     },
     remove(idx) {
       this.tags.splice(idx, 1);
