@@ -4,6 +4,8 @@ const stock = () => http.get("/interest/stocks", {});
 
 const industry = () => http.get("/interest/industries", {});
 
+const author = () => http.get("/interest/authors", {});
+
 const registerStocks = (userId, selectedstocks) =>
   http.post("/interest/registerStocks", { userId, selectedstocks });
 
@@ -35,6 +37,7 @@ const deleteInterestIndustries = (userId, industry) =>
 export {
   stock,
   industry,
+  author,
   registerStocks,
   registerIndustries,
   getInterestStocks,

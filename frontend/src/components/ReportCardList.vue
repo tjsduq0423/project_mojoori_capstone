@@ -27,7 +27,7 @@
                     class="ma-2"
                     label
                     text-color="white"
-                    color="grey darken-2"
+                    color="amber darken-1"
                   >
                     {{ stock.industry_type }}
                   </v-chip>
@@ -41,6 +41,12 @@
                 <v-list-item-subtitle class="text-left subtitle">
                   {{ stock.anal_name }}
                 </v-list-item-subtitle>
+
+                <p v-if="stock.report_tp != 0" class="text-right">
+                  목표주가: {{ stock.report_tp }} 상승여력:
+                  {{ stock.report_upside }} 날짜: {{ stock.report_date }}
+                </p>
+                <p v-else class="text-right">목표주가를 제시하지 않음</p>
               </v-list-item-content>
 
               <v-btn

@@ -54,6 +54,56 @@ router.get("/CorporationReport", async (req, res) => {
   }
 });
 
+router.post("/SearchReport", async (req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    if(req.body.search.selection=="종목"){
+    const queryString =
+      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE company.company_name=?";
+      const queryParams=[req.body.search.magnify];
+      const [rows,fields]=await conn.execute(queryString,queryParams);
+    await conn.commit();
+    return res.status(200).send({
+      data: rows,
+      fields,
+    });
+  }
+  else if(req.body.search.selection=="산업"){
+    const queryString =
+      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE industry.industry_type=?";
+      const queryParams=[req.body.search.magnify];
+      const [rows,fields]=await conn.execute(queryString,queryParams);
+    await conn.commit();
+    return res.status(200).send({
+      data: rows,
+      fields,
+    });
+  }
+  else{
+    const queryString =
+      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE analyst.anal_name=?";
+      const queryParams=[req.body.search.magnify];
+      const [rows,fields]=await conn.execute(queryString,queryParams);
+    await conn.commit();
+    return res.status(200).send({
+      data: rows,
+      fields,
+    });
+  }
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
 router.get("/IndustryReport", async (req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();

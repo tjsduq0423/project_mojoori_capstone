@@ -420,7 +420,7 @@ export default {
           console.log(response);
         }
       } catch (err) {
-        if (err.response.status === 401) {
+        if (err.response.status === 500) {
           console.log(err.response.data.message);
         }
       }

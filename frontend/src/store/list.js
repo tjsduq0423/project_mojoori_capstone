@@ -9,21 +9,19 @@ export default {
   },
   mutations: {
     setList(state, data) {
-      state._list = data;
+      const data2 = data.sort(
+        (a, b) => new Date(b.report_date) - new Date(a.report_date)
+      );
+      console.log(data2);
+      state._list = data2;
       let arr = [];
-      data.forEach((value, index) => {
-        if (index % 20 == 0) arr.push(data.slice(index, index + 20));
+      data2.forEach((value, index) => {
+        if (index % 20 == 0) arr.push(data2.slice(index, index + 20));
       });
       state.list = arr;
     },
     setListCount(state, data) {
       state.listCount = data;
-    },
-    LikeOn(state, data) {
-      state.list[data].likes = true;
-    },
-    LikeOff(state, data) {
-      state.list[data].likes = false;
     },
     IncreaseSort(state) {
       state._list.sort((a, b) => b.report_upside - a.report_upside);
@@ -55,6 +53,12 @@ export default {
     },
     async callMarketData({ commit }) {
       const response = await reportApi.MarketReport();
+      console.log(response);
+      commit("setList", response.data.data);
+      commit("setListCount", response.data.data.length);
+    },
+    async callSearchData({ commit }, payload) {
+      const response = await reportApi.SearchReport(payload);
       console.log(response);
       commit("setList", response.data.data);
       commit("setListCount", response.data.data.length);
