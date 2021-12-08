@@ -51,8 +51,8 @@ export default {
     return {
       items: [
         { title: "인기종목", color: "deep-orange darken-1" },
-        { title: "인기저자", color: "brown lighten-2" },
-        { title: "인기산업", color: "grey darken-1" },
+        { title: "인기저자", color: "lime darken-1" },
+        { title: "인기산업", color: "amber darken-1" },
       ],
     };
   },

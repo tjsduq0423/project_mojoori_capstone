@@ -10,6 +10,7 @@ export default {
     _stocks: [],
     _industries: [],
     pages: "",
+    authors: [],
   },
   mutations: {
     setStocks(state, data) {
@@ -37,16 +38,21 @@ export default {
       state.industries = arr;
       state._industries = data;
     },
+    setauthors(state, data) {
+      state.authors = data;
+    },
   },
   actions: {
     async callInterest({ commit }) {
       const responsestock = await interestApi.stock();
       const responseindustry = await interestApi.industry();
+      const responseauthor = await interestApi.author();
       commit("setStocks", responsestock.data.stocks);
       commit("setStocksCount", responsestock.data.stocks.length);
       commit("setpages", responsestock.data.stocks.length);
       commit("setIndustries", responseindustry.data.industries);
       commit("setIndustriesCount", responseindustry.data.industries.length);
+      commit("setauthors", responseauthor.data.authors);
     },
     async callSearchStocks({ commit }, payload) {
       const responsestock = await interestApi.getSearchStocks(payload);

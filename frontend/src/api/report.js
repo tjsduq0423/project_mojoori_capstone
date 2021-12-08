@@ -5,6 +5,9 @@ const CorporationReport = () => http.get("/report/CorporationReport");
 const IndustryReport = () => http.get("/report/IndustryReport");
 const MarketReport = () => http.get("/report/MarketReport");
 const likeReport = (userId) => http.post("/report/likeReport", { userId });
+
+const SearchReport = (search) => http.post("/report/SearchReport", { search });
+
 const callLikeReport = (userId) =>
   http.post("/report/callLikeReport", { userId });
 const callInterestCorporationData = (tags) =>
@@ -18,6 +21,7 @@ const unlikeReports = (userId, report_no) =>
 export {
   report,
   CorporationReport,
+  SearchReport,
   IndustryReport,
   MarketReport,
   likeReport,

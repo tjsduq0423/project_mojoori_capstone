@@ -1,59 +1,109 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <!-- 검색 바 ==> autocomplete 기능 필요 -->
-      <v-autocomplete
-        v-model="magnify"
-        :items="items"
-        :search-input.sync="search"
-        chips
-        clearable
-        hide-details
-        hide-selected
-        label="Search"
-        solo
-        append-icon="mdi-magnify"
-        @click:append="SearchReport()"
-      >
-        <template v-slot:no-data>
-          <v-list-item>
-            <v-list-item-title> 검색 결과가 없습니다. </v-list-item-title>
-          </v-list-item>
-        </template>
-        <template v-slot:selection="{ attr, on, item, selected }">
-          <v-chip
-            v-bind="attr"
-            :input-value="selected"
-            color="blue darken-1"
-            class="white--text"
-            label
-            v-on="on"
+      <v-row>
+        <v-col cols="2">
+          <v-select
+            v-model="selection"
+            :items="selectitem"
+            solo
+            flat
+            outlined
+            menu-props="auto"
+            hide-details
+            dense
+          ></v-select>
+        </v-col>
+        <!-- 검색 바 ==> autocomplete 기능 필요 -->
+        <v-col cols="10">
+          <v-autocomplete
+            v-model="magnify"
+            :items="items"
+            chips
+            clearable
+            hide-details
+            hide-selected
+            label="Search"
+            solo
+            append-icon="mdi-magnify"
+            @click:append="SearchReport()"
           >
-            <v-icon left> mdi-label </v-icon>
-            <span v-text="item"></span>
-          </v-chip>
-        </template>
-        <template v-slot:item="{ item }">
-          <v-list-item-content>
-            <v-list-item-title v-text="item"></v-list-item-title>
-          </v-list-item-content>
-        </template>
-      </v-autocomplete>
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-title> 검색 결과가 없습니다. </v-list-item-title>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attr, on, item, selected }">
+              <v-chip
+                v-bind="attr"
+                :input-value="selected"
+                color="blue darken-1"
+                class="white--text"
+                label
+                v-on="on"
+              >
+                <v-icon left> mdi-label </v-icon>
+                <span v-text="item"></span>
+              </v-chip>
+            </template>
+            <template v-slot:item="{ item }">
+              <v-list-item-avatar>
+                <v-icon>mdi-magnify</v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title v-text="item"> </v-list-item-title>
+              </v-list-item-content>
+            </template>
+          </v-autocomplete>
+        </v-col>
+      </v-row>
     </v-col>
     <v-col cols="12">
       <v-card width="100%" min-height="50" tile elevation="1">
         <template v-for="(tag, idx) in tags">
           <v-chip
+            v-if="tag.selection == '종목'"
             :key="idx"
             class="ma-2"
             text-color="white"
-            color="blue darken-1"
+            color="deep-orange darken-1"
             label
             close
             @click:close="remove(idx)"
-          >
+            @click="clickTag(tag)"
+            ><v-icon left> mdi-label </v-icon>
             <!-- removetag구현필요 -->
-            {{ tag }}
+            {{ tag.magnify }}
+          </v-chip>
+          <v-chip
+            v-else-if="tag.selection == '산업'"
+            :key="idx"
+            class="ma-2"
+            text-color="white"
+            color="amber darken-1"
+            label
+            close
+            @click="clickTag(tag)"
+            @click:close="remove(idx)"
+          >
+            <v-icon left> mdi-label </v-icon>
+            <!-- removetag구현필요 -->
+            {{ tag.magnify }}
+          </v-chip>
+          <v-chip
+            v-else
+            :key="idx"
+            class="ma-2"
+            text-color="white"
+            color="lime darken-1"
+            label
+            close
+            @click="clickTag(tag)"
+            @click:close="remove(idx)"
+          >
+            <v-icon left> mdi-label </v-icon>
+            <!-- removetag구현필요 -->
+            {{ tag.magnify }}
           </v-chip>
         </template>
       </v-card>
@@ -62,9 +112,10 @@
       <v-row justify="space-between" align="center">
         <v-col cols="auto">
           <v-chip-group
-            v-model="selection"
+            v-model="chips"
             active-class="blue lighten-2 white--text"
             column
+            mandatory
           >
             <v-chip
               v-for="(button, i) in buttonitem"
@@ -110,38 +161,63 @@ export default {
   data() {
     return {
       magnify: null,
-      selection: 0,
+      selection: "종목",
       historyList: [],
-      tags: [],
+      chips: 0,
       buttonitem: ["전체", "기업", "산업", "시장"],
+      selectitem: ["종목", "산업", "저자"],
     };
   },
   computed: {
-    ...mapState("interest", ["_stocks", "_industries"]),
+    ...mapState("interest", ["_stocks", "_industries", "authors"]),
+    ...mapState("tag", ["tags"]),
     items() {
-      let a = [];
-      for (var i = 0; i < this._stocks.length; i++) {
-        a.push(this._stocks[i].company_name);
+      if (this.selection === "종목") {
+        let a = [];
+        for (var i = 0; i < this._stocks.length; i++) {
+          a.push(this._stocks[i].company_name);
+        }
+        return a;
+      } else if (this.selection === "산업") {
+        let a = [];
+        for (var j = 0; j < this._industries.length; j++) {
+          a.push(this._industries[j].industry_type);
+        }
+        return a;
+      } else {
+        let a = [];
+        for (var k = 0; k < this.authors.length; k++) {
+          a.push(this.authors[k].anal_name);
+        }
+        return a;
       }
-      for (var j = 0; j < this._industries.length; j++) {
-        a.push(this._industries[j].industry_type);
-      }
-      return a;
     },
   },
   methods: {
+    clickTag(tag) {
+      console.log(tag);
+      this.chips = 0;
+      this.selection = tag.selection;
+      this.magnify = tag.magnify;
+      this.$store.dispatch("list/callSearchData", {
+        selection: tag.selection,
+        magnify: tag.magnify,
+      });
+    },
     SearchReport() {
-      if (this.magnify != null && !this.tags.includes(this.magnify)) {
-        if (this.tags.length < 5) {
-          this.tags.unshift(this.magnify);
-        } else {
-          this.tags.pop();
-          this.tags.unshift(this.magnify);
-        }
-      }
+      this.chips = 0;
+      this.$store.commit("tag/InsertTags", {
+        selection: this.selection,
+        magnify: this.magnify,
+      });
+      this.$store.dispatch("list/callSearchData", {
+        selection: this.selection,
+        magnify: this.magnify,
+      });
+      console.log(this.tags);
     },
     remove(idx) {
-      this.tags.splice(idx, 1);
+      this.$store.commit("tag/RemoveTags", idx);
     },
     showlist(i) {
       console.log(i);

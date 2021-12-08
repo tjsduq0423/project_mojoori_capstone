@@ -56,6 +56,31 @@ router.get("/industries", async(req, res) => {
   }
 });
 
+router.get("/authors", async(req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const queryString=
+    "SELECT anal_name FROM analyst";
+    const [rows,fields] = await conn.query(queryString );
+    await conn.commit();
+    res.status(200).send({
+      authors:rows,
+      fields,
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
 router.get("/getSearchStocks", async(req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
