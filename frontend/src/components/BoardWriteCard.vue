@@ -94,20 +94,24 @@ export default {
   methods: {
     async boardWrite() {
       const html = this.$refs.toastuiEditor.invoke("getHTML");
-      try {
-        const response = await boardApi.write(
-          this.nickname,
-          this.title,
-          html,
-          this.theme
-        );
-        if (response.status === 200) {
-          this.$router.push({ path: "/board/home" });
+      if (this.theme && this.title && html) {
+        try {
+          const response = await boardApi.write(
+            this.nickname,
+            this.title,
+            html,
+            this.theme
+          );
+          if (response.status === 200) {
+            this.$router.push({ path: "/board/home" });
+          }
+        } catch (err) {
+          if (err.response.status === 500) {
+            alert("작성 실패");
+          }
         }
-      } catch (err) {
-        if (err.response.status === 500) {
-          alert("작성 실패");
-        }
+      } else {
+        alert("양식을 다시 확인해주세요.");
       }
     },
   },
