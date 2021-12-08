@@ -33,19 +33,20 @@ router.post("/myboard", async (req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
   try {
-    const querystring="SELECT member_nickname FROM member_ WHERE member_email=?";
-    const queryParams=[req.body.id];
-    const [rows,fields]=await conn.execute(querystring,queryParams);
-     member_nickname=rows[0].member_nickname;
-      const querystring02="SELECT * FROM board WHERE board_writer=?";
-      const queryParams02=[member_nickname];
-      const [rows2,fields2]=await conn.execute(querystring02,queryParams02);
+    const querystring =
+      "SELECT member_nickname FROM member_ WHERE member_email=?";
+    const queryParams = [req.body.id];
+    const [rows, fields] = await conn.execute(querystring, queryParams);
+    member_nickname = rows[0].member_nickname;
+    const querystring02 = "SELECT * FROM board WHERE board_writer=?";
+    const queryParams02 = [member_nickname];
+    const [rows2, fields2] = await conn.execute(querystring02, queryParams02);
     await conn.commit();
     res.status(200).send({
-      member_nickname,data:rows2,fields2,
+      member_nickname,
+      data: rows2,
+      fields2,
     });
-    
-    
   } catch (err) {
     await conn.rollback();
     if (err.sqlMessage) {
@@ -59,16 +60,17 @@ router.post("/myboard", async (req, res) => {
   }
 });
 
-router.post("/getboard", async(req, res) => {
+router.post("/getboard", async (req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
   try {
-    const querystring="SELECT * FROM board WHERE board_id=?";
-    const queryParams=[req.body.Id];
-    const [rows,fields]=await conn.execute(querystring,queryParams);
+    const querystring = "SELECT * FROM board WHERE board_id=?";
+    const queryParams = [req.body.Id];
+    const [rows, fields] = await conn.execute(querystring, queryParams);
     await conn.commit();
     res.status(200).send({
-      rows,fields
+      rows,
+      fields,
     });
   } catch (err) {
     await conn.rollback();
@@ -87,15 +89,14 @@ router.post("/deletearticle", async (req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
   try {
-    const querystring="DELETE FROM board WHERE board_id=?";
-    const queryParams=[req.body.boardId];
-    const [rows,fields]=await conn.execute(querystring,queryParams);
+    const querystring = "DELETE FROM board WHERE board_id=?";
+    const queryParams = [req.body.boardId];
+    const [rows, fields] = await conn.execute(querystring, queryParams);
     await conn.commit();
     res.status(200).send({
-    rows,fields,
+      rows,
+      fields,
     });
-    
-    
   } catch (err) {
     await conn.rollback();
     if (err.sqlMessage) {
@@ -192,14 +193,15 @@ router.post("/content", async (req, res) => {
     }
     res.status(200).send({
       data: rows[0],
-      likeStatus: rows02[0].some(
-        (ele) => ele.board_nickname === req.body.nickname
-      ),
-      likeCount: rows02[0].length,
+      likeStatus:
+        req.body.nickname &&
+        rows02.some((ele) => ele.board_nickname === req.body.nickname),
+      likeCount: rows02.length,
       comment: rows03,
     });
   } catch (err) {
     await conn.rollback();
+    console.log(err);
     if (err.sqlMessage) {
       return res.status(500).send({ message: err.sqlMessage });
     }
