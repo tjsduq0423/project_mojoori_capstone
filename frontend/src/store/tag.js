@@ -6,7 +6,12 @@ export default {
   getters: {},
   mutations: {
     InsertTags(state, data) {
-      if (data.magnify != null && !state.tags.includes(data.magnify)) {
+      let arr = [];
+      for (var i = 0; i < state.tags.length; i++) {
+        arr.push(state.tags[i].magnify);
+      }
+      console.log(arr);
+      if (data.magnify != null && !arr.includes(data.magnify)) {
         if (state.tags.length < 5) {
           state.tags.unshift(data);
         } else {

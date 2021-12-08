@@ -16,6 +16,7 @@
               <v-list-item-content>
                 <div class="text-left">
                   <v-chip
+                    v-if="stock.company_name != null"
                     class="mr-2"
                     label
                     text-color="white"
@@ -25,6 +26,7 @@
                     {{ stock.company_name }}
                   </v-chip>
                   <v-chip
+                    v-if="stock.industry_type != null"
                     class="ma-2"
                     label
                     text-color="white"

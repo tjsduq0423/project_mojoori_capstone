@@ -23,6 +23,24 @@ export default {
     setListCount(state, data) {
       state.listCount = data;
     },
+    filter(state, data) {
+      if (data == 0) {
+        let arr = [];
+        state._list.forEach((value, index) => {
+          if (index % 20 == 0) arr.push(state._list.slice(index, index + 20));
+        });
+        state.list = arr;
+        state.listCount = state._list.length;
+      } else {
+        const data3 = state._list.filter((v) => v.cla_no == data);
+        let arr = [];
+        data3.forEach((value, index) => {
+          if (index % 20 == 0) arr.push(data3.slice(index, index + 20));
+        });
+        state.list = arr;
+        state.listCount = data3.length;
+      }
+    },
     IncreaseSort(state) {
       state._list.sort((a, b) => b.report_upside - a.report_upside);
       let arr = [];
