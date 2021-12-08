@@ -7,11 +7,8 @@
             v-model="selection"
             :items="selectitem"
             solo
-            flat
-            outlined
             menu-props="auto"
             hide-details
-            dense
           ></v-select>
         </v-col>
         <!-- 검색 바 ==> autocomplete 기능 필요 -->
@@ -19,14 +16,18 @@
           <v-autocomplete
             v-model="magnify"
             :items="items"
-            chips
+            auto-select-first
             clearable
+            chips
+            deletable-chips
             hide-details
             hide-selected
             label="Search"
             solo
+            height="20px"
             append-icon="mdi-magnify"
             @click:append="SearchReport()"
+            @keyup.enter="SearchReport()"
           >
             <template v-slot:no-data>
               <v-list-item>
@@ -59,7 +60,7 @@
       </v-row>
     </v-col>
     <v-col cols="12">
-      <v-card width="100%" min-height="50" tile elevation="1">
+      <v-card width="100%" min-height="50" elevation="2">
         <template v-for="(tag, idx) in tags">
           <v-chip
             v-if="tag.selection == '종목'"
