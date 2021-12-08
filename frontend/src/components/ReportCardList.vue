@@ -16,18 +16,22 @@
               <v-list-item-content>
                 <div class="text-left">
                   <v-chip
+                    v-if="stock.company_name != null"
                     class="mr-2"
                     label
                     text-color="white"
                     color="deep-orange darken-1"
+                    @click.prevent="searchTagStock(stock.company_name)"
                   >
                     {{ stock.company_name }}
                   </v-chip>
                   <v-chip
+                    v-if="stock.industry_type != null"
                     class="ma-2"
                     label
                     text-color="white"
                     color="amber darken-1"
+                    @click.prevent="searchTagIndustry(stock.industry_type)"
                   >
                     {{ stock.industry_type }}
                   </v-chip>
@@ -116,6 +120,18 @@ export default {
     this.getLikeReport();
   },
   methods: {
+    searchTagStock(company) {
+      this.$store.dispatch("list/callSearchData", {
+        selection: "종목",
+        magnify: company,
+      });
+    },
+    searchTagIndustry(industry) {
+      this.$store.dispatch("list/callSearchData", {
+        selection: "산업",
+        magnify: industry,
+      });
+    },
     including(reportNumber) {
       return this.likereports.includes(reportNumber);
     },

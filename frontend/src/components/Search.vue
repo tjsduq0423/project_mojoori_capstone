@@ -211,29 +211,22 @@ export default {
         selection: this.selection,
         magnify: this.magnify,
       });
-      this.$store.dispatch("list/callSearchData", {
-        selection: this.selection,
-        magnify: this.magnify,
-      });
-      console.log(this.tags);
+      if (this.magnify == null) {
+        this.$store.dispatch("list/callData");
+      } else {
+        this.$store.dispatch("list/callSearchData", {
+          selection: this.selection,
+          magnify: this.magnify,
+        });
+        console.log(this.tags);
+      }
     },
     remove(idx) {
       this.$store.commit("tag/RemoveTags", idx);
     },
     showlist(i) {
       console.log(i);
-      if (i == 0) {
-        this.$store.dispatch("list/callData");
-      }
-      if (i == 1) {
-        this.$store.dispatch("list/callCorporationData");
-      }
-      if (i == 2) {
-        this.$store.dispatch("list/callIndustryData");
-      }
-      if (i == 3) {
-        this.$store.dispatch("list/callMarketData");
-      }
+      this.$store.commit("list/filter", i);
     },
     IncreaseSort() {
       this.$store.commit("list/IncreaseSort");
