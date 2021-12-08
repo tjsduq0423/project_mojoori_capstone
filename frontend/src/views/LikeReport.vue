@@ -15,7 +15,7 @@
             <MyPageBox :style="{ top: '64px', position: 'sticky' }" />
           </v-col>
           <v-col md="8">
-            <ReportCardList />
+            <MyPageReportCardList />
           </v-col>
         </v-row>
       </v-container>
@@ -26,14 +26,14 @@
 <script>
 import Appbar from "@/components/Appbar.vue";
 import MyPageBox from "@/components/MyPageBox.vue";
-import ReportCardList from "@/components/ReportCardList.vue";
+import MyPageReportCardList from "@/components/MyPageReportCardList.vue";
 import { mapState } from "vuex";
 export default {
   name: "LikeReport",
   components: {
     Appbar,
     MyPageBox,
-    ReportCardList,
+    MyPageReportCardList,
   },
   computed: {
     ...mapState("auth", ["userId"]),

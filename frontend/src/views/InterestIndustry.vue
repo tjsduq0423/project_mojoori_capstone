@@ -30,7 +30,7 @@
                 </v-chip>
               </template>
             </v-card>
-            <ReportCardList />
+            <MyPageReportCardList />
           </v-col>
         </v-row>
       </v-container>
@@ -41,7 +41,7 @@
 <script>
 import Appbar from "@/components/Appbar.vue";
 import MyPageBox from "@/components/MyPageBox.vue";
-import ReportCardList from "@/components/ReportCardList.vue";
+import MyPageReportCardList from "@/components/MyPageReportCardList.vue";
 import { mapState } from "vuex";
 import * as interestApi from "@/api/interest";
 export default {
@@ -49,7 +49,7 @@ export default {
   components: {
     Appbar,
     MyPageBox,
-    ReportCardList,
+    MyPageReportCardList,
   },
   data() {
     return {
