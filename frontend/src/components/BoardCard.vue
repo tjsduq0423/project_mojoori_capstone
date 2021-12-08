@@ -29,6 +29,7 @@
               :style="{ fontSize: '1.25em', fontWeight: 'bold' }"
               :value="btn.value"
               active-class="ac"
+              @click="clickbutton(btn.text)"
             >
               <v-icon left large class="px-4">{{ btn.icon }}</v-icon>
               {{ btn.text }}
@@ -44,11 +45,9 @@
             placeholder="제목"
             hide-details="auto"
             append-icon="mdi-magnify"
-            @keyup.enter="nothing()"
+            @click:append="searchArticles()"
+            @keyup.enter="searchArticles()"
           >
-            <!-- <v-icon slot="append" color="black" @click="nothing"
-              >mdi-magnify</v-icon
-            > -->
           </v-text-field>
         </v-col>
       </v-row>
@@ -64,15 +63,27 @@ export default {
       text: "popularity",
       magnify: "",
       btns: [
-        { value: "popularity", text: "인기", icon: "mdi-fire" },
-        { value: "Latest", text: "최신", icon: "mdi-update" },
-        { value: "Recommendation", text: "추천", icon: "mdi-thumb-up-outline" },
+        {
+          value: "Recommendation",
+          text: "추천순",
+          icon: "mdi-thumb-up-outline",
+        },
+        { value: "Latest", text: "최신순", icon: "mdi-update" },
       ],
     };
   },
   methods: {
-    nothing() {
-      console.log(this.magnify);
+    searchArticles() {
+      if (this.magnify) {
+        this.$store.dispatch("board/searchArticles", {
+          searchData: this.magnify,
+          theme: this.$route.params.theme,
+        });
+      }
+      return;
+    },
+    clickbutton(text) {
+      this.$store.commit("board/sortArticles", text);
     },
   },
 };

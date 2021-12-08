@@ -23,6 +23,12 @@ const like = (id, status, nickname) =>
 const reply = (id, nickname, content) =>
   http.post("/board/replyWrite", { id, nickname, content });
 
+const searchBoard = (searchData, theme) =>
+  http.post("/board/searchBoard", { searchData, theme });
+
+const classification = (text, theme) =>
+  http.post("/board/classification", { text, theme });
+
 export {
   board,
   write,
@@ -33,4 +39,6 @@ export {
   myboard,
   deletearticle,
   getboard,
+  searchBoard,
+  classification,
 };

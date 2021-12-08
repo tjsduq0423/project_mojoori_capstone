@@ -3,6 +3,7 @@ import * as boardApi from "@/api/board";
 export default {
   namespaced: true,
   state: {
+    _articles: [],
     articles: [],
     pages: null,
     articleslength: null,
@@ -11,14 +12,39 @@ export default {
   mutations: {
     setArticles(state, data) {
       let arr = [];
-      data.forEach((value, index) => {
-        if (index % 25 === 0) arr.push(data.slice(index, index + 25));
+      const temp = data.sort(
+        (a, b) => new Date(b.board_reg_date) - new Date(a.board_reg_date)
+      );
+      temp.forEach((value, index) => {
+        if (index % 25 === 0) arr.push(temp.slice(index, index + 25));
       });
       state.pages = arr.length;
       state.articles = arr;
+      state._articles = temp;
     },
     setArticleslength(state, data) {
       state.articleslength = data;
+    },
+    sortArticles(state, data) {
+      if (data === "최신순") {
+        let arr = [];
+        const temp = state._articles.sort(
+          (a, b) => new Date(b.board_reg_date) - new Date(a.board_reg_date)
+        );
+        temp.forEach((value, index) => {
+          if (index % 25 === 0) arr.push(temp.slice(index, index + 25));
+        });
+        state.articles = arr;
+      } else {
+        let arr = [];
+        const temp = state._articles.sort(
+          (a, b) => b.board_like - a.board_like
+        );
+        temp.forEach((value, index) => {
+          if (index % 25 === 0) arr.push(temp.slice(index, index + 25));
+        });
+        state.articles = arr;
+      }
     },
   },
   actions: {
@@ -39,6 +65,17 @@ export default {
           console.log(response.data.data);
           commit("setArticles", response.data.data);
           commit("setArticleslength", response.data.data.length);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async searchArticles({ commit }, { searchData, theme }) {
+      try {
+        const response = await boardApi.searchBoard(searchData, theme);
+        if (response.status === 200) {
+          console.log(response.data);
+          commit("setArticles", response.data.data);
         }
       } catch (err) {
         console.log(err);

@@ -67,9 +67,48 @@ router.post("/getboard", async (req, res) => {
     const querystring = "SELECT * FROM board WHERE board_id=?";
     const queryParams = [req.body.Id];
     const [rows, fields] = await conn.execute(querystring, queryParams);
+
     await conn.commit();
     res.status(200).send({
       rows,
+      fields,
+    });
+  } catch (err) {
+    await conn.rollback();
+    if (err.sqlMessage) {
+      return res.status(500).send({
+        message: err.sqlMessage,
+      });
+    }
+    res.status(500).send({ err });
+  } finally {
+    conn.release();
+  }
+});
+
+router.post("/searchBoard", async (req, res) => {
+  const conn = await pool.getConnection();
+  await conn.beginTransaction();
+  try {
+    const theme_dict = {
+      stock: "종목",
+      issue: "이슈",
+      freedom: "자유",
+      humor: "유머",
+      tip: "팁과 노하우",
+    };
+    const queryString =
+      req.body.theme === "home"
+        ? "SELECT * FROM board WHERE board_title LIKE ?"
+        : "SELECT * FROM board WHERE board_theme = ? AND board_title LIKE ?";
+    const queryParams =
+      req.body.theme === "home"
+        ? [`%${req.body.searchData}%`]
+        : [theme_dict[req.body.theme], `%${req.body.searchData}%`];
+    const [rows, fields] = await conn.execute(queryString, queryParams);
+    await conn.commit();
+    res.status(200).send({
+      data: rows,
       fields,
     });
   } catch (err) {
@@ -242,6 +281,12 @@ router.post("/like", async (req, res) => {
       : "INSERT INTO board_like SET board_id = ? ,board_nickname = ?";
     const queryParams = [req.body.id, req.body.nickname];
     const [rows, fields] = await conn.execute(queryString, queryParams);
+
+    const queryString02 = req.body.status
+      ? "UPDATE board SET board_like = board_like - 1 WHERE board_id = ?"
+      : "UPDATE board SET board_like = board_like + 1 WHERE board_id = ?";
+    const queryParams02 = [req.body.id];
+    const [rows02, fields02] = await conn.execute(queryString02, queryParams02);
 
     await conn.commit();
     res.sendStatus(200);
