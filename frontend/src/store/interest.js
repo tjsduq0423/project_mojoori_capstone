@@ -8,6 +8,7 @@ export default {
     stockscount: "",
     industriescount: "",
     _stocks: [],
+    _industries: [],
     pages: "",
   },
   mutations: {
@@ -34,6 +35,7 @@ export default {
         if (index % 25 == 0) arr.push(data.slice(index, index + 25));
       });
       state.industries = arr;
+      state._industries = data;
     },
   },
   actions: {
