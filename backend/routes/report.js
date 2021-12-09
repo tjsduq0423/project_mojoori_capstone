@@ -3,6 +3,11 @@ const reports = require("../data/report_data");
 const pool = require("../db/pool");
 const router = express.Router();
 
+function getUserIP(req) {
+  const addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  return addr
+}
+
 /* GET home page. */
 router.get("/", async (req, res) => {
   const conn = await pool.getConnection();
@@ -29,29 +34,35 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/CorporationReport", async (req, res) => {
+
+
+router.post("/IncreaseViews", async (req, res) => {
   const conn = await pool.getConnection();
   await conn.beginTransaction();
-  try {
+  try{
+  const report_no=req.body.report_no;
+  if (req.cookies[report_no] == undefined) {
+    res.cookie(report_no, getUserIP(req), {   
+      maxAge: 24 * 60 * 60 * 1000
+    })
     const queryString =
-      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE report.cla_no=1";
-    const [rows, fields] = await conn.query(queryString);
-    await conn.commit();
-    res.status(200).send({
-      data: rows,
-      fields,
-    });
-  } catch (err) {
-    await conn.rollback();
-    if (err.sqlMessage) {
-      return res.status(500).send({
-        message: err.sqlMessage,
-      });
-    }
-    res.status(500).send({ err });
-  } finally {
-    conn.release();
+    "UPDATE report SET report_view_count=report_view_count+1 WHERE report_no=?";
+    const queryParams=[report_no];
+    const [rows,fields]=await conn.execute(queryString,queryParams);
+  await conn.commit();
   }
+  res.status(200).send();
+}catch(err){
+  await conn.rollback();
+  if (err.sqlMessage) {
+    return res.status(500).send({
+      message: err.sqlMessage,
+    });
+  }
+  res.status(500).send({ err });
+} finally {
+  conn.release();
+}
 });
 
 router.post("/SearchReport", async (req, res) => {
@@ -91,56 +102,6 @@ router.post("/SearchReport", async (req, res) => {
       fields,
     });
   }
-  } catch (err) {
-    await conn.rollback();
-    if (err.sqlMessage) {
-      return res.status(500).send({
-        message: err.sqlMessage,
-      });
-    }
-    res.status(500).send({ err });
-  } finally {
-    conn.release();
-  }
-});
-
-router.get("/IndustryReport", async (req, res) => {
-  const conn = await pool.getConnection();
-  await conn.beginTransaction();
-  try {
-    const queryString =
-      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE report.cla_no=2";
-    const [rows, fields] = await conn.query(queryString);
-    await conn.commit();
-    res.status(200).send({
-      data: rows,
-      fields,
-    });
-  } catch (err) {
-    await conn.rollback();
-    if (err.sqlMessage) {
-      return res.status(500).send({
-        message: err.sqlMessage,
-      });
-    }
-    res.status(500).send({ err });
-  } finally {
-    conn.release();
-  }
-});
-
-router.get("/MarketReport", async (req, res) => {
-  const conn = await pool.getConnection();
-  await conn.beginTransaction();
-  try {
-    const queryString =
-      "SELECT * FROM report LEFT OUTER JOIN company ON report.company_no=company.company_no LEFT OUTER JOIN industry ON report.industry_no=industry.industry_no LEFT OUTER JOIN report_anal ON report_anal.report_no=report.report_no LEFT OUTER JOIN analyst ON analyst.anal_no=report_anal.anal_no WHERE report.cla_no=3";
-    const [rows, fields] = await conn.query(queryString);
-    await conn.commit();
-    res.status(200).send({
-      data: rows,
-      fields,
-    });
   } catch (err) {
     await conn.rollback();
     if (err.sqlMessage) {
