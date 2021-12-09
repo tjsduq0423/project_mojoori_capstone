@@ -60,15 +60,15 @@ export default {
   name: "BoardCard",
   data() {
     return {
-      text: "popularity",
+      text: "Latest",
       magnify: "",
       btns: [
+        { value: "Latest", text: "최신순", icon: "mdi-update" },
         {
           value: "Recommendation",
           text: "추천순",
           icon: "mdi-thumb-up-outline",
         },
-        { value: "Latest", text: "최신순", icon: "mdi-update" },
       ],
     };
   },
