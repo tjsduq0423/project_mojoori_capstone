@@ -1,12 +1,12 @@
 import http from "@/api/http";
 
 const report = () => http.get("/report");
-const CorporationReport = () => http.get("/report/CorporationReport");
-const IndustryReport = () => http.get("/report/IndustryReport");
-const MarketReport = () => http.get("/report/MarketReport");
 const likeReport = (userId) => http.post("/report/likeReport", { userId });
 
 const SearchReport = (search) => http.post("/report/SearchReport", { search });
+
+const IncreaseViews = (report_no) =>
+  http.post("/report/IncreaseViews", { report_no });
 
 const callLikeReport = (userId) =>
   http.post("/report/callLikeReport", { userId });
@@ -20,10 +20,8 @@ const unlikeReports = (userId, report_no) =>
   http.patch("/report/unlikeReports", { userId, report_no });
 export {
   report,
-  CorporationReport,
   SearchReport,
-  IndustryReport,
-  MarketReport,
+  IncreaseViews,
   likeReport,
   callLikeReport,
   callInterestCorporationData,

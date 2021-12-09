@@ -11,6 +11,7 @@
             class="mb-2"
             :href="`${stock.report_url}`"
             target="_black"
+            @click="IncreaseViews(stock.report_no)"
           >
             <v-list-item three-line>
               <v-list-item-content>
@@ -133,6 +134,19 @@ export default {
     this.getLikeReport();
   },
   methods: {
+    async IncreaseViews(report_no) {
+      try {
+        const response = await ReportApi.IncreaseViews(report_no);
+
+        if (response.status === 200) {
+          console.log(response);
+        }
+      } catch (err) {
+        if (err.response.status === 500) {
+          console.log(err.response);
+        }
+      }
+    },
     searchTagStock(company) {
       this.$store.dispatch("list/callSearchData", {
         selection: "종목",
@@ -164,10 +178,6 @@ export default {
           }
         }
       }
-    },
-    changebutton(report_no) {
-      var elem = document.getElementById(`button${report_no}`);
-      elem.icon = "mdi-heart";
     },
     async likeReport(report_no) {
       try {

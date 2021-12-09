@@ -57,24 +57,6 @@ export default {
       commit("setList", response.data.data);
       commit("setListCount", response.data.data.length);
     },
-    async callCorporationData({ commit }) {
-      const response = await reportApi.CorporationReport();
-      console.log(response);
-      commit("setList", response.data.data);
-      commit("setListCount", response.data.data.length);
-    },
-    async callIndustryData({ commit }) {
-      const response = await reportApi.IndustryReport();
-      console.log(response);
-      commit("setList", response.data.data);
-      commit("setListCount", response.data.data.length);
-    },
-    async callMarketData({ commit }) {
-      const response = await reportApi.MarketReport();
-      console.log(response);
-      commit("setList", response.data.data);
-      commit("setListCount", response.data.data.length);
-    },
     async callSearchData({ commit }, payload) {
       const response = await reportApi.SearchReport(payload);
       console.log(response);
