@@ -21,7 +21,7 @@
                   :key="i"
                   class="ma-2"
                   text-color="white"
-                  color="grey darken-1"
+                  color="amber darken-1"
                   label
                   close
                   @click:close="removeTag(i)"
@@ -74,7 +74,7 @@ export default {
           //this.tags.splice(index, 1);
         }
       } catch (err) {
-        if (err.response.staus === 401) {
+        if (err.response.staus === 500) {
           console.log(err.response.data.message);
         }
       }

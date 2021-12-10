@@ -21,7 +21,7 @@
       <!-- 인기 최신 추천 상위 + 검색 바  -->
       <v-row justify="space-between">
         <v-col md="auto" cols="12">
-          <v-btn-toggle v-model="text" group>
+          <v-btn-toggle v-model="text" group mandatory>
             <v-btn
               v-for="(btn, i) in btns"
               :key="i"
@@ -60,15 +60,15 @@ export default {
   name: "BoardCard",
   data() {
     return {
-      text: "popularity",
+      text: "Latest",
       magnify: "",
       btns: [
+        { value: "Latest", text: "최신순", icon: "mdi-update" },
         {
           value: "Recommendation",
           text: "추천순",
           icon: "mdi-thumb-up-outline",
         },
-        { value: "Latest", text: "최신순", icon: "mdi-update" },
       ],
     };
   },
@@ -79,6 +79,7 @@ export default {
           searchData: this.magnify,
           theme: this.$route.params.theme,
         });
+        this.text = "Latest";
       }
       return;
     },
