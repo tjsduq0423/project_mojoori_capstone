@@ -9,9 +9,7 @@
             tile
             elevation="1"
             class="mb-2"
-            :href="`${stock.report_url}`"
-            target="_black"
-            @click="IncreaseViews(stock.report_no)"
+            @click="IncreaseViews(stock.report_no, stock.report_url)"
           >
             <v-list-item three-line>
               <v-list-item-content>
@@ -22,7 +20,7 @@
                     label
                     text-color="white"
                     color="deep-orange darken-1"
-                    @click.prevent="searchTagStock(stock.company_name)"
+                    @click.stop="searchTagStock(stock.company_name)"
                   >
                     {{ stock.company_name }}
                   </v-chip>
@@ -32,7 +30,7 @@
                     label
                     text-color="white"
                     color="amber darken-1"
-                    @click.prevent="searchTagIndustry(stock.industry_type)"
+                    @click.stop="searchTagIndustry(stock.industry_type)"
                   >
                     {{ stock.industry_type }}
                   </v-chip>
@@ -71,8 +69,7 @@
                 class="mx-2"
                 fab
                 icon
-                :href="`https://finance.naver.com/item/main.naver?code=${stock.company_no}`"
-                target="_black"
+                @click.stop="GoNaver(stock.company_no)"
               >
                 <v-icon dark large> mdi-open-in-new </v-icon>
               </v-btn>
@@ -85,7 +82,7 @@
                 class="mx-2"
                 fab
                 icon
-                @click.prevent="likeReport(stock.report_no)"
+                @click.stop="likeReport(stock.report_no)"
               >
                 <v-icon dark color="pink" large> mdi-heart-outline </v-icon>
               </v-btn>
@@ -94,7 +91,7 @@
                 class="mx-2"
                 fab
                 icon
-                @click.prevent="unlikeReport(stock.report_no)"
+                @click.stop="unlikeReport(stock.report_no)"
               >
                 <v-icon dark color="pink" large> mdi-heart </v-icon>
               </v-btn>
@@ -134,8 +131,17 @@ export default {
     this.getLikeReport();
   },
   methods: {
-    async IncreaseViews(report_no) {
+    GoNaver(company_no) {
+      console.log(company_no);
+      window.open(
+        `https://finance.naver.com/item/main.naver?code=${company_no}`,
+        "_blank"
+      );
+    },
+    async IncreaseViews(report_no, report_url) {
       try {
+        console.log(report_no);
+        window.open(`${report_url}`, "_blank");
         const response = await ReportApi.IncreaseViews(report_no);
 
         if (response.status === 200) {
@@ -148,6 +154,7 @@ export default {
       }
     },
     searchTagStock(company) {
+      console.log(company);
       this.$store.dispatch("list/callSearchData", {
         selection: "종목",
         magnify: company,
