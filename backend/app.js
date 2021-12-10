@@ -11,6 +11,7 @@ var authRouter = require("./routes/auth");
 var reportRouter = require("./routes/report");
 var interestRouter = require("./routes/interest");
 var boardRouter = require("./routes/board");
+var tagRouter= require("./routes/tag");
 
 var app = express();
 // view engine setup
@@ -35,6 +36,7 @@ app.use("/auth", authRouter);
 app.use("/report", reportRouter);
 app.use("/interest", interestRouter);
 app.use("/board", boardRouter);
+app.use("/tag",tagRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
