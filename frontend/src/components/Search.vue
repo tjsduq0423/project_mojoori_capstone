@@ -236,7 +236,7 @@ export default {
     showlist(i) {
       this.$store.commit("list/filter", i);
       this.$store.commit("list/changechips", i);
-      this.$store.commit("list/IncreaseSortDone");
+      this.$store.commit("list/changeIncreaseSortDone");
     },
     IncreaseSort() {
       this.$store.commit("list/IncreaseSort", this.chips);
