@@ -54,7 +54,7 @@
                 <template v-if="stock.cla_no == 1">
                   <div class="text-right">
                     <span
-                      v-if="stock.report_tp != 0"
+                      v-if="stock.report_tp != 0 && stock.report_tp != -1"
                       :style="{ color: 'grey', fontWeight: 'bold' }"
                       >목표주가: {{ stock.report_tp }} 상승여력:
                       {{ stock.report_upside }}%</span
