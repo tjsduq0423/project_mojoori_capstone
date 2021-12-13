@@ -10,7 +10,7 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("@/views/Home.vue"),
-    meta: { authReduired: false },
+    meta: {},
   },
   {
     path: "/report",
@@ -22,38 +22,37 @@ const routes = [
     path: "/user-authentication",
     name: "UserAuthentication",
     component: () => import("@/views/UserAuthentication.vue"),
-    meta: { authReduired: false },
+    meta: {},
   },
   {
     path: "/sign-up",
     name: "SignUp",
     component: () => import("@/views/SignUp.vue"),
-    meta: { authReduired: false },
+    meta: {},
   },
   {
     path: "/find-password",
     name: "FindPassword",
     component: () => import("@/views/FindPassword.vue"),
-    meta: { authReduired: false },
+    meta: {},
   },
   {
     path: "/change-password",
     name: "ChangePassword",
     component: () => import("@/views/ChangePassword.vue"),
-    meta: { authReduired: true },
+    meta: {},
   },
   {
     path: "/email-authentication",
     name: "EmailAuthentication",
     component: () => import("@/views/EmailAuthentication.vue"),
-    meta: { authReduired: false },
+    meta: {},
   },
-  //라우터 가드 넣어야함. 인증 페이지임.
   {
     path: "/email-authentication-done/:id",
     name: "EmailAuthenticationDone",
     component: () => import("@/views/EmailAuthenticationDone.vue"),
-    meta: { authReduired: false },
+    meta: {},
   },
   {
     path: "/like-report",
@@ -116,7 +115,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  if (to.matched.some((routeInfo) => routeInfo.meta.authReduired)) {
+  if (to.matched.some((routeInfo) => routeInfo.meta.authReduired === true)) {
     try {
       const response = await authApi.getUser();
 
@@ -129,7 +128,6 @@ router.beforeEach(async (to, from, next) => {
         next();
       }
     } catch (err) {
-      // console.log(err.response.data.message);
       alert("로그인이 필요합니다");
       store.commit("auth/setUserInfo", {
         auth: false,
@@ -138,7 +136,8 @@ router.beforeEach(async (to, from, next) => {
       });
       next({ path: "/user-authentication" });
     }
-  } else {
+  }
+  if (to.matched.some((routeInfo) => routeInfo.meta.authReduired === false)) {
     try {
       const response = await authApi.getUser();
 
@@ -163,6 +162,7 @@ router.beforeEach(async (to, from, next) => {
     // console.log(`routing success : '${to.path} '`);
     // next();
   }
+  next();
 });
 
 export default router;

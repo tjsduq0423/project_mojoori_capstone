@@ -19,8 +19,6 @@
     <v-card-title
       v-else
       class="justify-center text-h5 white--text light-blue accent-1"
-      v-bind="attrs"
-      v-on="on"
     >
       {{ item.title }}
     </v-card-title>
