@@ -1,7 +1,11 @@
+import * as tagApi from "@/api/tag";
 export default {
   namespaced: true,
   state: {
     tags: [],
+    PopularStock: [],
+    PopularIndustry: [],
+    PopularAuthor: [],
   },
   getters: {},
   mutations: {
@@ -20,9 +24,47 @@ export default {
         }
       }
     },
+    setPopularStock(state, data) {
+      let a = data;
+      state.PopularStock.splice(0);
+      console.log(a);
+      for (var i = 0; i < a.length; i++) {
+        state.PopularStock.push(a[i].company_name);
+      }
+    },
+    setPopularIndustry(state, data) {
+      let a = data;
+      state.PopularIndustry.splice(0);
+      console.log(a);
+      for (var i = 0; i < a.length; i++) {
+        state.PopularIndustry.push(a[i].industry_type);
+      }
+    },
+    setPopularAuthor(state, data) {
+      state.PopularAuthor.splic(0);
+      for (var i = 0; i < data.length; i++) {
+        state.PopularAuthor.push(data[i].anal_name);
+      }
+    },
     RemoveTags(state, data) {
       state.tags.splice(data, 1);
     },
   },
-  actions: {},
+  actions: {
+    async callPopularStock({ commit }) {
+      const response = await tagApi.PopularStock();
+      console.log(response);
+      commit("setPopularStock", response.data.rows);
+    },
+    async callPopularIndustry({ commit }) {
+      const response = await tagApi.PopularIndustry();
+      console.log(response);
+      commit("setPopularIndustry", response.data.rows);
+    },
+    async callPopularAuthor({ commit }) {
+      const response = await tagApi.PopularAuthor();
+      console.log(response);
+      commit("setPopularAuthor", response.data.rows);
+    },
+  },
 };

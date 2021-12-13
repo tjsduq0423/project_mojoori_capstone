@@ -5,7 +5,7 @@
     </v-card-title>
     <template v-if="item.title == '인기종목'">
       <v-chip
-        v-for="(popularcompany, i) in popularcompanys"
+        v-for="(popularcompany, i) in PopularStock"
         :key="i"
         class="ma-2"
         label
@@ -18,7 +18,7 @@
     </template>
     <template v-else-if="item.title == '인기저자'">
       <v-chip
-        v-for="(popularauthor, i) in popularauthors"
+        v-for="(popularauthor, i) in PopularAuthor"
         :key="i"
         class="ma-2"
         label
@@ -31,7 +31,7 @@
     </template>
     <template v-else>
       <v-chip
-        v-for="(popularindustry, i) in popularindustries"
+        v-for="(popularindustry, i) in PopularIndustry"
         :key="i"
         class="ma-2"
         label
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     item: {
@@ -56,22 +57,10 @@ export default {
     },
   },
   data() {
-    return {
-      popularindustries: ["통신", "레저", "제약", "우주,국방"],
-      popularauthors: ["유지웅", "남성현", "박준호", "이상헌", "이동욱"],
-      popularcompanys: [
-        "삼성전자",
-        "LG디스플레이",
-        "이마트",
-        "에코프로",
-        "에코프로비엠",
-        "LG화학",
-        "sk하이닉스",
-        "sm엔터",
-        "카카오",
-        "네이버",
-      ],
-    };
+    return {};
+  },
+  computed: {
+    ...mapState("tag", ["PopularStock", "PopularIndustry", "PopularAuthor"]),
   },
   methods: {
     ClickStockTag(popularcompany) {

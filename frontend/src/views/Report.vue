@@ -62,6 +62,9 @@ export default {
   mounted() {
     this.callInterest();
     this.callData();
+    this.callPopularStock();
+    this.callPopularIndustry();
+    this.callPopularAuthor();
   },
   updated() {
     this.callData();
@@ -72,6 +75,15 @@ export default {
     },
     callData() {
       this.$store.dispatch("list/callData");
+    },
+    callPopularStock() {
+      this.$store.dispatch("tag/callPopularStock");
+    },
+    callPopularIndustry() {
+      this.$store.dispatch("tag/callPopularIndustry");
+    },
+    callPopularAuthor() {
+      this.$store.dispatch("tag/callPopularAuthor");
     },
   },
 };
