@@ -226,7 +226,7 @@ export default {
       this.$store.commit("list/filter", i);
     },
     IncreaseSort() {
-      this.$store.commit("list/IncreaseSort");
+      this.$store.commit("list/IncreaseSort", this.chips);
     },
   },
 };

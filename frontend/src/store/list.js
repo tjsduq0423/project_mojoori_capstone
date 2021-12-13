@@ -41,7 +41,8 @@ export default {
         state.listCount = data3.length;
       }
     },
-    IncreaseSort(state) {
+    IncreaseSort(state, data) {
+      if (data > 1) return;
       if (!state.IncreaseSortDone) {
         let arr = [];
         let temp = [...state._list];
