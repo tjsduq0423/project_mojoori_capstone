@@ -156,7 +156,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   components: {},
   data() {
@@ -164,14 +164,24 @@ export default {
       magnify: null,
       selection: "종목",
       historyList: [],
-      chips: 0,
       buttonitem: ["전체", "기업", "산업", "시장"],
       selectitem: ["종목", "산업", "저자"],
+      text: "",
     };
   },
   computed: {
     ...mapState("interest", ["_stocks", "_industries", "authors"]),
     ...mapState("tag", ["tags"]),
+    ...mapGetters("list", { chipsfromstore: "chips" }),
+    chips: {
+      get() {
+        return this.chipsfromstore;
+      },
+      set(newName) {
+        return newName;
+      },
+    },
+
     items() {
       if (this.selection === "종목") {
         let a = [];
@@ -196,7 +206,7 @@ export default {
   },
   methods: {
     clickTag(tag) {
-      this.chips = 0;
+      this.$store.commit("list/changechips", 0);
       this.selection = tag.selection;
       this.magnify = tag.magnify;
       this.$store.dispatch("list/callSearchData", {
@@ -205,7 +215,8 @@ export default {
       });
     },
     SearchReport() {
-      this.chips = 0;
+      this.$store.commit("list/changechips", 0);
+
       this.$store.commit("tag/InsertTags", {
         selection: this.selection,
         magnify: this.magnify,
@@ -224,6 +235,8 @@ export default {
     },
     showlist(i) {
       this.$store.commit("list/filter", i);
+      this.$store.commit("list/changechips", i);
+      this.$store.commit("list/IncreaseSortDone");
     },
     IncreaseSort() {
       this.$store.commit("list/IncreaseSort");
@@ -232,4 +245,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

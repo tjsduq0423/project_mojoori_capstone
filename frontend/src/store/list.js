@@ -7,8 +7,20 @@ export default {
     listCount: 0,
     _list: [],
     IncreaseSortDone: false,
+    chips: 0,
+  },
+  getters: {
+    chips: (state) => {
+      return state.chips;
+    },
   },
   mutations: {
+    changechips(state, data) {
+      state.chips = data;
+    },
+    changeIncreaseSortDone(state) {
+      state.IncreaseSortDone = false;
+    },
     setList(state, data) {
       const data2 = data.sort(
         (a, b) => new Date(b.report_date) - new Date(a.report_date)
@@ -72,6 +84,8 @@ export default {
       const response = await reportApi.SearchReport(payload);
       commit("setList", response.data.data);
       commit("setListCount", response.data.data.length);
+      commit("changechips", 0);
+      commit("changeIncreaseSortDone");
     },
     async callLikeData({ commit }, payload) {
       const response = await reportApi.callLikeReport(payload);
