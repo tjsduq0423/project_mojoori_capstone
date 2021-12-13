@@ -85,7 +85,6 @@ export default {
         const response = await interestApi.getInterestStocks(this.userId);
 
         if (response.status === 200) {
-          console.log(response.data.rows2);
           this.tags = response.data.rows2;
           this.$store.dispatch("list/callInterestCorporationData", this.tags);
         }

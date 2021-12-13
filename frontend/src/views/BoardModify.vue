@@ -136,14 +136,13 @@ export default {
       try {
         const response = await boardApi.getboard(Id);
         if (response.status === 200) {
-          console.log(response);
           this.theme = response.data.rows[0].board_theme;
           this.title = response.data.rows[0].board_title;
           this.text = response.data.rows[0].board_content;
         }
       } catch (err) {
         if (err.reponse.status === 500) {
-          console.log(err.response.data.message);
+          console.log(err.response.data.message); // 상관없음 분기 없는 코드
         }
       }
     },

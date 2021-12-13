@@ -137,10 +137,8 @@ export default {
             this.done = true;
           }
         } catch (err) {
-          console.log(err.response);
+          alert(err.response.data.message);
         }
-        // response로 메일이 등록되어있는지 확인 . err ->  alert // 아니면 v-if 값 done 값 변경
-        //  --> 페이지 이동  $router.push({name :"user-authentication"}))
       }
     },
   },

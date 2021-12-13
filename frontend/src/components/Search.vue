@@ -196,7 +196,6 @@ export default {
   },
   methods: {
     clickTag(tag) {
-      console.log(tag);
       this.chips = 0;
       this.selection = tag.selection;
       this.magnify = tag.magnify;
@@ -218,14 +217,12 @@ export default {
           selection: this.selection,
           magnify: this.magnify,
         });
-        console.log(this.tags);
       }
     },
     remove(idx) {
       this.$store.commit("tag/RemoveTags", idx);
     },
     showlist(i) {
-      console.log(i);
       this.$store.commit("list/filter", i);
     },
     IncreaseSort() {

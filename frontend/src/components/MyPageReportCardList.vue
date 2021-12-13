@@ -130,7 +130,6 @@ export default {
   },
   methods: {
     GoNaver(company_no) {
-      console.log(company_no);
       window.open(
         `https://finance.naver.com/item/main.naver?code=${company_no}`,
         "_blank"
@@ -138,16 +137,11 @@ export default {
     },
     async IncreaseViews(report_no, report_url) {
       try {
-        console.log(report_no);
         window.open(`${report_url}`, "_blank");
-        const response = await ReportApi.IncreaseViews(report_no);
-
-        if (response.status === 200) {
-          console.log(response);
-        }
+        await ReportApi.IncreaseViews(report_no);
       } catch (err) {
         if (err.response.status === 500) {
-          console.log(err.response);
+          console.log(err.response.data.message);
         }
       }
     },
@@ -166,7 +160,7 @@ export default {
           }
         } catch (err) {
           if (err.response.status === 500) {
-            console.log(err.response);
+            console.log(err.response.data.message);
           }
         }
       }
@@ -174,26 +168,20 @@ export default {
     async likeReport(report_no) {
       try {
         this.likereports.push(report_no);
-        const response = await ReportApi.likeReports(this.userId, report_no);
-        if (response.status === 200) {
-          console.log(response);
-        }
+        await ReportApi.likeReports(this.userId, report_no);
       } catch (err) {
         if (err.response.status === 500) {
-          console.log(err.response);
+          console.log(err.response.data.message);
         }
       }
     },
     async unlikeReport(report_no) {
       try {
         this.likereports.splice(this.likereports.indexOf(report_no), 1);
-        const response = await ReportApi.unlikeReports(this.userId, report_no);
-        if (response.status === 200) {
-          console.log(response);
-        }
+        await ReportApi.unlikeReports(this.userId, report_no);
       } catch (err) {
         if (err.response.status === 500) {
-          console.log(err.response);
+          console.log(err.response.data.message);
         }
       }
     },
