@@ -59,7 +59,7 @@ export default {
   computed: {
     ...mapState("auth", ["userId"]),
   },
-  created() {
+  mounted() {
     this.callInterest();
     this.callData();
     this.callPopularStock();
