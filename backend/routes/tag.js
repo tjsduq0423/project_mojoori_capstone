@@ -7,7 +7,7 @@ router.get("/PopularStock", async (req, res) => {
   await conn.beginTransaction();
   try {
     const queryString =
-      "SELECT company_name,sum(report_view_count) AS viewcount FROM report LEFT JOIN company ON report.company_no=company.company_no GROUP BY report.company_no Having report.company_no IS NOT NULL AND viewcount!=0 ORDER BY viewcount DESC LIMIT 6;";
+      "SELECT company_name,sum(report_view_count) AS viewcount FROM report LEFT JOIN company ON report.company_no=company.company_no GROUP BY report.company_no Having report.company_no IS NOT NULL AND viewcount!=0 ORDER BY viewcount DESC LIMIT 8;";
     const [rows, fields] = await conn.query(queryString);
     await conn.commit();
     // const queryString02="SELECT company_name,COUNT(member_no) AS likecount FROM member_company LEFT JOIN company ON member_company.company_no=company.company_no GROUP BY member_company.company_no;";
@@ -29,7 +29,7 @@ router.get("/PopularIndustry", async (req, res) => {
   await conn.beginTransaction();
   try {
     const queryString =
-      "SELECT industry_type,sum(report_view_count) AS viewcount FROM report LEFT JOIN industry ON report.industry_no=industry.industry_no GROUP BY report.industry_no Having report.industry_no IS NOT NULL AND viewcount!=0 ORDER BY viewcount DESC LIMIT 6;";
+      "SELECT industry_type,sum(report_view_count) AS viewcount FROM report LEFT JOIN industry ON report.industry_no=industry.industry_no GROUP BY report.industry_no Having report.industry_no IS NOT NULL AND viewcount!=0 ORDER BY viewcount DESC LIMIT 8;";
     const [rows, fields] = await conn.query(queryString);
     await conn.commit();
     // const queryString02="SELECT company_name,COUNT(member_no) AS likecount FROM member_company LEFT JOIN company ON member_company.company_no=company.company_no GROUP BY member_company.company_no;";
@@ -51,7 +51,7 @@ router.get("/PopularAuthor", async (req, res) => {
   await conn.beginTransaction();
   try {
     const queryString =
-      "SELECT anal_name FROM analyst ORDER BY anal_score DESC LIMIT 6;";
+      "SELECT anal_name FROM analyst ORDER BY anal_score DESC LIMIT  8;";
     const [rows, fields] = await conn.query(queryString);
     await conn.commit();
     // const queryString02="SELECT company_name,COUNT(member_no) AS likecount FROM member_company LEFT JOIN company ON member_company.company_no=company.company_no GROUP BY member_company.company_no;";

@@ -56,13 +56,9 @@ export default {
     },
     async callSearchStocks({ commit }, payload) {
       const responsestock = await interestApi.getSearchStocks(payload);
-      console.log(responsestock);
-      //const responseindustry = await interestApi.industry();
       commit("setStocks", responsestock.data.stocks);
       commit("setStocksCount", responsestock.data.stocks.length);
       commit("setpages", responsestock.data.stocks.length);
-      //commit("setIndustries", responseindustry.data.industries);
-      //commit("setIndustriesCount", responseindustry.data.industries.length);
     },
   },
 };

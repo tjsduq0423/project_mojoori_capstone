@@ -62,7 +62,6 @@ export default {
       try {
         const response = await boardApi.myboard(payload);
         if (response.status === 200) {
-          console.log(response.data.data);
           commit("setArticles", response.data.data);
           commit("setArticleslength", response.data.data.length);
         }
@@ -74,7 +73,6 @@ export default {
       try {
         const response = await boardApi.searchBoard(searchData, theme);
         if (response.status === 200) {
-          console.log(response.data);
           commit("setArticles", response.data.data);
         }
       } catch (err) {

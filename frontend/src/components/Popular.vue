@@ -3,7 +3,7 @@
     <v-tooltip top color="blue lighten-1">
       <template v-slot:activator="{ on, attrs }">
         <v-card-title
-          class="justify-center text-h5 white--text blue lighten-1"
+          class="justify-center text-h5 white--text light-blue accent-1"
           v-bind="attrs"
           v-on="on"
         >
@@ -29,7 +29,7 @@
         {{ popularcompany }}
       </v-chip>
     </template>
-    <template v-else-if="item.title == '인기저자'">
+    <template v-else-if="item.title == '추천저자'">
       <v-chip
         v-for="(popularauthor, i) in PopularAuthor"
         :key="i"

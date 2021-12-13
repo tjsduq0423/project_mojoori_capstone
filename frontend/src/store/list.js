@@ -13,7 +13,6 @@ export default {
       const data2 = data.sort(
         (a, b) => new Date(b.report_date) - new Date(a.report_date)
       );
-      console.log(data2);
       state._list = data2;
       let arr = [];
       data2.forEach((value, index) => {
@@ -66,31 +65,26 @@ export default {
   actions: {
     async callData({ commit }) {
       const response = await reportApi.report();
-      console.log(response);
       commit("setList", response.data.data);
       commit("setListCount", response.data.data.length);
     },
     async callSearchData({ commit }, payload) {
       const response = await reportApi.SearchReport(payload);
-      console.log(response);
       commit("setList", response.data.data);
       commit("setListCount", response.data.data.length);
     },
     async callLikeData({ commit }, payload) {
       const response = await reportApi.callLikeReport(payload);
-      console.log(response.data.rows02);
       commit("setList", response.data.rows02);
       commit("setListCount", response.data.rows02.length);
     },
     async callInterestCorporationData({ commit }, payload) {
       const response = await reportApi.callInterestCorporationData(payload);
-      console.log(response);
       commit("setList", response.data.rows3);
       commit("setListCount", response.data.rows3.length);
     },
     async callInterestIndustryData({ commit }, payload) {
       const response = await reportApi.callInterestIndustryData(payload);
-      console.log(response);
       commit("setList", response.data.rows3);
       commit("setListCount", response.data.rows3.length);
     },
