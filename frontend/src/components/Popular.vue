@@ -1,6 +1,8 @@
 <template>
   <v-card min-height="280px" width="380px" elevation="1">
-    <v-card-title class="justify-center text-h5 white--text blue lighten-1">
+    <v-card-title
+      class="justify-center text-h5 white--text light-blue accent-1"
+    >
       {{ item.title }}
     </v-card-title>
     <template v-if="item.title == '인기종목'">
@@ -16,7 +18,7 @@
         {{ popularcompany }}
       </v-chip>
     </template>
-    <template v-else-if="item.title == '인기저자'">
+    <template v-else-if="item.title == '추천저자'">
       <v-chip
         v-for="(popularauthor, i) in PopularAuthor"
         :key="i"

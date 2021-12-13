@@ -35,12 +35,17 @@
                     {{ stock.industry_type }}
                   </v-chip>
 
-                  <span class="aa">날짜: {{ stock.report_date }}</span>
+                  <span class="aa"> {{ stock.report_date }}</span>
                 </div>
 
                 <v-list-item-title
                   class="text-left"
-                  :style="{ fontSize: '1.1rem', fontWeight: 'bold' }"
+                  :style="{
+                    fontSize: '1.1rem',
+                    fontWeight: 'bold',
+                    marginBottom: '5px',
+                    marginTop: '5px',
+                  }"
                 >
                   {{ stock.report_title }}
                 </v-list-item-title>
@@ -52,13 +57,13 @@
                   <div class="text-right">
                     <span
                       v-if="stock.report_tp != 0"
-                      :style="{ color: 'red', fontWeight: 'bold' }"
+                      :style="{ color: 'grey', fontWeight: 'bold' }"
                       >목표주가: {{ stock.report_tp }} 상승여력:
-                      {{ stock.report_upside }}</span
+                      {{ stock.report_upside }}%</span
                     >
 
-                    <span v-else :style="{ color: 'red', fontWeight: 'bold' }"
-                      >목표주가를 표시하고있지 않음</span
+                    <span v-else :style="{ color: 'grey', fontWeight: 'bold' }"
+                      >목표주가: N/A</span
                     >
                   </div>
                 </template>

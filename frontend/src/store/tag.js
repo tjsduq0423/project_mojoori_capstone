@@ -14,7 +14,6 @@ export default {
       for (var i = 0; i < state.tags.length; i++) {
         arr.push(state.tags[i].magnify);
       }
-      console.log(arr);
       if (data.magnify != null && !arr.includes(data.magnify)) {
         if (state.tags.length < 5) {
           state.tags.unshift(data);
@@ -27,7 +26,6 @@ export default {
     setPopularStock(state, data) {
       let a = data;
       state.PopularStock.splice(0);
-      console.log(a);
       for (var i = 0; i < a.length; i++) {
         state.PopularStock.push(a[i].company_name);
       }
@@ -35,13 +33,12 @@ export default {
     setPopularIndustry(state, data) {
       let a = data;
       state.PopularIndustry.splice(0);
-      console.log(a);
       for (var i = 0; i < a.length; i++) {
         state.PopularIndustry.push(a[i].industry_type);
       }
     },
     setPopularAuthor(state, data) {
-      state.PopularAuthor.splic(0);
+      state.PopularAuthor.splice(0);
       for (var i = 0; i < data.length; i++) {
         state.PopularAuthor.push(data[i].anal_name);
       }
@@ -53,17 +50,14 @@ export default {
   actions: {
     async callPopularStock({ commit }) {
       const response = await tagApi.PopularStock();
-      console.log(response);
       commit("setPopularStock", response.data.rows);
     },
     async callPopularIndustry({ commit }) {
       const response = await tagApi.PopularIndustry();
-      console.log(response);
       commit("setPopularIndustry", response.data.rows);
     },
     async callPopularAuthor({ commit }) {
       const response = await tagApi.PopularAuthor();
-      console.log(response);
       commit("setPopularAuthor", response.data.rows);
     },
   },

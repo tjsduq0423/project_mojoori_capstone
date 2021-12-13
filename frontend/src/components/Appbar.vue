@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app outlined flat color="blue darken-1" dark>
+  <v-app-bar app outlined flat color="light-blue accent-1" dark>
     <!-- 툴바 제목 Mojuri -->
     <v-toolbar-title>
       <router-link
