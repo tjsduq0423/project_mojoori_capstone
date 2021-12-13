@@ -6,6 +6,7 @@ export default {
     list: [],
     listCount: 0,
     _list: [],
+    IncreaseSortDone: false,
   },
   mutations: {
     setList(state, data) {
@@ -42,12 +43,24 @@ export default {
       }
     },
     IncreaseSort(state) {
-      state._list.sort((a, b) => b.report_upside - a.report_upside);
-      let arr = [];
-      state._list.forEach((value, index) => {
-        if (index % 20 == 0) arr.push(state._list.slice(index, index + 20));
-      });
-      state.list = arr;
+      if (!state.IncreaseSortDone) {
+        let arr = [];
+        let temp = [...state._list];
+        temp.sort((a, b) => b.report_upside - a.report_upside);
+        temp.forEach((value, index) => {
+          if (index % 20 == 0) arr.push(temp.slice(index, index + 20));
+        });
+        state.list = arr;
+        state.IncreaseSortDone = true;
+      } else {
+        let arr = [];
+        let temp = [...state._list];
+        temp.forEach((value, index) => {
+          if (index % 20 == 0) arr.push(temp.slice(index, index + 20));
+        });
+        state.list = arr;
+        state.IncreaseSortDone = false;
+      }
     },
   },
   actions: {

@@ -1,8 +1,21 @@
 <template>
   <v-card min-height="280px" width="380px" elevation="1">
-    <v-card-title class="justify-center text-h5 white--text blue lighten-1">
-      {{ item.title }}
-    </v-card-title>
+    <v-tooltip top color="blue lighten-1">
+      <template v-slot:activator="{ on, attrs }">
+        <v-card-title
+          class="justify-center text-h5 white--text blue lighten-1"
+          v-bind="attrs"
+          v-on="on"
+        >
+          {{ item.title }}
+        </v-card-title>
+      </template>
+      <!-- :style="{ backgroundColor: 'white' }" -->
+      <span
+        >리포트 작성 당시 상승여력과 추후의 주가를 비교하여 계산한 정확도 점수
+        상위 8명의 저자</span
+      >
+    </v-tooltip>
     <template v-if="item.title == '인기종목'">
       <v-chip
         v-for="(popularcompany, i) in PopularStock"

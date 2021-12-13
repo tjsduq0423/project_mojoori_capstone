@@ -22,7 +22,7 @@
             deletable-chips
             hide-details
             hide-selected
-            label="Search"
+            label="검색"
             solo
             height="20px"
             append-icon="mdi-magnify"
