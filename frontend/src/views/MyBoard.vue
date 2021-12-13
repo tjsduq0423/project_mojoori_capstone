@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     callMyArticles() {
-      console.log(this.userId);
       this.$store.dispatch("board/callMyArticles", this.userId);
     },
   },

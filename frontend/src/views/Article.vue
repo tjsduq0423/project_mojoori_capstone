@@ -194,7 +194,7 @@ export default {
         }
       } catch (err) {
         if (err.response.status === 500) {
-          console.log(err.response.message);
+          console.log(err.response.message); // 분기없는 코드
         }
       }
     },
@@ -205,7 +205,6 @@ export default {
           this.nickname
         );
         if (response.status === 200) {
-          console.log(response.data);
           this.title = response.data.data.board_title;
           this.writer = response.data.data.board_writer;
           this.viewerText = response.data.data.board_content;
@@ -235,7 +234,7 @@ export default {
         }
       } catch (err) {
         if (err.response) {
-          console.log(err.response);
+          console.log(err.response.data.message); // db 에러잡아내는 코드
         }
       }
     },

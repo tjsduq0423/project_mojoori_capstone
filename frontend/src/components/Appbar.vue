@@ -297,7 +297,6 @@ export default {
   name: "Appbar",
   data() {
     return {
-      items: null,
       dialog: false,
       dialog2: false,
       magnify_stock: "",
@@ -324,26 +323,16 @@ export default {
       return Math.ceil(this.industriescount / 25);
     },
   },
-  created() {
-    this.items = [
-      { content: "삼성전자 리포트가 업로드 되었습니다.", period: 3 },
-      { content: "삼성전자 리포트가 업로드 되었습니다.", period: 2 },
-      { content: "삼성전자 리포트가 업로드 되었습니다.", period: 1 },
-      { content: "삼성전자 리포트가 업로드 되었습니다.", period: 1 },
-      { content: "삼성전자 리포트가 업로드 되었습니다.", period: 2 },
-      { content: "삼성전자 리포트가 업로드 되었습니다.", period: 3 },
-    ];
-  },
+  created() {},
   methods: {
     async logout() {
       try {
         const response = await authApi.logout();
         if (response.status === 200) {
-          console.log(response.data.message);
           this.$router.push({ name: "Home" });
         }
       } catch (err) {
-        console.log(err.response);
+        console.log(err.response.data.message);
       }
     },
     async searchstocks() {
@@ -352,7 +341,6 @@ export default {
         this.magnify_stock
       );
       this.candy += 1;
-      console.log(this.candy);
       this.page = 1;
     },
     async getselectedStocks() {
@@ -361,7 +349,6 @@ export default {
         const response = await interestApi.getselectedStocks(this.userId);
 
         if (response.status === 200) {
-          await console.log(response.data.rows2[0].company_no);
           for (var i = 0; i < response.data.rows2.length; i++)
             this.selectedstocks.push(response.data.rows2[i].company_no);
         }
@@ -374,9 +361,7 @@ export default {
     async getselectedIndustries() {
       try {
         const response = await interestApi.getselectedIndustries(this.userId);
-
         if (response.status === 200) {
-          await console.log(response.data.rows2[0].industry_no);
           for (var i = 0; i < response.data.rows2.length; i++)
             this.selectedindustries.push(response.data.rows2[i].industry_no);
         }
@@ -390,13 +375,7 @@ export default {
       try {
         this.page = 1;
         this.magnify_stock = "";
-        const response = await interestApi.registerStocks(
-          this.userId,
-          this.selectedstocks
-        );
-        if (response.status === 200) {
-          console.log(response);
-        }
+        await interestApi.registerStocks(this.userId, this.selectedstocks);
       } catch (err) {
         if (err.response.status === 500) {
           console.log(err.response.data.message);
@@ -405,13 +384,10 @@ export default {
     },
     async registerIndustries() {
       try {
-        const response = await interestApi.registerIndustries(
+        await interestApi.registerIndustries(
           this.userId,
           this.selectedindustries
         );
-        if (response.status === 200) {
-          console.log(response);
-        }
       } catch (err) {
         if (err.response.status === 401) {
           console.log(err.response.data.message);

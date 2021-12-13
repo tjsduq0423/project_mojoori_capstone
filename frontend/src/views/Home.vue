@@ -85,10 +85,10 @@
                   class="text--primary"
                   style="font-size: 16px; margin-top: 20px"
                 >
-                  관심있는 종목만 ,관심있는 산업만 골라보는
+                  매일 매일 올라오는 리포트를
                 </p>
                 <p class="text--primary" style="font-size: 16px">
-                  추가로 관심 리포트의 알림까지
+                  관심있는 종목만 ,관심있는 산업만 골라보는
                 </p>
               </v-card-text>
             </v-card>

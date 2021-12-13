@@ -111,7 +111,6 @@ export default {
         const response = await boardApi.deletearticle(boardId);
 
         if (response.status === 200) {
-          console.log(response);
           this.$store.dispatch("board/callMyArticles", this.userId);
         }
       } catch (err) {

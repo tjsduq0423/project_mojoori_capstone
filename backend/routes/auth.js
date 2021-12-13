@@ -34,14 +34,20 @@ router.post("/signUp", async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     await conn.rollback();
-
     // sqlMessage : "Duplicate entry 'test2@gmail.com' for key 'member_.member_email_UNIQUE'"
-    if (err.sqlMessage) {
+    if (err.sqlMessage && err.sqlMessage.includes("member_email")) {
       return res.status(500).send({
-        message: err.sqlMessage,
+        message: "중복된 email 입니다.",
       });
     }
-    res.status(500).send({ err });
+    if (err.sqlMessage && err.sqlMessage.includes("member_nickname")) {
+      return res.status(500).send({
+        message: "중복된 nickname 입니다.",
+      });
+    }
+    res
+      .status(500)
+      .send({ message: "서버 오류 입니다. 시간이 지난후 다시 시도해 주세요." });
   } finally {
     conn.release();
   }
