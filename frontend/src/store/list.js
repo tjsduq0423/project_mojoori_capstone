@@ -57,17 +57,22 @@ export default {
       if (data > 1) return;
       if (!state.IncreaseSortDone) {
         let arr = [];
-        let temp = [...state._list];
-        let temp2 = temp.filter((v) => v.cla_no === 1);
-        temp2.sort((a, b) => b.report_upside - a.report_upside);
-        temp2.forEach((value, index) => {
+        let temp =
+          data === 0
+            ? [...state._list]
+            : [...state._list].filter((v) => v.cla_no === 1);
+        temp.sort((a, b) => b.report_upside - a.report_upside);
+        temp.forEach((value, index) => {
           if (index % 20 == 0) arr.push(temp.slice(index, index + 20));
         });
         state.list = arr;
         state.IncreaseSortDone = true;
       } else {
         let arr = [];
-        let temp = [...state._list];
+        let temp =
+          data === 0
+            ? [...state._list]
+            : [...state._list].filter((v) => v.cla_no === 1);
         temp.forEach((value, index) => {
           if (index % 20 == 0) arr.push(temp.slice(index, index + 20));
         });
